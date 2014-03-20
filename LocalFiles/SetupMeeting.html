@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<!--
+*Panel For Creating and Setting up the new Meeting in Focus Meter System
+*author: Maciej Baj
+
+-->
+<html>
+	<head>
+		<meta name="viewport" content="width=320, user-scalable=no">
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Focus Meter</title>
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" title="no title">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" type="text/css" media="screen" title="no title">
+        <link rel="stylesheet" href="./js/jquery.ptTimeSelect.css" type="text/css" media="screen" title="no title">
+
+        <script src="./js/jquery-1.8.2.js"></script>
+        <script src="./js/jquery-ui-1.8.20.js"></script>
+        <script src="./js/jquery.ptTimeSelect.js"></script>
+		<script type="text/javascript">
+            
+            function goBackToStartScreen() {
+                window.location = './index.html';
+            }
+		
+            $(document).ready(function () {
+                var options = {
+                    pattern: 'dd mm yyyy', // Default is 'mm/yyyy' and separator char is not mandatory
+                    startYear: 2000,
+                    finalYear: 2099,
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                };
+
+                $('#datepicker').datepicker();
+               
+                $('#startHour').ptTimeSelect();
+
+                $('#endHour').ptTimeSelect();
+            });
+
+           
+			
+		</script>
+	</head>
+	<body>
+        <div id="screen">
+            <header>FOCUS METER</header>
+            <fieldset>
+                <legend>Create new meeting</legend>
+                <table>
+                    <tr>
+                        <td><strong>Code</strong></td>
+                        <td><input type="text" name="meeting_code" value="QW67" readonly></td>
+                       
+                    </tr>
+                    <tr>
+                        <td><strong>Title</strong></td>
+                        <td><input type="text" value="Your presentation name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date</strong></td>
+                        <td><input type="text" id="datepicker" autocomplete="off" name="Date" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Start Hour</strong></td>
+                        <td><input type="text" id="startHour" autocomplete="off" name="Hour" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>End Hour</strong></td>
+                        <td><input type="text" id="endHour" autocomplete="off" name="Hour" /></td>
+                    </tr>
+                 </table>
+              </fieldset>
+              <button type="button" onclick="goBackToStartScreen()">Cancel</button>
+                <br /><br /><br />
+              <button type="submit" id="btnCreateMeeting">Create</button>
+</div>
+	</body>
+</html>

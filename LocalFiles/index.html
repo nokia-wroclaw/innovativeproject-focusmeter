@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<!--
+* @file index.html
+*
+Starting Panel of Project Focus Meter
+
+author: Maciej Baj
+
+-->
+<html>
+	<head>
+		<meta name="viewport" content="width=320, user-scalable=no">
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Focus Meter</title>
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	
+		<script type="text/javascript">
+			
+			function changeColor()
+			{
+				var color = "#" +
+					(Math.random() * 0xFFFFFF + 0x1000000)
+						.toString(16).substr(1,6);
+				document.documentElement.style.backgroundColor = color;
+				document.body.style.backgroundColor = color;
+			}
+		
+			 function goToSetupMeeting() {
+	                window.location = './SetupMeeting.html';
+	            }
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="screen">
+			<header>FOCUS METER</header> 
+            <br /><br />
+			<button onclick="goToSetupMeeting()">HOST</button>
+            <br /><br /><br /><br />
+			<button>JOIN</button>
+            <br /><br /><br /><br />
+			<button onclick="changeColor()">HISTORY</button>
+		</div>
+	</body>
+</html>
