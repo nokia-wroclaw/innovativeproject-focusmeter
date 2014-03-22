@@ -9,12 +9,13 @@ author: Maciej Baj
 -->
 <html>
 	<head>
-		<meta name="viewport" content="width=320, user-scalable=no">
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>Focus Meter</title>
-		<link rel="stylesheet" href="style.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	
-		<script type="text/javascript">
+		<!--<meta name="viewport" content="width=320, user-scalable=no">-->
+		<!--<meta http-equiv="Content-type" content="text/html; charset=utf-8">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Focus Meter</title>
+		
+        <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
+        <script type="text/javascript">
 			
 			function changeColor()
 			{
@@ -31,16 +32,32 @@ author: Maciej Baj
 			
 			
 		</script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+
+        
 	</head>
-	<body>
-		<div id="screen">
-			<header>FOCUS METER</header> 
-            <br /><br />
-			<button onclick="goToSetupMeeting()">HOST</button>
-            <br /><br /><br /><br />
-			<button>JOIN</button>
-            <br /><br /><br /><br />
-			<button onclick="changeColor()">HISTORY</button>
-		</div>
-	</body>
+<body>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+            <div class="jumbotron">
+                <h1 class="small">Focus Meter</h1>
+                <p>Evaluations of presentations quality</p>
+            </div>
+            
+            <br />
+            <input type="button" class="btn btn-lg btn-success btn-block" onclick="goToSetupMeeting()" value="HOST" />
+            <br /><br /><br />
+            <input type="button" class="btn btn-lg btn-warning btn-block" value="JOIN" />
+            <br /><br /><br />
+            <input type="button" class="btn btn-lg btn-info btn-block" onclick="changeColor()" value="HISTORY" />
+        </div>
+
+    </div>     
+
+
+</body>
 </html>
+
+
