@@ -38,8 +38,9 @@ exports.fff = function(db) {
 exports.addMeeting = function(db) {
 	return function(req, res) {
 		var mac = req.body.mac;
-		var start = req.body.start;
-		var end = req.body.end;
+		var date = req.body.date;
+		var startHour = req.body.startHour;
+		var endHour = req.body.endHour;
 		var title = req.body.title;
 		var meetingCode = "POIX";
 
@@ -47,8 +48,9 @@ exports.addMeeting = function(db) {
 
 		coll.insert({
 			"mac" : mac,
-			"start" : start,
-			"end" : end,
+			"date" : date,
+			"startHour" : startHour,
+			"endHour" : endHour,
 			"title" : title,
 			"meetingCode" : meetingCode
 		}, function(err, docs) {
@@ -61,5 +63,16 @@ exports.addMeeting = function(db) {
 			}
 		});
 	}
+},
+
+exports.deleteAllMeetings = function(db) {
+	return function(req, res) {
+		var collection = db.get('meetings');
+
+		collection.drop();
+
+		res.send("Skasowano wszystkie spotkania.");
+	}
+	
 }
 
