@@ -45,7 +45,6 @@ app.get('/users', user.list);
 app.get('/meetings', meetings.find(db));
 app.get('/meeting/:m', meetings.fff(db));
 app.get('/votes/:meeting', votes.getVotes(db));
-app.get('/newMeeting', meetings.newMeeting);
 
 app.post('/addVote', votes.addVote(db));
 app.post('/addMeeting', meetings.addMeeting(db));

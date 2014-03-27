@@ -34,10 +34,6 @@ exports.fff = function(db) {
 	};
 },
 
-// Zwracanie kodu nowego spotkania
-exports.newMeeting = function(req, res) {
-	res.send("DUPA");
-},
 
 exports.addMeeting = function(db) {
 	return function(req, res) {
@@ -61,10 +57,9 @@ exports.addMeeting = function(db) {
 			}
 			else
 			{
-				res.send("Dodano spotkanie. Kod spotkania: " + meetingCode);
+				res.json({"meetingCode": meetingCode});
 			}
 		});
-		var coll
 	}
 }
 

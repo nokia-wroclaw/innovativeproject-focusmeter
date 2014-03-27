@@ -35,6 +35,41 @@
                 $('#startHour').ptTimeSelect();
 
                 $('#endHour').ptTimeSelect();
+
+                $(".btn-success").click(function(){
+                    var date = $("#datepicker").val();
+
+                    var title = $("#title").val();
+
+                    var startHour = $("#startHour").val();
+
+                    var endHour = $("#endHour").val();
+
+                    var mac = "12-32-43-54-65-76";
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:3000/addMeeting",
+                        data: {
+                            "date": date,
+                            "title": title,
+                            "startHour": startHour,
+                            "endHour": endHour,
+                            "mac": mac
+                        },
+                        processData: true,
+                        success: function(data) {
+                            alert("Utworzono spotkanie! Kod spotkania: " + data.meetingCode);
+                            $("#code_1").val(data.meetingCode.charAt(0));
+                            $("#code_2").val(data.meetingCode.charAt(1));
+                            $("#code_3").val(data.meetingCode.charAt(2));
+                            $("#code_4").val(data.meetingCode.charAt(3));
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
+                        } 
+                    });
+                });
             });
 
            
@@ -70,7 +105,7 @@
                                 <tr>
                                     
                                     <td><label style="color: whitesmoke">Title:</label>
-                                        <input class="input-lg" type="text" style="text-align: center" value="Your presentation name" /></td>
+                                        <input class="input-lg" type="text" id="title" style="text-align: center" value="Your presentation name" /></td>
                                 </tr>
                                 <tr>
                                     
