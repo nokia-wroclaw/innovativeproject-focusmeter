@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<!--
+* @file index.html
+*
+Starting Panel of Project Focus Meter
+    Asocjacje:
+strzalka skierowana od klasy zrodlowej do klasy docelowej
+author: Maciej Baj
+
+-->
+<html>
+<head>
+    <!--<meta name="viewport" content="width=320, user-scalable=no">-->
+    <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Focus Meter</title>
+
+    <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
+    <script type="text/javascript">
+
+       
+        function goBackToStartScreen() {
+            window.location = './index.html';
+        }
+
+
+        function ShowVoteModal() {
+           
+            $('#ThanksForVoteModal').modal('toggle');
+
+            //Delete period schema
+        }
+
+        
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+            <div class="jumbotron">
+                <h1>Focus Meter</h1>
+                <p>Grade the meeting</p>
+            </div>
+
+           
+            <!--<h2 style="text-align: center">"Bash Scripting"</h2>-->
+            <br />
+            <fieldset>
+                <legend style="color: whitesmoke; text-align: center; font-style: italic; font-size: x-large">"Bash Scripting"</legend>
+            </fieldset>
+            <br />
+            <input type="button" class="btn btn-lg btn-success btn-block" onclick="ShowVoteModal()" value="AWESOME" />
+            <br />
+            <input type="button" class="btn btn-lg btn-primary btn-block" onclick="ShowVoteModal()" value="GREAT" />
+            <br />
+            <input type="button" class="btn btn-lg btn-info btn-block" onclick="ShowVoteModal()" value="OK" />
+            <br />
+            <input type="button" class="btn btn-lg btn-warning btn-block" onclick="ShowVoteModal()" value="BORING" />
+            <br />
+            <input type="button" class="btn btn-lg btn-danger btn-block" onclick="ShowVoteModal()" value="DISASTER" />
+            <br />
+            <input type="button" class="btn btn-md  btn-block"  onclick="goBackToStartScreen()" value="Cancel" />
+        </div>
+
+    </div>
+
+
+
+    <div id="ThanksForVoteModal" class="fade" ></div>
+
+
+
+</body>
+
+
+</html>
+

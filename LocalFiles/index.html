@@ -28,7 +28,10 @@ author: Maciej Baj
 		
 			 function goToSetupMeeting() {
 	                window.location = './SetupMeeting.html';
-	            }
+			 }
+			 function goToJoinMeeting() {
+			     window.location = './JoinMeeting.html';
+			 }
 			
 			
 		</script>
@@ -41,16 +44,19 @@ author: Maciej Baj
 <body>
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-3">
+           
+                <!--<h1 >Focus Meter </h1>
+                <h2>presentations feedback</h2>-->
             <div class="jumbotron">
-                <h1 class="small">Focus Meter</h1>
-                <p>Evaluations of presentations quality</p>
+                <h1 >Focus Meter</h1>
+                <p>presentations feedback</p>
             </div>
             
             <br />
             <input type="button" class="btn btn-lg btn-success btn-block" onclick="goToSetupMeeting()" value="HOST" />
-            <br /><br /><br />
-            <input type="button" class="btn btn-lg btn-warning btn-block" value="JOIN" />
-            <br /><br /><br />
+            <br />
+            <input type="button" class="btn btn-lg btn-warning btn-block" onclick="goToJoinMeeting()" value="JOIN" />
+            <br />
             <input type="button" class="btn btn-lg btn-info btn-block" onclick="changeColor()" value="HISTORY" />
         </div>
 
