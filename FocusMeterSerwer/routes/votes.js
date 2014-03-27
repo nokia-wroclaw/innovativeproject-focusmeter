@@ -1,4 +1,3 @@
-
 /**
 Funkcja zwraca glosy z danego spotkania.
 */
@@ -27,6 +26,14 @@ exports.addVote = function(db) {
 		var value = req.body.value;
 
 		var collection = db.get('votes');
+		
+		//check vote value
+		if(value<-2 || value>2)
+		{
+			alert("GTFO!");
+			return;
+		}
+		
 
 		collection.insert({
 			"mac" : mac,
