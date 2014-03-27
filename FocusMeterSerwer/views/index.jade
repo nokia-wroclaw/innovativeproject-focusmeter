@@ -1,0 +1,5 @@
+extends layout
+
+block content
+  h1= title
+  p Ruty: <br/>GET /meetings - lista wszystkich zarejestrowanych spotkan, <br/> GET /votes/xxxx - glosy oddane podczas spotkania o kodzie xxxx, <br/> POST /addVote/meetingCode/mac/value - dodanie glosu o podanych parametrach, <br/> POST /addMeeting/mac/start/end/title - dodanie nowego spotkania, meetingCode ma byc generowany przez serwer.
