@@ -42,9 +42,34 @@ exports.addMeeting = function(db) {
 		var startHour = req.body.startHour;
 		var endHour = req.body.endHour;
 		var title = req.body.title;
-		var meetingCode = "POIX";
 
 		var coll = db.get('meetings');
+
+		function newMeetingCode() {
+				
+			// Generowanie nowego 4-znakowego kodu np. 4GH3
+			var str = Math.random().toString(36).substring(2,6).toUpperCase();
+
+			// oraz sprawdzenie jego unikalności
+			coll.findOne({"meetingCode" : str}, function(e, doc) {
+				if(doc == null) {
+					console.log("haa! takiego jeszcze nie ma");
+				} else {
+					// Zawsze się wykonuje, nawet jak pusta baza
+					// doc jest zawsze != null
+					console.log(doc);
+					console.log("noooooooo! zajęty...");
+				}				
+			});
+
+			// Nie sprawdzony string
+			return str;
+		}
+
+		var meetingCode = newMeetingCode();
+
+		console.log(meetingCode);
+		
 
 		//check mac XX:XX:XX:XX:XX:XX
 		if(mac.length != 17)
