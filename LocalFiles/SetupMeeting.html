@@ -12,11 +12,17 @@
         <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" type="text/css" media="screen" title="no title">
         <link rel="stylesheet" href="./js/jquery.ptTimeSelect.css" type="text/css" media="screen" title="no title">
-
+        
         <script src="./js/jquery-1.8.2.js"></script>
         <script src="./js/jquery-ui-1.8.20.js"></script>
         <script src="./js/jquery.ptTimeSelect.js"></script>
+        <script src="./js/formValidation/jqBootstrapValidation.js"></script>
 		<script type="text/javascript">
+
+            
+            $(function () { 
+                $("#title , #datepicker, #startHour, #endHour").jqBootstrapValidation(); 
+            } );
             
             function goBackToStartScreen() {
                 window.location = './index.html';
@@ -49,7 +55,8 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "http://156.17.234.85:3000/addMeeting",
+                        //url: "http://156.17.234.85:3000/addMeeting",
+                        url: "http://localhost:3000/addMeeting",
                         data: {
                             "date": date,
                             "title": title,
@@ -103,22 +110,21 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    
+                                    <!-- Maximum length of title is 40 characters ('maxlength' parameter) -->
                                     <td><label style="color: whitesmoke">Title:</label>
-                                        <input class="input-lg" type="text" id="title" style="text-align: center" value="Your presentation name" /></td>
+                                        <input class="input-lg" type="text" id="title" style="text-align: center" value="Your presentation name" minlength="2" maxlength="40" required /></td>
                                 </tr>
                                 <tr>
                                     
                                     <td><label style="color: whitesmoke">Date:</label>
-                                        <input class="input-lg" type="text" id="datepicker" autocomplete="off" name="Date" /></td>
+                                        <input class="input-lg" type="text" id="datepicker" autocomplete="off" name="Date" minlength="8" maxlength="10" required /></td>
                                 </tr>
                                 <tr>
                                     <td><label style="color: whitesmoke; text-align: center">Start hour to End hour:</label>
                                      <br />
-                                        <input class="input-sm" type="text" id="startHour" autocomplete="off" name="Hour" />
-                               
+                                        <input class="input-sm" type="text" id="startHour" autocomplete="off" name="Hour" minlength="8" maxlength="8" required />
                                    
-                                        <input class="input-sm" type="text" id="endHour" autocomplete="off" name="Hour" /> </td>
+                                        <input class="input-sm" type="text" id="endHour" autocomplete="off" name="Hour" minlength="8" maxlength="8" required /> </td>
                                 </tr>
                             </tbody>
                         </table>
