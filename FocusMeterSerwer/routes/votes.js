@@ -28,9 +28,9 @@ exports.addVote = function(db) {
 		var collection = db.get('votes');
 		
 		//check vote value
-		if(value<-2 || value>2)
+		if(value<-2 || value>2 || value="")
 		{
-			alert("GTFO!");
+			res.json({"message" : "incorrect vote value"});
 			return;
 		}
 		
