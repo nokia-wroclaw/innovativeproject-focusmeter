@@ -27,10 +27,24 @@ exports.addVote = function(db) {
 
 		var collection = db.get('votes');
 		
-		//check vote value
-		if(value<-2 || value>2 || value="")
+		//check vote value [-2:2]
+		if(value<-2 || value>2 || isNaN(value))
 		{
 			res.json({"message" : "incorrect vote value"});
+			return;
+		}
+
+		//check mac XX:XX:XX:XX:XX:XX
+		 if(mac.length != 17)
+		{
+			res.json({"message" : "incorrect vote mac"});
+			return;
+		}
+
+		//check meeting code XXXX
+		if(meetingCode.length != 4)
+		{
+			res.json({"message" : "incorrect vote meetingCode"});
 			return;
 		}
 		

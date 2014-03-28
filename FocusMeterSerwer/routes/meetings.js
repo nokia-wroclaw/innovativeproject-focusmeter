@@ -46,6 +46,48 @@ exports.addMeeting = function(db) {
 
 		var coll = db.get('meetings');
 
+		//check mac XX:XX:XX:XX:XX:XX
+		if(mac.length != 17)
+		{
+			res.json({"message" : "incorrect meeting mac"});
+			return;
+		}
+
+		//check date value DD/MM/YYYY
+		if(date.length != 10)
+		{
+			res.json({"message" : "incorrect meeting date"});
+			return;
+		}
+
+		//check startHour xX:XX XX
+		if(startHour.length < 6 || startHour.length > 8)
+		{
+			res.json({"message" : "incorrect meeting startHour"});
+			return;
+		}
+
+		//check endHour xX:XX XX
+		if(endHour.length < 6 || endHour.length > 8)
+		{
+			res.json({"message" : "incorrect meeting endHour"});
+			return;
+		}
+
+		//check title (length=40)
+		if(title.length < 1 || title.length > 40)
+		{
+			res.json({"message" : "incorrect meeting title"});
+			return;
+		}
+
+		//check meeting code XXXX
+		if(meetingCode.length != 4)
+		{
+			res.json({"message" : "incorrect meeting meetingCode"});
+			return;
+		}
+
 		coll.insert({
 			"mac" : mac,
 			"date" : date,
