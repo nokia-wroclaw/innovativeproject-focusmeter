@@ -128,7 +128,7 @@ exports.addMeeting = function(db) {
         };
 
         var validationMessages = validate(meeting);
-        if (validate(meeting)) {
+        if (validationMessages.length != 0) {
             res.send({
                 'errors': validationMessages
             });
