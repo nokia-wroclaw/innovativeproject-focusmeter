@@ -32,7 +32,7 @@ exports.fff = function(db) {
             res.json(docs);
         });
     };
-},
+};
 
 
 var appendIf = function(condition, array, message) {
@@ -45,7 +45,7 @@ var validate = function(meeting) {
 
     var messages = [];
     appendIf(meeting.mac.length != 17, messages, "incorrect meeting mac");
-    appendIf(meeting.date~ / huhuhuhu / , messages, "incorrect meeting mac");
+    //appendIf(meeting.date~ / huhuhuhu / , messages, "incorrect meeting mac");
 
     // //check mac XX:XX:XX:XX:XX:XX
     // if (mac.length != 17) {
@@ -113,7 +113,7 @@ var hasMeetingWithCode = function(collection, code, callbackNotExists, callbackE
             }
         }
     });
-}
+};
 
 
 exports.addMeeting = function(db) {
@@ -128,7 +128,7 @@ exports.addMeeting = function(db) {
         };
 
         var validationMessages = validate(meeting);
-        if (!validate(meeting)) {
+        if (validate(meeting)) {
             res.send({
                 'errors': validationMessages
             });
@@ -138,14 +138,15 @@ exports.addMeeting = function(db) {
         var str = Math.random().toString(36).substring(2, 6).toUpperCase();
         var collection = db.get('meetings');
 
+
         var successCallback = function() {
             meeting.meetingCode = str;
-            coll.insert(meeting, function(err, docs) {
+            collection.insert(meeting, function(err, docs) {
                 if (err) {
                     res.send("Blad przy dodawaniu spotkania.");
                 } else {
                     res.json({
-                        "meetingCode": meetingCode
+                        "meetingCode": meeting.meetingCode
                     });
                 }
             });
