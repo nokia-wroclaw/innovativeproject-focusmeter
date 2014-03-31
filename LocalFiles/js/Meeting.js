@@ -1,4 +1,4 @@
-MeetingCode="";
+MeetingCode = "";
 
 function goBackToStartScreen() {
     window.location = './index.html';
@@ -14,18 +14,25 @@ function autotab(current, to) {
     }
 }
 
-$("#codeReadyButton").bind("click", 
+$("#codeReadyButton").bind("click",
 
 function Send() {
 
-    MeetingCode = $("#code_1").attr("value");
-    MeetingCode = MeetingCode + $("#code_2").attr("value");
-    MeetingCode = MeetingCode + $("#code_3").attr("value");
-    MeetingCode = MeetingCode + $("#code_4").attr("value");
+    MeetingCode = $("#code_1").val();
+    MeetingCode = MeetingCode + $("#code_2").val();
+    MeetingCode = MeetingCode + $("#code_3").val();
+    MeetingCode = MeetingCode + $("#code_4").val();
 
+    //inserting into session html memory
+
+    if (typeof (Storage) != "undefined") {
+
+        localStorage.setItem("MeetingCode", MeetingCode);
+
+    }
     $.ajax({
         type: "POST",
-        url: "http://156.17.234.85:3000/addMeeting",
+        url: "http://antivps.pl:3033/addMeeting",
         data: {
 
             "mac": mac,
@@ -51,7 +58,7 @@ function ShowVoteModal() {
 
     $('#ThanksForVoteModal').modal('toggle');
 
- 
+
 }
 
 
@@ -62,9 +69,21 @@ function SendVote(vote) {
     var gradeName = $(vote).attr("id");
     var grade = gradeName.substr(9, gradeName.length);
 
+
+
+    //retriving MeetingCode from session memoty
+    if (typeof (Storage) != "undefined") {
+        MeetingCode = localStorage.getItem("MeetingCode");
+    }
+    else {
+        MeetingCode = "dupa";
+    }
+
+
+
     $.ajax({
         type: "POST",
-        url: "http://156.17.234.85:3000/addMeeting",
+        url: "http://antivps.pl:3033/addMeeting",
         data: {
 
             "mac": mac,
