@@ -15,60 +15,63 @@ author: Maciej Baj
     <title>Focus Meter</title>
 
     <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
-    <script type="text/javascript">
-
-
-
-        function goBackToStartScreen() {
-            window.location = './index.html';
-        }
-        function goToGradeScreen() {
-            window.location = './GradeMeeting.html';
-        }
-
-
-    </script>
-    <script src="./js/jquery-1.8.2.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="./js/formValidation/jqBootstrapValidation.js"></script>
+   
 
 
 </head>
 <body>
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-3">
+    <div class="row">
+        <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
             <div class="jumbotron">
                 <h1>Focus Meter</h1>
                 <p>Join the meeting</p>
             </div>
+        </div>
+      </div>
+        <br />
+
+        <h2 style="color: whitesmoke; text-align: center; font-style: italic; font-size: x-large">Enter code:</h2>
+
+        <br />
+        <div class="row">
+            <!--<input class="input form-control" type="text" name="meeting_code">-->
+            
+            
+            <input class="col-sm-offset-4 col-sm-1 col-xs-offset-2  col-xs-2 input enter-code-field" onkeyup="autotab(this, code_2)" maxlength="1" required type="text" id="code_1">
+        
+    
+            <input class="col-sm-1 col-xs-2 input enter-code-field" onkeyup="autotab(this, code_3)" maxlength=" 1" required type="text" id="code_2">
+           
+            <input class="col-sm-1 col-xs-2 input enter-code-field" onkeyup="autotab(this, code_4)" maxlength="1" required type="text" id="code_3">
          
             
-            <br />
-            <fieldset>
-                <h2 style="color: whitesmoke; text-align: center; font-style: italic; font-size: x-large">Enter code:</h2>
-                    
-                    <br />
+            <input class="col-sm-1 col-xs-2  input enter-code-field" onkeyup="autotab(this, codeReadyButton)" maxlength="1" required type="text" id="code_4">
+          
+        </div>
 
-                    <!--<input class="input form-control" type="text" name="meeting_code">-->
-                <div style="align-content: center">
-                    <input class="input enter-code-field" maxlength="1" minlength="1" required type="text" id="code_1">
-                    <input class="input enter-code-field" maxlength="1" minlength="1" required type="text" id="code_2">
-                    <input class="input enter-code-field" maxlength="1" minlength="1" required type="text" id="code_3">
-                    <input class="input enter-code-field" maxlength="1" minlength="1" required type="text" id="code_4">
-                </div>
-                    <br />
-                
-            </fieldset>
+
+
+        <br />
+
+
+        <br />
+    <div class="row">
+        <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
             <br />
-            <input type="button" class="btn btn-lg btn-warning btn-block" onclick="goToGradeScreen()" value="JOIN" />     
+            <input type="button" id="codeReadyButton" class="btn btn-lg btn-warning btn-block" onclick="goToGradeScreen()" value="JOIN" />
             <br />
             <input type="button" class="btn btn-lg btn-success btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
         </div>
-
     </div>
 
+   
 
+    
+    <script src="./js/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="./js/Meeting.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="./js/formValidation/jqBootstrapValidation.js"></script>
 </body>
 </html>

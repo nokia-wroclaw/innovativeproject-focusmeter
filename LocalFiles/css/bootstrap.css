@@ -282,7 +282,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
-  background-color: #fff;
+  /*background-color: #fff;*/
 }
 input,
 button,
@@ -1696,8 +1696,10 @@ output {
 
 .enter-code-field{
     font-size: 50px;
-    height: 70px;
-    width: 70px;
+    /*height: 70px;
+    width: 100%;*/
+    display: grid;
+    margin: 5px, 5px, 5px, 5px;
      border-radius: 10px;
      text-align: center;
      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);

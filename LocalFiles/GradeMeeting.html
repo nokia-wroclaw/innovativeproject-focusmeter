@@ -16,26 +16,7 @@ author: Maciej Baj
     <title>Focus Meter</title>
 
     <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
-    <script type="text/javascript">
-
-       
-        function goBackToStartScreen() {
-            window.location = './index.html';
-        }
-
-
-        function ShowVoteModal() {
-           
-            $('#ThanksForVoteModal').modal('toggle');
-
-            //Delete period schema
-        }
-
-        
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+   
 
 
 </head>
@@ -54,17 +35,17 @@ author: Maciej Baj
                 <legend style="color: whitesmoke; text-align: center; font-style: italic; font-size: x-large">"Bash Scripting"</legend>
             </fieldset>
             <br />
-            <input type="button" class="btn btn-lg btn-success btn-block" onclick="ShowVoteModal()" value="AWESOME" />
+            <input type="button" id="voteGrade2" class="btn btn-lg btn-success btn-block" onclick="SendVote(this)" value="AWESOME" />
             <br />
-            <input type="button" class="btn btn-lg btn-primary btn-block" onclick="ShowVoteModal()" value="GREAT" />
+            <input type="button" id="voteGrade1" class="btn btn-lg btn-primary btn-block" onclick="SendVote(this)" value="GREAT" />
             <br />
-            <input type="button" class="btn btn-lg btn-info btn-block" onclick="ShowVoteModal()" value="OK" />
+            <input type="button" id="voteGrade0" class="btn btn-lg btn-info btn-block" onclick="SendVote(this)" value="OK" />
             <br />
-            <input type="button" class="btn btn-lg btn-warning btn-block" onclick="ShowVoteModal()" value="BORING" />
+            <input type="button" id="voteGrade-1" class="btn btn-lg btn-warning btn-block" onclick="SendVote(this)" value="BORING" />
             <br />
-            <input type="button" class="btn btn-lg btn-danger btn-block" onclick="ShowVoteModal()" value="DISASTER" />
+            <input type="button" id="voteGrade-2" class="btn btn-lg btn-danger btn-block" onclick="SendVote(this)" value="DISASTER" />
             <br />
-            <input type="button" class="btn btn-md  btn-block"  onclick="goBackToStartScreen()" value="Cancel" />
+            <input type="button" class="btn btn-md  btn-block" onclick="goBackToStartScreen()" value="Cancel" />
         </div>
 
     </div>
@@ -72,7 +53,15 @@ author: Maciej Baj
 
 
     <div id="ThanksForVoteModal" class="fade" ></div>
+    
+    
+    
+    <script src="./js/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="./js/Meeting.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
 
 
 </body>
