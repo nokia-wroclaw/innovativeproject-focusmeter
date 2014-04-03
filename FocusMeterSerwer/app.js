@@ -14,7 +14,6 @@ var path = require('path');
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('http://antivps.pl:27017/focusmeter', 
-//var db = monk('localhost/focusdb');
 	{
 		username: 'focusmeter',
 		password: 'focusmeter'

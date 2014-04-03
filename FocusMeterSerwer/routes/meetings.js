@@ -34,7 +34,7 @@ exports.fff = function(db) {
     };
 };
 
-// Zwraca średnią wartość głosów na dane 
+// Zwraca średnią wartość głosów na daną konferencje
 exports.getMeetingVotesValue = function(db) {
     return function(req, res) {
         var coll = db.get('votes');
