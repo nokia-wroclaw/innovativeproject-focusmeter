@@ -14,12 +14,18 @@ var path = require('path');
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('http://antivps.pl:27017/focusmeter', 
+//var db = monk('localhost/focusdb');
 	{
 		username: 'focusmeter',
 		password: 'focusmeter'
 	});
 
 var app = express();
+
+app.configure(function() {
+  app.use(express.bodyParser());
+  app.use(app.router);
+});
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -52,6 +58,7 @@ app.get('/meetings', meetings.find(db));
 app.get('/meeting/:m', meetings.fff(db));
 app.get('/votes/:meeting', votes.getVotes(db));
 app.get('/deleteAllMeetings', meetings.deleteAllMeetings(db));
+app.get('/getValue/:meeting', meetings.getMeetingVotesValue(db));
 
 app.post('/addVote', votes.addVote(db));
 app.post('/addMeeting', meetings.addMeeting(db));

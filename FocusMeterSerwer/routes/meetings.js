@@ -17,7 +17,7 @@ exports.find = function(db) {
         });
     };
 
-},
+};
 
 /**
 Funkcja zwraca spotkanie o zadanym kodzie spotkania
@@ -34,6 +34,29 @@ exports.fff = function(db) {
     };
 };
 
+// Zwraca średnią wartość głosów na dane 
+exports.getMeetingVotesValue = function(db) {
+    return function(req, res) {
+        var coll = db.get('votes');
+
+        coll.find({ "meetingCode" : req.params.meeting }, function(e, docs) {
+            if(e) {
+                res.send("Błąd w dostępie do bazy danych.")
+            }
+            else
+            {
+                var srednia = parseFloat(0);
+                for (var i = docs.length - 1; i >= 0; i--) {
+                    srednia += parseFloat(docs[i].value);
+                };
+                srednia = srednia/docs.length;
+                res.json(srednia); 
+            }
+            
+        });
+    };
+};
+
 
 var appendIf = function(condition, array, message) {
     if (condition) {
@@ -44,7 +67,7 @@ var appendIf = function(condition, array, message) {
 var validate = function(meeting) {
 
     var messages = [];
-    appendIf(meeting.mac.length != 17, messages, "incorrect meeting mac");
+    //appendIf(meeting.mac.length != 17, messages, "incorrect meeting mac");
     //appendIf(meeting.date~ / huhuhuhu / , messages, "incorrect meeting mac");
 
     // //check mac XX:XX:XX:XX:XX:XX
@@ -127,13 +150,13 @@ exports.addMeeting = function(db) {
             title: req.body.title
         };
 
-        var validationMessages = validate(meeting);
-        if (validationMessages.length != 0) {
-            res.send({
-                'errors': validationMessages
-            });
-            return;
-        }
+        // var validationMessages = validate(meeting);
+        // if (validationMessages.length != 0) {
+        //     res.send({
+        //         'errors': validationMessages
+        //     });
+        //     return;
+        // }
 
         var str = Math.random().toString(36).substring(2, 6).toUpperCase();
         var collection = db.get('meetings');
