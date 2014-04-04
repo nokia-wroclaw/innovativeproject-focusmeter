@@ -54,16 +54,16 @@
         <h3 class="col-sm-offset-4 col-sm-1 col-xs-offset-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: right; ">From</h3>
         <input class="col-sm-1 col-xs-3 input-lg" type="text" id="startHour" autocomplete="off" name="Hour" maxlength="8" required />
 
-        <h3 class="col-sm-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: center; ">To</h3>
+        <h3 class="col-sm-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: center;">To</h3>
         <input class="col-sm-1 col-xs-3 input-lg" type="text" id="endHour" autocomplete="off" name="Hour" maxlength="8" required />
 
     </div>
     <div class="row">
         <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
             <br />
-            <input type="button" class="btn btn-lg btn-success btn-block" value="CREATE" />
+            <input type="submit" class="btn btn-lg btn-success btn-block" onclick="goToControlScreen()"   value="CREATE" />
             <br />
-            <input type="submit" class="btn btn-lg btn-warning btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
+            <input type="button" class="btn btn-lg btn-warning btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
         </div>
     </div>
 
@@ -84,6 +84,10 @@
                     window.location = './index.html';
                 }
 
+                function goToControlScreen() {
+                    window.location = './ControlMeeting.html';
+                }
+
                 $(document).ready(function () {
 
 
@@ -94,10 +98,12 @@
                         containerWidth: "350px",
                         setButtonLabel: "Select",
                         minutesLabel: "min",
-                        hoursLabel: "Hrs"
+                        hoursLabel: "Hrs",
+                        style: "position: relative, left: 50px, top: 150px",
                     });
 
                     $('#endHour').ptTimeSelect();
+
 
                     $(".btn-success").click(function () {
                         var date = $("#datepicker").val();
