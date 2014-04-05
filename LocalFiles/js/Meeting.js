@@ -4,7 +4,7 @@ function goBackToStartScreen() {
     window.location = './index.html';
 }
 function goToGradeScreen() {
-    window.location = './GradeMeeting.html';
+    //window.location = './GradeMeeting.html';
 }
 
 function autotab(current, to) {
@@ -16,7 +16,7 @@ function autotab(current, to) {
 
 $("#codeReadyButton").bind("click",
 
-function Send() {
+function LoginToMeeting() {
 
     MeetingCode = $("#code_1").val();
     MeetingCode = MeetingCode + $("#code_2").val();
@@ -30,25 +30,29 @@ function Send() {
         localStorage.setItem("MeetingCode", MeetingCode);
 
     }
+    
     $.ajax({
-        type: "POST",
-        url: "http://antivps.pl:3033/addMeeting",
-        data: {
+        type: "GET",
+        url: "http://antivps.pl:3033/meeting/" + MeetingCode,
+        success: function (data){
+            if(data.length > 0) {
+                alert("Witamy na spotkaniu.");
 
-            "mac": mac,
-            "meetingCode": MeetingCode
-        },
-        processData: true,
-        success: function (meetingCode) {
-            alert("Witamy na spotkaniu! " + meetingCode);
-
-
+                window.location = './GradeMeeting.html';
+            }
+            else {
+                alert("Nie ma spotkania o takim kodzie.");
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
+                alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
         }
     });
+
 });
+
+
+
 
 //////////////////////////////
 ////Grade meeting area////////
@@ -79,20 +83,20 @@ function SendVote(vote) {
         MeetingCode = "dupa";
     }
 
-
+    var mac = "23-23-23-23-23-23";
 
     $.ajax({
         type: "POST",
-        url: "http://antivps.pl:3033/addMeeting",
+        url: "http://antivps.pl:3033/addVote",
         data: {
 
             "mac": mac,
             "meetingCode": MeetingCode,
-            "grade": grade
+            "value": grade
         },
         processData: true,
-        success: function (meetingCode) {
-            alert("Witamy na spotkaniu! " + meetingCode);
+        success: function (message) {
+            alert(message);
 
 
         },
