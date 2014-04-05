@@ -61,7 +61,7 @@
     <div class="row">
         <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
             <br />
-            <input type="submit" class="btn btn-lg btn-success btn-block" onclick="goToControlScreen()"   value="CREATE" />
+            <input type="submit" class="btn btn-lg btn-success btn-block" value="CREATE" />
             <br />
             <input type="button" class="btn btn-lg btn-warning btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
         </div>
@@ -87,9 +87,7 @@
                     window.location = './index.html';
                 }
 
-                function goToControlScreen() {
-                    window.location = './ControlMeeting.html';
-                }
+                
 
                
 
@@ -129,7 +127,7 @@
 
                         $.ajax({
                             type: "POST",
-                            url: "http://156.17.234.85:3000/addMeeting",
+                            url: "http://antivps.pl:3033/addMeeting",
                             data: {
                                 "date": date,
                                 "title": title,
@@ -145,6 +143,7 @@
                                 $("#code_3").val(data.meetingCode.charAt(2));
                                 $("#code_4").val(data.meetingCode.charAt(3));
 
+                                window.location = './ControlMeeting.html';
 
                             },
                             error: function (jqXHR, textStatus, errorThrown) {

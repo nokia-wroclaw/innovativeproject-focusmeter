@@ -27,7 +27,7 @@ app.configure(function() {
 });
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3033);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -54,7 +54,7 @@ app.get('/users', user.list);
 
 // 
 app.get('/meetings', meetings.find(db));
-app.get('/meeting/:m', meetings.fff(db));
+app.get('/meeting/:m', meetings.exists(db));
 app.get('/votes/:meeting', votes.getVotes(db));
 app.get('/deleteAllMeetings', meetings.deleteAllMeetings(db));
 app.get('/getValue/:meeting', meetings.getMeetingVotesValue(db));

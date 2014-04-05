@@ -37,7 +37,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "http://156.17.234.85:3000/addMeeting",
+            url: "http://antivps.pl:3033/addMeeting",
             data: {
                 "date": date,
                 "title": title,

@@ -22,7 +22,7 @@ exports.find = function(db) {
 /**
 Funkcja zwraca spotkanie o zadanym kodzie spotkania
 */
-exports.fff = function(db) {
+exports.exists = function(db) {
     return function(req, res) {
         var coll = db.get('meetings');
 
