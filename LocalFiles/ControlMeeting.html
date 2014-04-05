@@ -50,8 +50,8 @@
     </div>
     <!--<output class="col-sm-offset-7 col-sm-1  col-xs-1 slider slider-vertical" id="slider" />-->
     <div class="col-sm-offset-7 col-sm-1  col-xs-1 progressbar">
-        <span class="progressbar-value" >
-            <em class="progressbar-cover"></em>
+        <span class="progressbar-value">
+           
         </span>
     </div>
 
@@ -104,7 +104,9 @@
                     type: "GET",
                     url: "http://antivps.pl:3033/getValue/" + MeetingCode,
                     success: function(data) {
-                        $(".progressbar-value").val(data.value);
+                        var tmp = ((data.value + 3)/5) * 200;
+                        $(".progressbar-value").css("height", tmp + "px");
+                        $(".progressbar-value").css("top", (215-tmp) + "px");
 
                         alert("Średnia głosów: " + data.value);
                     },
