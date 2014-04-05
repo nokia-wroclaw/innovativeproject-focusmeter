@@ -11,9 +11,12 @@
 #ptTimeSelectCntr {
 	width: 250px; 
 	font-size: .9em;
-	position: absolute;
+	position: relative;
+    left: 90px;
+    top: -130px;
 	z-index: 10;
 	display: none;
+
 }
 #ptTimeSelectCntr .ui-widget{
 	padding: .2em;

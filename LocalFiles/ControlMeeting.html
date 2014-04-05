@@ -42,20 +42,24 @@
 
     <br />
 
-    <div class="col-sm-offset-4 col-sm-3 col-xs-offset-3 col-xs-6">
+    <div class="col-sm-offset-4 col-sm-3 col-xs-offset-0 col-xs-10">
 
         <img src="./Images/GradeScaleS.jpg" style="display: block" />
 
-        
+
     </div>
-    <div class="col-sm-offset-7 col-sm-1 col-xs-offset-10 col-xs-1" style="display: block; height: 240px;"  id="slider"></div>
-    
+    <!--<output class="col-sm-offset-7 col-sm-1  col-xs-1 slider slider-vertical" id="slider" />-->
+    <div class="col-sm-offset-7 col-sm-1  col-xs-1 progressbar">
+        <span class="progressbar-value" >
+            <em class="progressbar-cover"></em>
+        </span>
+    </div>
 
 
         <div class="row">
             <div class="col-sm-offset-4 col-sm-4 col-xs-12">
                 <br />
-                <input type="submit" class="btn btn-lg btn-default btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
+                <input type="submit" class="btn btn-lg btn-warning btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
             </div>
         </div>
 
@@ -68,7 +72,7 @@
         <script type="text/javascript">
 
             $(function () {
-                $("#slider").slider({ orientation: "vertical", range: true, min: -2, max: 2 , value: 0});
+                $("#slider").slider({ orientation: "vertical", range: true, min: 2, max: -2 , value: 0});
             });
 
            
