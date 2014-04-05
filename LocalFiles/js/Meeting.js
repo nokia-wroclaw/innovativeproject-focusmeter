@@ -35,10 +35,16 @@ function LoginToMeeting() {
         type: "GET",
         url: "http://antivps.pl:3033/meeting/" + MeetingCode,
         success: function (data){
-            if(data.length > 0) {
-                alert("Witamy na spotkaniu.");
+            if(data) {
+                if (checkDateAndHour(data) == 1) {
+                    alert("Witamy na spotkaniu.");
 
-                window.location = './GradeMeeting.html';
+                    window.location = './GradeMeeting.html';
+                }
+
+                else {
+                    alert("Spotkanie się skończyło albo jeszcze się nie zaczęło.")
+                }
             }
             else {
                 alert("Nie ma spotkania o takim kodzie.");
@@ -51,6 +57,22 @@ function LoginToMeeting() {
 
 });
 
+function checkDateAndHour(meeting) {
+    var dateArr = meeting.date.split("/");
+
+    var date = new Date(dateArr[2], dateArr[1]-1, dateArr[0]);
+    var today = new Date();
+
+    if (date.getYear() == today.getYear()
+        && date.getMonth() == today.getMonth()
+        && date.getDate() == today.getDate()) {
+        return 1;
+    }
+
+    else {
+        return 0;
+    }
+};
 
 
 

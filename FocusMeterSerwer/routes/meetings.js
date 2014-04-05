@@ -26,7 +26,7 @@ exports.exists = function(db) {
     return function(req, res) {
         var coll = db.get('meetings');
 
-        coll.find({
+        coll.findOne({
             "meetingCode": req.params.m
         }, function(e, docs) {
             res.json(docs);
