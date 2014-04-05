@@ -129,3 +129,8 @@ function SendVote(vote) {
 
     ShowVoteModal();
 };
+
+function initControlPanel() {
+                
+
+}

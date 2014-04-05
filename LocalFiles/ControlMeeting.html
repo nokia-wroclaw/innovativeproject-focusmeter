@@ -68,6 +68,7 @@
         <script src="./js/jquery-1.8.2.js"></script>
         <script src="./js/jquery-ui-1.8.20.js"></script>
         <script src="./js/bootstrap-slider.js"></script>
+        <script type="text/javascript" src="./js/Meeting.js"></script>
 
         <script type="text/javascript">
 
@@ -80,6 +81,38 @@
                 window.location = './index.html';
             }
 
+            $(document).ready(function () {
+                var MeetingCode;
+
+                if (typeof (Storage) != "undefined") {
+                    MeetingCode = localStorage.getItem("meetingCodeControl");
+                }
+                else {
+                    MeetingCode = "dupa";
+                }
+
+                $("#code_1").val(MeetingCode.charAt(0));
+                $("#code_2").val(MeetingCode.charAt(1));
+                $("#code_3").val(MeetingCode.charAt(2));
+                $("#code_4").val(MeetingCode.charAt(3));
+
+                getVotes(MeetingCode);
+            });
+
+            function getVotes(MeetingCode) {
+                $.ajax({
+                    type: "GET",
+                    url: "http://antivps.pl:3033/getValue/" + MeetingCode,
+                    success: function(data) {
+                        $(".progressbar-value").val(data.value);
+
+                        alert("Średnia głosów: " + data.value);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
+                    }
+                });
+            };
 
 
         </script>

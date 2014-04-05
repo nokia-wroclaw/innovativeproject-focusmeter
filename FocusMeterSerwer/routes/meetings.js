@@ -50,7 +50,7 @@ exports.getMeetingVotesValue = function(db) {
                     srednia += parseFloat(docs[i].value);
                 };
                 srednia = srednia/docs.length;
-                res.json(srednia); 
+                res.json({"value": srednia}); 
             }
             
         });

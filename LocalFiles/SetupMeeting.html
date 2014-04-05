@@ -143,6 +143,10 @@
                                 $("#code_3").val(data.meetingCode.charAt(2));
                                 $("#code_4").val(data.meetingCode.charAt(3));
 
+                                if (typeof (Storage) != "undefined") {
+                                    localStorage.setItem("meetingCodeControl", data.meetingCode);
+                                }
+
                                 window.location = './ControlMeeting.html';
 
                             },
