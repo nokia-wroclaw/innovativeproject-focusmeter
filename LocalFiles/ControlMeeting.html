@@ -76,6 +76,7 @@
                 $("#slider").slider({ orientation: "vertical", range: true, min: 2, max: -2 , value: 0});
             });
 
+
            
             function goBackToStartScreen() {
                 window.location = './index.html';
@@ -83,6 +84,12 @@
 
             $(document).ready(function () {
                 var MeetingCode;
+
+                $(function() {
+                    startRefresh();
+                });
+
+                
 
                 if (typeof (Storage) != "undefined") {
                     MeetingCode = localStorage.getItem("meetingCodeControl");
@@ -96,7 +103,14 @@
                 $("#code_3").val(MeetingCode.charAt(2));
                 $("#code_4").val(MeetingCode.charAt(3));
 
-                getVotes(MeetingCode);
+                function startRefresh() {
+                    setTimeout(startRefresh, 30000);
+                    getVotes(MeetingCode);
+                };
+
+                // getVotes(MeetingCode);
+
+                // setTimeout(getVotes(MeetingCode), 10000);
             });
 
             function getVotes(MeetingCode) {
@@ -106,9 +120,7 @@
                     success: function(data) {
                         var tmp = ((data.value + 3)/5) * 200;
                         $(".progressbar-value").css("height", tmp + "px");
-                        $(".progressbar-value").css("top", (215-tmp) + "px");
-
-                        alert("Średnia głosów: " + data.value);
+                        $(".progressbar-value").css("top", (210-tmp) + "px");
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
