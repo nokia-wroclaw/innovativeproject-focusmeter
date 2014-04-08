@@ -64,60 +64,16 @@ var appendIf = function(condition, array, message) {
     }
 };
 
-var validate = function(meeting) {
-
+var validateMeeting = function(meeting) 
+{
     var messages = [];
-    //appendIf(meeting.mac.length != 17, messages, "incorrect meeting mac");
-    //appendIf(meeting.date~ / huhuhuhu / , messages, "incorrect meeting mac");
-
-    // //check mac XX:XX:XX:XX:XX:XX
-    // if (mac.length != 17) {
-    //     res.json({
-    //         "message": "incorrect meeting mac"
-    //     });
-    //     return;
-    // }
-
-    // //check date value DD/MM/YYYY
-    // if (date.length != 10) {
-    //     res.json({
-    //         "message": "incorrect meeting date"
-    //     });
-    //     return;
-    // }
-
-    // //check startHour xX:XX XX
-    // if (startHour.length < 6 || startHour.length > 8) {
-    //     res.json({
-    //         "message": "incorrect meeting startHour"
-    //     });
-    //     return;
-    // }
-
-    // //check endHour xX:XX XX
-    // if (endHour.length < 6 || endHour.length > 8) {
-    //     res.json({
-    //         "message": "incorrect meeting endHour"
-    //     });
-    //     return;
-    // }
-
-    // //check title (length=40)
-    // if (title.length < 1 || title.length > 40) {
-    //     res.json({
-    //         "message": "incorrect meeting title"
-    //     });
-    //     return;
-    // }
-
-    // //check meeting code XXXX
-    // if (meetingCode.length != 4) {
-    //     res.json({
-    //         "message": "incorrect meeting meetingCode"
-    //     });
-    //     return;
-    // }
-
+    appendIf(meeting.date.length != 10 , messages, "incorrect meeting date");           //DD/MM/YYYY
+    appendIf(meeting.startHour.length != 8 , messages, "incorrect meeting startHour");  //HH:MM:SS
+    appendIf(meeting.endHour.length != 8 , messages, "incorrect meeting endHour");      //HH:MM:SS
+    appendIf(meeting.title.length > 40 
+        || meeting.title.length < 2 , messages, "incorrect meeting title");             //40 symbols
+    appendIf(meeting.mac.length != 17, messages, "incorrect meeting mac");              //XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX
+    
     return messages;
 };
 
@@ -150,13 +106,14 @@ exports.addMeeting = function(db) {
             title: req.body.title
         };
 
-        // var validationMessages = validate(meeting);
-        // if (validationMessages.length != 0) {
-        //     res.send({
-        //         'errors': validationMessages
-        //     });
-        //     return;
-        // }
+        var validationMessages = validateMeeting(meeting);
+        //return in some errors appeared
+        if (validationMessages.length != 0) {
+            res.send({
+                'errors': validationMessages
+            });
+            return
+        }
 
         var str = Math.random().toString(36).substring(2, 6).toUpperCase();
         var collection = db.get('meetings');
