@@ -13,11 +13,25 @@ exports.getVotes = function(db) {
 			else
 			{
 				res.json(docs);	
-			}
-			
+			}			
 		});
 	};
-},
+};
+
+var appendIf = function(condition, array, message) {
+    if (condition) {
+        array.push(message);
+    }
+};
+
+var validateVote = function(vote, collecion)
+{	
+	var messages = [];
+	appendIf(vote.value < -2 || vote.value > 2 || isNaN(vote.value), messages, "incorrect vote value");	// value: [-2; 2]
+	appendIf(vote.mac.length != 17, messages, "incorrect vote mac");				//XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX
+	appendIf(vote.meetingCode.length != 4, messages, "incorrect vote meetingCode");	//XXXX
+	return messages;
+};
 
 exports.addVote = function(db) {
 	return function(req, res) {
@@ -27,32 +41,27 @@ exports.addVote = function(db) {
 
 		var collection = db.get('votes');
 		
-		//check vote value [-2:2]
-		if(value<-2 || value>2 || isNaN(value))
-		{
-			res.json({"message" : "incorrect vote value"});
-			return;
-		}
+		var vote = {
+			meetingCode : req.body.meetingCode,
+			mac : req.body.mac,
+			value : req.body.value
+        };
 
-		//check mac XX:XX:XX:XX:XX:XX
-		 if(mac.length != 17)
-		{
-			res.json({"message" : "incorrect vote mac"});
-			return;
-		}
-
-		//check meeting code XXXX
-		if(meetingCode.length != 4)
-		{
-			res.json({"message" : "incorrect vote meetingCode"});
-			return;
-		}
+        
+        var validationMessages = validateVote(vote, collection);
+        //return if some error appeared
+        if (validationMessages.length != 0) {
+            res.send({
+                'errors': validationMessages
+            });
+            return
+        }
 		
-
+	
 		collection.insert({
-			"mac" : mac,
-			"meetingCode" : meetingCode,
-			"value" : value
+			"mac" : vote.mac,
+			"meetingCode" : vote.meetingCode,
+			"value" : vote.value
 		}, function(err, doc) {
 			if(err) {
 				res.send("Blad przy oddawaniu glosu.");
