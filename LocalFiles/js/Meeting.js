@@ -22,6 +22,7 @@ function LoginToMeeting() {
     MeetingCode = MeetingCode + $("#code_2").val();
     MeetingCode = MeetingCode + $("#code_3").val();
     MeetingCode = MeetingCode + $("#code_4").val();
+    MeetingCode = MeetingCode + $("#code_5").val();
 
     //inserting into session html memory
 

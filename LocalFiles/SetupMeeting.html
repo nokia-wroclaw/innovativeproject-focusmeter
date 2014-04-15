@@ -5,15 +5,15 @@
 
 -->
 <html>
-	<head>
-		<meta name="viewport" content="width=320, user-scalable=no">
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>Focus Meter</title>
+    <head>
+        <meta name="viewport" content="width=320, user-scalable=no">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>Focus Meter</title>
         <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="./js/jquery-ui.css" type="text/css" media="screen" title="no title">
         <link rel="stylesheet" href="./js/jquery.ptTimeSelect.css" type="text/css" media="screen" title="no title">
         
-	</head>
+    </head>
 <body>
 
 
@@ -28,7 +28,9 @@
     </div>
     <br />
     <div class="row">
-        <h3 class="col-sm-offset-3 col-sm-1 col-xs-offset-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: right; ">Code:</h3>
+        <h3 class="col-sm-offset-2 col-sm-1 col-xs-offset-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: right; ">Code:</h3>
+    </div>
+    <div class="row col-xs-offset-1">
         <input class="col-sm-1 col-xs-2 input enter-code-field" readonly maxlength="1" required type="text" id="code_1">
 
 
@@ -38,6 +40,9 @@
 
 
         <input class="col-sm-1 col-xs-2  input enter-code-field" readonly maxlength="1" required type="text" id="code_4">
+
+
+        <input class="col-sm-1 col-xs-2  input enter-code-field" readonly maxlength="1" required type="text" id="code_5">
 
     </div>
 
@@ -174,6 +179,7 @@
                                 $("#code_2").val(data.meetingCode.charAt(1));
                                 $("#code_3").val(data.meetingCode.charAt(2));
                                 $("#code_4").val(data.meetingCode.charAt(3));
+                                $("#code_5").val(data.meetingCode.charAt(4));
 
                                 if (typeof (Storage) != "undefined") {
                                     localStorage.setItem("meetingCodeControl", data.meetingCode);
