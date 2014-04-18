@@ -115,7 +115,7 @@ exports.addMeeting = function(db) {
             return
         }
 
-        var str = Math.random().toString(36).substring(2, 6).toUpperCase();
+        var str = Math.random().toString(36).substring(2, 7).toUpperCase();
         var collection = db.get('meetings');
 
 
@@ -134,7 +134,7 @@ exports.addMeeting = function(db) {
 
 
         var failureCallback = function() {
-            str = Math.random().toString(36).substring(2, 6).toUpperCase();
+            str = Math.random().toString(36).substring(2, 7).toUpperCase();
             hasMeetingWithCode(collection, str, successCallback, failureCallback);
         };
 
