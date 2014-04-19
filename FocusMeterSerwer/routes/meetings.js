@@ -67,7 +67,7 @@ var appendIf = function(condition, array, message) {
 var validateMeeting = function(meeting) 
 {
     var messages = [];
-    appendIf(meeting.date.length != 10 , messages, "incorrect meeting date");           //DD/MM/YYYY
+    //appendIf(meeting.date.length != 10 , messages, "incorrect meeting date");           //DD/MM/YYYY
     appendIf(meeting.startHour.length != 8 , messages, "incorrect meeting startHour");  //HH:MM:SS
     appendIf(meeting.endHour.length != 8 , messages, "incorrect meeting endHour");      //HH:MM:SS
     appendIf(meeting.title.length > 40 
@@ -80,7 +80,10 @@ var validateMeeting = function(meeting)
 // Collection(collectionName)
 var hasMeetingWithCode = function(collection, code, callbackNotExists, callbackExists) {
     collection.findOne({
-        "meetingCode": code
+        $or: [
+                {"meetingCode": code},
+                {"adminCode": code}
+            ]
     }, function(e, doc) {
         if (e) {
             // handle error
@@ -98,9 +101,13 @@ var hasMeetingWithCode = function(collection, code, callbackNotExists, callbackE
 exports.addMeeting = function(db) {
     return function(req, res) {
 
+        var dateArr = req.body.date.split("/");
+
+        var date = new Date(Date.UTC(dateArr[2], dateArr[1]-1, dateArr[0]));
+
         var meeting = {
             mac: req.body.mac,
-            date: req.body.date,
+            date: date,
             startHour: req.body.startHour,
             endHour: req.body.endHour,
             title: req.body.title
@@ -118,27 +125,53 @@ exports.addMeeting = function(db) {
         var str = Math.random().toString(36).substring(2, 7).toUpperCase();
         var collection = db.get('meetings');
 
-
-        var successCallback = function() {
+        var codeFree = function() {
             meeting.meetingCode = str;
-            collection.insert(meeting, function(err, docs) {
-                if (err) {
-                    res.send("Blad przy dodawaniu spotkania.");
-                } else {
-                    res.json({
-                        "meetingCode": meeting.meetingCode
-                    });
-                }
-            });
+
+            var adminCode = Math.random().toString(36).substring(2, 7).toUpperCase();
+
+            // collection.insert(meeting, function(err, docs) {
+            //     if (err) {
+            //         res.send("Blad przy dodawaniu spotkania.");
+            //     } else {
+            //         res.json({
+            //             "meetingCode": meeting.meetingCode
+            //         });
+            //     }
+            // });
+
+            var adminFree = function() {
+                meeting.adminCode = adminCode;
+
+                collection.insert(meeting, function(err, docs) {
+                    if(err) {
+                        // Who cares :)
+                    }
+                    else {
+                        res.json(meeting);
+                    }
+                });
+            };
+
+            var adminTaken = function() {
+                adminCode = Math.random().toString(36).substring(2, 7).toUpperCase();
+
+                hasMeetingWithCode(collection, adminCode, adminFree, adminTaken);
+            };
+
+            hasMeetingWithCode(collection, adminCode, adminFree, adminTaken);
         };
 
-
-        var failureCallback = function() {
+        var codeTaken = function() {
             str = Math.random().toString(36).substring(2, 7).toUpperCase();
-            hasMeetingWithCode(collection, str, successCallback, failureCallback);
+            hasMeetingWithCode(collection, str, codeFree, codeTaken);
         };
 
-        hasMeetingWithCode(collection, str, successCallback, failureCallback);
+        hasMeetingWithCode(collection, str, codeFree, codeTaken);
+
+        
+
+
 
     }
 },

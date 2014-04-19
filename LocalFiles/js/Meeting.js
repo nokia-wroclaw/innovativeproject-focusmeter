@@ -59,10 +59,11 @@ function LoginToMeeting() {
 });
 
 function checkDateAndHour(meeting) {
-    var dateArr = meeting.date.split("/");
+    //var dateArr = meeting.date.split("/");
 
-    var date = new Date(dateArr[2], dateArr[1]-1, dateArr[0]);
+    //var date = new Date(dateArr[2], dateArr[1]-1, dateArr[0]);
     var today = new Date();
+    var date = new Date(meeting.date);
 
     if (date.getYear() == today.getYear()
         && date.getMonth() == today.getMonth()

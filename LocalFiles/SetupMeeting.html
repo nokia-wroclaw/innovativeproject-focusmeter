@@ -161,7 +161,6 @@
                             return false;
                         }
 
-
                         $.ajax({
                             type: "POST",
                             url: "http://antivps.pl:3033/addMeeting",
@@ -174,7 +173,10 @@
                             },
                             processData: true,
                             success: function (data) {
-                                alert("Utworzono spotkanie! Kod spotkania: " + data.meetingCode);
+                                if(!('meetingCode' in data)) {
+                                    alert(JSON.stringify(data));
+                                }
+                                alert("Utworzono spotkanie! Kod spotkania: " + data.meetingCode + ", kod admina: " + data.adminCode);
                                 $("#code_1").val(data.meetingCode.charAt(0));
                                 $("#code_2").val(data.meetingCode.charAt(1));
                                 $("#code_3").val(data.meetingCode.charAt(2));
