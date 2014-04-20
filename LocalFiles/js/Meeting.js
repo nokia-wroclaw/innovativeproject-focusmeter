@@ -23,6 +23,7 @@ function LoginToMeeting() {
     MeetingCode = MeetingCode + $("#code_3").val();
     MeetingCode = MeetingCode + $("#code_4").val();
     MeetingCode = MeetingCode + $("#code_5").val();
+    MeetingCode = MeetingCode.toUpperCase();
 
     //inserting into session html memory
 
@@ -44,11 +45,11 @@ function LoginToMeeting() {
                 }
 
                 else {
-                    alert("Spotkanie się skończyło albo jeszcze się nie zaczęło.")
+                    alert("Spotkanie o kodzie \"" + MeetingCode + "\" się skończyło albo jeszcze się nie zaczęło.")
                 }
             }
             else {
-                alert("Nie ma spotkania o takim kodzie.");
+                alert("Nie ma spotkania o kodzie: " + MeetingCode);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
