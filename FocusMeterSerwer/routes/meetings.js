@@ -67,12 +67,21 @@ var appendIf = function(condition, array, message) {
 var validateMeeting = function(meeting) 
 {
     var messages = [];
+    //regular expressions
+    var reHour = /^[0,1]*[0-9]:[0-5][0-9]\s[a,p,A,P][m,M]$/;
+    var reDate = /^[0-2][0-9]\/[0,1][0-9]\/2[0-9]{3}$/;
+    var reMac = /^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$/;
+    var reTitle = /^.{2,40}$/;
+    
     //appendIf(meeting.date.length != 10 , messages, "incorrect meeting date");           //DD/MM/YYYY
-    appendIf(meeting.startHour.length != 8 , messages, "incorrect meeting startHour");  //HH:MM:SS
-    appendIf(meeting.endHour.length != 8 , messages, "incorrect meeting endHour");      //HH:MM:SS
-    appendIf(meeting.title.length > 40 
-        || meeting.title.length < 2 , messages, "incorrect meeting title");             //40 symbols
-    appendIf(meeting.mac.length != 17, messages, "incorrect meeting mac");              //XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX
+
+    appendIf(!reHour.test(meeting.startHour) , messages, "incorrect meeting startHour");  //HH:MM:SS
+
+    appendIf(!reHour.test(meeting.endHour) , messages, "incorrect meeting endHour");      //HH:MM:SS
+
+    appendIf(!reTitle.test(meeting.title), messages, "incorrect meeting title");             //40 symbols
+
+    appendIf(!reMac.test(meeting.mac), messages, "incorrect meeting mac");              //XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX
     
     return messages;
 };
@@ -114,7 +123,7 @@ exports.addMeeting = function(db) {
         };
 
         var validationMessages = validateMeeting(meeting);
-        //return in some errors appeared
+        //return if some errors appeared
         if (validationMessages.length != 0) {
             res.send({
                 'errors': validationMessages
