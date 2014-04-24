@@ -27,7 +27,10 @@ exports.exists = function(db) {
         var coll = db.get('meetings');
 
         coll.findOne({
-            "meetingCode": req.params.m
+            $or: [
+                {"meetingCode": req.params.m},
+                {"adminCode": req.params.m}
+            ]
         }, function(e, docs) {
             res.json(docs);
         });

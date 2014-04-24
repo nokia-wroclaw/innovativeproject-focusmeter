@@ -55,12 +55,12 @@ app.get('/users', user.list);
 // 
 app.get('/meetings', meetings.find(db));
 app.get('/meeting/:m', meetings.exists(db));
-app.get('/votes/:meeting', votes.getVotes(db));
+//app.get('/vote/:meeting', votes.getVotes(db));
 app.get('/deleteAllMeetings', meetings.deleteAllMeetings(db));
-app.get('/getValue/:meeting', meetings.getMeetingVotesValue(db));
+app.get('/vote/:meeting', meetings.getMeetingVotesValue(db));
 
-app.post('/addVote', votes.addVote(db));
-app.post('/addMeeting', meetings.addMeeting(db));
+app.post('/vote', votes.addVote(db));
+app.post('/meeting', meetings.addMeeting(db));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

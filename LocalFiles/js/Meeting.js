@@ -27,11 +27,7 @@ function LoginToMeeting() {
 
     //inserting into session html memory
 
-    if (typeof (Storage) != "undefined") {
-
-        localStorage.setItem("MeetingCode", MeetingCode);
-
-    }
+    
     
     $.ajax({
         type: "GET",
@@ -41,7 +37,21 @@ function LoginToMeeting() {
                 if (checkDateAndHour(data) == 1) {
                     alert("Witamy na spotkaniu.");
 
-                    window.location = './GradeMeeting.html';
+                    if (typeof (Storage) != "undefined") {
+
+                        localStorage.setItem("MeetingCode", data.meetingCode);
+
+                        localStorage.setItem("meetingCodeControl", data.adminCode);
+                    }
+
+                    if(MeetingCode === data.meetingCode) {
+                        window.location = './GradeMeeting.html';
+                    }
+                    else if(MeetingCode === data.adminCode) {
+                        window.location = './ControlMeeting.html';
+                    }
+
+                    
                 }
 
                 else {
@@ -112,7 +122,7 @@ function SendVote(vote) {
 
     $.ajax({
         type: "POST",
-        url: "http://antivps.pl:3033/addVote",
+        url: "http://antivps.pl:3033/vote",
         data: {
 
             "mac": mac,
