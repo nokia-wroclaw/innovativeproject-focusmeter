@@ -169,7 +169,7 @@
                     type: "GET",
                     url: "http://antivps.pl:3033/vote/" + MeetingCode,
                     success: function(data) {
-                        var gradePercent = ((data.value + 3)/5) * 100;
+                        var gradePercent = ((data.value + 2)/4) * 100;
                         //$(".progressbar-value").css("height", tmp + "px");
                         //$(".progressbar-value").css("top", (210-tmp) + "px");
                         $("#meetingGrade").attr('style', "width: " + gradePercent + "%");

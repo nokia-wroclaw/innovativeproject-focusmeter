@@ -130,6 +130,9 @@
 
                         
                     $('#datepicker').datepicker({
+                        beforeShow: function(input, inst) {
+                            inst.dpDiv.css({marginTop: -200 + 'px', marginLeft: 0 + 'px'});
+                        },
                         dateFormat: 'dd/mm/yy',
                         //showWeek: true,
                         minDate: "0",
