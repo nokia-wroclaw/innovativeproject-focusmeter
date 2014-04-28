@@ -47,7 +47,7 @@
     </div>
 
     <div class="row">
-        <h3 class="col-sm-offset-4 col-sm-1 col-xs-offset-1 col-xs-3" style="color: whitesmoke; font-size: medium; text-align: right; ">Admin code:</h3>
+        <h3 class="col-sm-offset-4 col-sm-1 col-xs-offset-1 col-xs-5" style="color: whitesmoke; font-size: medium;">Admin code:</h3>
     </div>
     <div class="row col-sm-offset-4 col-xs-offset-1">
         <input class="col-sm-1 col-xs-2 input enter-code-field" readonly maxlength="1" required type="text" id="adminCode_1">
@@ -73,16 +73,26 @@
     </div><br />
     <div class="row">
         <h3 class="col-sm-offset-4 col-sm-1 col-xs-offset-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: right; ">Date:</h3>
-        <input class="col-sm-3 col-xs-8 input-lg" type="text" id="datepicker" autocomplete="off" name="Date" maxlength="10" required />
+        <input class="col-sm-3 col-xs-8 input-lg" type="text" id="datepicker" style="text-align: center" autocomplete="off" name="Date" maxlength="10" required />
+        <!--<input class="col-sm-3 col-xs-8 input-lg" type="date" autocomplete="off" style="text-align: center" name="date" maxlength="10" required />-->
     </div><br />
-    <div class="row">
+    <!--<div class="row">
         <h3 class="col-sm-offset-4 col-sm-1 col-xs-offset-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: right; ">From</h3>
+<<<<<<< HEAD
+        <!--<input class="col-sm-1 col-xs-3 input-lg" type="text" id="startHour" autocomplete="off"  name="Hour" maxlength="8" required />-->
+        <!--<input class="col-sm-1 col-xs-3 input-lg" type="time"  autocomplete="off" name="time" maxlength="8" required />
+
+        <h3 class="col-sm-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: center;">To</h3>
+        <!--<input class="col-sm-1 col-xs-3 input-lg" type="text" id="endHour" autocomplete="off"  name="Hour" maxlength="8" required />-->
+       <!-- <input class="col-sm-1 col-xs-3 input-lg" type="time" autocomplete="off" name="time" maxlength="8" required />
+=======
         <input class="col-sm-1 col-xs-3 input-lg" type="text" id="startHour" autocomplete="off"  name="startHour" maxlength="8" required />
 
         <h3 class="col-sm-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: center;">To</h3>
         <input class="col-sm-1 col-xs-3 input-lg" type="text" id="endHour" autocomplete="off"  name="endHour" maxlength="8" required />
+>>>>>>> ef6143b436b25611827e3cf209dc563fce86f02b
 
-    </div>
+    </div>-->
     <div class="row">
         <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
             <br />
@@ -118,7 +128,17 @@
                 $(document).ready(function () {
 
 
-                    $('#datepicker').datepicker({ dateFormat: 'dd/mm/yy' }).val();
+                        
+                    $('#datepicker').datepicker({
+                        dateFormat: 'dd/mm/yy',
+                        //showWeek: true,
+                        minDate: "0",
+                        maxDate: "20Y",
+                        showAnim: "bounce",
+                        hide: "explode",
+                        showButtonPanel: true
+                        //}).val();
+                    });
 
                     $('#startHour').ptTimeSelect({
                         containerClass: "timeCntr",
@@ -144,20 +164,20 @@
                         var mac = "12-32-43-54-65-76";
 
                         //check data using regular expressions
-                        var reHour = /^[0,1]*[0-9]:[0-5][0-9]\s[a,p,A,P][m,M]$/;
+                        //var reHour = /^[0,1]*[0-9]:[0-5][0-9]\s[a,p,A,P][m,M]$/;
                         var reDate = /^[0-2][0-9]\/[0,1][0-9]\/2[0-9]{3}$/;
                         var reTitle = /^.{2,40}$/;
                         var correct = true;
 
-                        if(!reHour.test(startHour))
-                        {
-                            correct = false;
-                        }
+                        // if(!reHour.test(startHour))
+                        // {
+                        //     correct = false;
+                        // }
 
-                        if(!reHour.test(endHour))
-                        {
-                            correct = false;
-                        }
+                        // if(!reHour.test(endHour))
+                        // {
+                        //     correct = false;
+                        // }
 
                         if(!reDate.test(date))
                         {

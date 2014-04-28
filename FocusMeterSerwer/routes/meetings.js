@@ -71,16 +71,16 @@ var validateMeeting = function(meeting)
 {
     var messages = [];
     //regular expressions
-    var reHour = /^[0,1]*[0-9]:[0-5][0-9]\s[a,p,A,P][m,M]$/;
+    //var reHour = /^[0,1]*[0-9]:[0-5][0-9]\s[a,p,A,P][m,M]$/;
     var reDate = /^[0-2][0-9]\/[0,1][0-9]\/2[0-9]{3}$/;
     var reMac = /^([0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$/;
     var reTitle = /^.{2,40}$/;
     
     //appendIf(meeting.date.length != 10 , messages, "incorrect meeting date");           //DD/MM/YYYY
 
-    appendIf(!reHour.test(meeting.startHour) , messages, "incorrect meeting startHour");  //HH:MM:SS
+    //appendIf(!reHour.test(meeting.startHour) , messages, "incorrect meeting startHour");  //HH:MM:SS
 
-    appendIf(!reHour.test(meeting.endHour) , messages, "incorrect meeting endHour");      //HH:MM:SS
+    //appendIf(!reHour.test(meeting.endHour) , messages, "incorrect meeting endHour");      //HH:MM:SS
 
     appendIf(!reTitle.test(meeting.title), messages, "incorrect meeting title");             //40 symbols
 
