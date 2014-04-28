@@ -172,27 +172,27 @@
                         var gradePercent = ((data.value + 3)/5) * 100;
                         //$(".progressbar-value").css("height", tmp + "px");
                         //$(".progressbar-value").css("top", (210-tmp) + "px");
-                        $('meetingGrade').attr('style', "width: " + gradePercent + "%");
+                        $("#meetingGrade").attr('style', "width: " + gradePercent + "%");
                     
                         switch(true)
                         {
                         case (gradePercent <= 20):
-                        	$('meetingGrade').attr('class', "progress-bar progress-bar-danger");
+                        	$('#meetingGrade').attr('class', "progress-bar progress-bar-danger");
                             break;
                         case (gradePercent < 40 && gradePercent > 20):
-                        	$('meetingGrade').attr('class', "progress-bar progress-bar-warning");
+                        	$('#meetingGrade').attr('class', "progress-bar progress-bar-warning");
                           break;
                         case (gradePercent <= 60 && gradePercent >= 40):
-                        	$('meetingGrade').attr('class', "progress-bar progress-bar-info");
+                        	$('#meetingGrade').attr('class', "progress-bar progress-bar-info");
                             break;
                         case (gradePercent < 80 && gradePercent > 60):
-                        	$('meetingGrade').attr('class', "progress-bar progress-bar-success");
+                        	$('#meetingGrade').attr('class', "progress-bar progress-bar-success");
                             break;
                         case (gradePercent >= 80):
-                        	$('meetingGrade').attr('class', "progress-bar progress-bar-success");
+                        	$('#meetingGrade').attr('class', "progress-bar progress-bar-success");
                             break;
                         default:
-                        	$('meetingGrade').attr('class', "progress-bar");
+                        	$('#meetingGrade').attr('class', "progress-bar");
                         }
                     
                     },
