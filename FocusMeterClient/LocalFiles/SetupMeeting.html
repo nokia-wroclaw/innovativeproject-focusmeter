@@ -218,7 +218,7 @@
                                 if(!('meetingCode' in data)) {
                                     alert(JSON.stringify(data));
                                 }
-                                alert("Utworzono spotkanie! Kod spotkania: " + data.meetingCode + ", kod admina: " + data.adminCode);
+                                alert("Meeting created! Meeting code: " + data.meetingCode + ", admin code: " + data.adminCode);
                                 $("#code_1").val(data.meetingCode.charAt(0));
                                 $("#code_2").val(data.meetingCode.charAt(1));
                                 $("#code_3").val(data.meetingCode.charAt(2));

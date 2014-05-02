@@ -35,7 +35,7 @@ function LoginToMeeting() {
         success: function (data){
             if(data) {
                 if (checkDateAndHour(data) == 1) {
-                    alert("Witamy na spotkaniu.");
+                    alert("Welcome on the meeting.");
 
                     if (typeof (Storage) != "undefined") {
 
@@ -55,11 +55,11 @@ function LoginToMeeting() {
                 }
 
                 else {
-                    alert("Spotkanie o kodzie \"" + MeetingCode + "\" się skończyło albo jeszcze się nie zaczęło.")
+                    alert("Meeting with code \"" + MeetingCode + "\" has been finished or hasn't been started yet.")
                 }
             }
             else {
-                alert("Nie ma spotkania o kodzie: " + MeetingCode);
+                alert("There's no meeting with code: " + MeetingCode);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -107,40 +107,66 @@ function SendVote(vote) {
 
     var gradeName = $(vote).attr("id");
     var grade = gradeName.substr(9, gradeName.length);
+    var timeOfVote;
+
+    var minutes = 5;
+    var milliseconds = minutes * 60 * 1000;
 
 
 
     //retriving MeetingCode from session memoty
     if (typeof (Storage) != "undefined") {
         MeetingCode = localStorage.getItem("MeetingCode");
+
+        if (localStorage.getItem("voteTime") != null) {
+            timeOfVote = new Date(localStorage.getItem("voteTime"));
+        }
+        else {
+            timeOfVote = new Date();
+        }
     }
     else {
         MeetingCode = "dupa";
+        timeOfVote = new Date();
     }
 
-    var mac = "23-23-23-23-23-23";
+    var diff = (new Date()).getTime() - timeOfVote.getTime();
 
-    $.ajax({
-        type: "POST",
-        url: "http://antivps.pl:3033/vote",
-        data: {
-
-            "mac": mac,
-            "meetingCode": MeetingCode,
-            "value": grade
-        },
-        processData: true,
-        success: function (message) {
-            alert(message);
-
-
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
+    if (diff > milliseconds) {
+        if (typeof (Storage) != "undefined") {
+            localStorage.removeItem("voteTime");
+            localStorage.setItem("voteTime", (new Date()).toString());
         }
-    });
 
-    ShowVoteModal();
+        var mac = "23-23-23-23-23-23";
+
+        $.ajax({
+            type: "POST",
+            url: "http://antivps.pl:3033/vote",
+            data: {
+
+                "mac": mac,
+                "meetingCode": MeetingCode,
+                "value": grade
+            },
+            processData: true,
+            success: function (message) {
+                alert(message);
+
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
+            }
+        });
+    }
+    else {
+        alert("You can't vote for this meeting yet. You can add new vote after " + ((milliseconds-diff)/1000) + " s");
+    }
+
+
+
+    //ShowVoteModal();
 };
 
 function initControlPanel() {
