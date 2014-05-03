@@ -17,98 +17,110 @@
     </head>
 <body>
 
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
-            <div class="jumbotron">
-                <h1>Focus Meter</h1>
-                <p>Control Your meeting</p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
+                <div class="jumbotron">
+                    <h1>Focus Meter</h1>
+                    <p>Control Your meeting</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <h3 class="col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-4" style="color: whitesmoke; font-size: medium; ">Code:</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4">
+                <input class="col-xs-offset-1 col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="code_1">
+
+
+                <input class="col-xs-2 enter-code-field" readonly maxlength=" 1" required type="text" id="code_2">
+
+                <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="code_3">
+
+
+                <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="code_4">
+
+
+                <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="code_5">
             </div>
 
         </div>
-    </div>
-    <br />
-    <div class="row">
-        <h3 class="col-sm-offset-4 col-sm-2 col-xs-offset-1 col-xs-4" style="color: whitesmoke; font-size: medium; ">Code:</h3>
-    </div>
-    <div class="row col-xs-offset-1 col-sm-offset-4">
-        <input class="col-sm-1 col-xs-2 input enter-code-field" readonly maxlength="1" required type="text" id="code_1">
+
+        <div class="row">
+            <h3 class="col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10" style="color: whitesmoke; font-size: medium; ">Admin code:</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4">
+                <input class="col-xs-offset-1 col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="adminCode_1">
 
 
-        <input class="col-sm-1 col-xs-2 input enter-code-field" readonly maxlength=" 1" required type="text" id="code_2">
+                <input class="col-xs-2 enter-code-field" readonly maxlength=" 1" required type="text" id="adminCode_2">
 
-        <input class="col-sm-1 col-xs-2 input enter-code-field" readonly maxlength="1" required type="text" id="code_3">
-
-
-        <input class="col-sm-1 col-xs-2  input enter-code-field" readonly maxlength="1" required type="text" id="code_4">
+                <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="adminCode_3">
 
 
-        <input class="col-sm-1 col-xs-2  input enter-code-field" readonly maxlength="1" required type="text" id="code_5">
-
-    </div>
-
-    <div class="row">
-        <h3 class="col-sm-offset-4 col-sm-2 col-xs-offset-1 col-xs-4" style="color: whitesmoke; font-size: medium; ">Admin code:</h3>
-    </div>
-    <div class="row col-xs-offset-1 col-sm-offset-4">
-        <input class="col-sm-1 col-xs-2 input enter-code-field" readonly maxlength="1" required type="text" id="adminCode_1">
+                <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="adminCode_4">
 
 
-        <input class="col-sm-1 col-xs-2 input enter-code-field" readonly maxlength=" 1" required type="text" id="adminCode_2">
-
-        <input class="col-sm-1 col-xs-2 input enter-code-field" readonly maxlength="1" required type="text" id="adminCode_3">
-
-
-        <input class="col-sm-1 col-xs-2  input enter-code-field" readonly maxlength="1" required type="text" id="adminCode_4">
-
-
-        <input class="col-sm-1 col-xs-2  input enter-code-field" readonly maxlength="1" required type="text" id="adminCode_5">
-
-    </div>
-
-    <br />
-
-    <div class="row col-sm-offset-4 col-sm-3 col-xs-offset-1 col-xs-9">
-        <input type="time" id="htmlTimer" style="font-size: 30px; text-align: center" class="input-lg btn-block" value="00:00:00" readonly>
-    
-    <div class="stopwatch" id="d-timer"></div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-3 col-xs-offset-1 col-xs-8"> 
-           <input type="button" id="changeTime" class="btn btn-lg btn-success btn-block " onclick="dTimer.execute()" value="start meeting">
-
-           
-           <!-- <input type="button" id="startTime" class="btn btn-lg btn-danger btn-block " onclick="dTimer.stop()" value="Stop">-->
-
-           <br><br>
-
-           <input type="button" class="btn btn-lg btn-primary btn-block " value="Charts">
+                <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="adminCode_5">
+            </div>
 
         </div>
-        
-       
-       <!-- <div class="col-sm-1 col-xs-1 progressbar">
-            <span class="progressbar-value "></span>
-        </div> -->
-       
-        
-        
-    </div> 
-    <br><br>
-    <div class="row col-sm-offset-4 col-sm-3 col-xs-offset-1 col-xs-8">
-     <div class="progress progress-striped active">
-		  <div id="meetingGrade"class="progress-bar "  role="progressbar" aria-valuenow="0" aria-valuemin="-2" aria-valuemax="2" style="width: 50%">
-		   
-		  </div>
-		</div>
-    
-    </div>   
+        <br />
         <div class="row">
-            <div class="col-sm-offset-4 col-sm-4 col-xs-12">
+            <div class="col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
+                <input type="time" id="htmlTimer" style="font-size: 30px; text-align: center" class="input-lg btn-block" value="00:00:00" readonly>
+    
+                <div class="stopwatch" id="d-timer"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10"> 
+                <input type="button" id="changeTime" class="btn btn-lg btn-success btn-block " onclick="dTimer.execute()" value="start meeting">
+                <br>
+                <input type="button" class="btn btn-lg btn-primary btn-block " value="Charts">
+            </div>
+        </div> 
+        <br />
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
+                <div class="progress progress-striped active">
+                    <div id="meetingGrade" class="progress-bar "  role="progressbar" aria-valuenow="0" aria-valuemin="-2" aria-valuemax="2" style="width: 50%">
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4 col-xs-10 col-xs-offset-1">
                 <br />
                 <input type="submit" class="btn btn-lg btn-warning btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
             </div>
-        </div>
+        </div> 
+    </div>
+
+    
+    <br />
+    
+    
+
+    
+    
+
+    <br />
+
+    
+
+    
+    <br><br>
+     
+        
 
 
 

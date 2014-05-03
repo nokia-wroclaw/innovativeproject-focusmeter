@@ -16,20 +16,11 @@
     </head>
 <body>
 
-
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
-            <div class="jumbotron">
-                <h1>Focus Meter</h1>
-                <p>Create new meeting</p>
-            </div>
-
-        </div>
+    <!-- Meeting code -->
+<!--     <div class="row col-sm-offset-4 col-xs-offset-1">
+        <h3 class="col-sm-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: right; ">Code:</h3>
     </div>
-    <br />
-    <div class="row">
-        <h3 class="col-sm-offset-4 col-sm-1 col-xs-offset-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: right; ">Code:</h3>
-    </div>
+
     <div class="row col-sm-offset-4 col-xs-offset-1">
         <input class="col-sm-1 col-xs-2 input enter-code-field" readonly maxlength="1" required type="text" id="code_1">
 
@@ -43,12 +34,14 @@
 
 
         <input class="col-sm-1 col-xs-2  input enter-code-field" readonly maxlength="1" required type="text" id="code_5">
-
     </div>
 
-    <div class="row">
-        <h3 class="col-sm-offset-4 col-sm-1 col-xs-offset-1 col-xs-5" style="color: whitesmoke; font-size: medium;">Admin code:</h3>
+    Admin code
+
+    <div class="row col-sm-offset-4 col-xs-offset-1">
+        <h3 class="col-sm-1 col-xs-5" style="color: whitesmoke; font-size: medium;">Admin code:</h3>
     </div>
+
     <div class="row col-sm-offset-4 col-xs-offset-1">
         <input class="col-sm-1 col-xs-2 input enter-code-field" readonly maxlength="1" required type="text" id="adminCode_1">
 
@@ -62,46 +55,51 @@
 
 
         <input class="col-sm-1 col-xs-2  input enter-code-field" readonly maxlength="1" required type="text" id="adminCode_5">
+    </div> -->
 
-    </div>
-
-    <br />
-
+<div class="container-fluid">
     <div class="row">
-        <h3 class="col-sm-offset-4 col-sm-1 col-xs-offset-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: right; ">Title:</h3>
-        <input class="col-sm-3 col-xs-8 input-lg"  type="text" id="title" style="text-align: center" value="" maxlength="40" placeholder="Enter your presentation title"required />
-    </div><br />
-    <div class="row">
-        <h3 class="col-sm-offset-4 col-sm-1 col-xs-offset-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: right; ">Date:</h3>
-        <input class="col-sm-3 col-xs-8 input-lg" type="text" id="datepicker" style="text-align: center" autocomplete="off" name="Date" maxlength="10" required />
-        <!--<input class="col-sm-3 col-xs-8 input-lg" type="date" autocomplete="off" style="text-align: center" name="date" maxlength="10" required />-->
-    </div><br />
-    <!--<div class="row">
-        <h3 class="col-sm-offset-4 col-sm-1 col-xs-offset-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: right; ">From</h3>
-<<<<<<< HEAD
-        <!--<input class="col-sm-1 col-xs-3 input-lg" type="text" id="startHour" autocomplete="off"  name="Hour" maxlength="8" required />-->
-        <!--<input class="col-sm-1 col-xs-3 input-lg" type="time"  autocomplete="off" name="time" maxlength="8" required />
-
-        <h3 class="col-sm-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: center;">To</h3>
-        <!--<input class="col-sm-1 col-xs-3 input-lg" type="text" id="endHour" autocomplete="off"  name="Hour" maxlength="8" required />-->
-       <!-- <input class="col-sm-1 col-xs-3 input-lg" type="time" autocomplete="off" name="time" maxlength="8" required />
-=======
-        <input class="col-sm-1 col-xs-3 input-lg" type="text" id="startHour" autocomplete="off"  name="startHour" maxlength="8" required />
-
-        <h3 class="col-sm-1 col-xs-2" style="color: whitesmoke; font-size: medium; text-align: center;">To</h3>
-        <input class="col-sm-1 col-xs-3 input-lg" type="text" id="endHour" autocomplete="off"  name="endHour" maxlength="8" required />
->>>>>>> ef6143b436b25611827e3cf209dc563fce86f02b
-
-    </div>-->
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
-            <br />
-            <div id="message-box" style="color: #fff"></div>
-            <input type="submit" class="btn btn-lg btn-success btn-block" value="CREATE" />
-            <br />
-            <input type="button" class="btn btn-lg btn-warning btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
+        <div class="col-sm-offset-4 col-sm-4">
+            <div class="jumbotron">
+                <h1>Focus Meter</h1>
+                <p>Create meeting</p>
+            </div>
         </div>
     </div>
+
+    <!-- Title -->
+    <div class="row">
+            <h3 class="col-sm-offset-4 col-xs-offset-1 col-sm-1 col-xs-2" style="color: whitesmoke; font-size: medium; ">Title:</h3>
+    </div>
+
+    <div class="row">
+            <input class="col-sm-offset-4 col-xs-offset-1 col-sm-4 col-xs-10 input-lg" type="text" id="title" style="text-align: center" value="" maxlength="40" placeholder="Enter your presentation title"required />
+    </div><br />
+
+    <!-- Date -->
+    <div class="row">
+            <h3 class="col-sm-offset-4 col-xs-offset-1 col-sm-1 col-xs-2" style="color: whitesmoke; font-size: medium; ">Date:</h3>
+    </div>
+
+    <div class="row">
+            <input class="col-sm-offset-4 col-xs-offset-1 col-sm-4 col-xs-10 input-lg" type="text" id="datepicker" style="text-align: center" autocomplete="off" name="Date" maxlength="10" required /><br /><br /><br /><br />
+
+    <!-- Buttons -->
+    <div class="row">
+        <div class="col-sm-4 col-xs-10 col-sm-offset-4 col-xs-offset-1">
+            <input type="submit" class="btn btn-lg btn-success btn-block" value="CREATE" />
+            <br/>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-xs-10 col-sm-4 col-sm-offset-4 col-xs-offset-1">
+            <input type="button" class="btn btn-lg btn-warning btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
+        </div>
+
+    </div>
+</div>
 
 
 
@@ -219,17 +217,6 @@
                                     alert(JSON.stringify(data));
                                 }
                                 alert("Meeting created! Meeting code: " + data.meetingCode + ", admin code: " + data.adminCode);
-                                $("#code_1").val(data.meetingCode.charAt(0));
-                                $("#code_2").val(data.meetingCode.charAt(1));
-                                $("#code_3").val(data.meetingCode.charAt(2));
-                                $("#code_4").val(data.meetingCode.charAt(3));
-                                $("#code_5").val(data.meetingCode.charAt(4));
-
-                                $("#adminCode_1").val(data.adminCode.charAt(0));
-                                $("#adminCode_2").val(data.adminCode.charAt(1));
-                                $("#adminCode_3").val(data.adminCode.charAt(2));
-                                $("#adminCode_4").val(data.adminCode.charAt(3));
-                                $("#adminCode_5").val(data.adminCode.charAt(4));
 
                                 if (typeof (Storage) != "undefined") {
                                     localStorage.setItem("meetingCodeControl", data.adminCode);

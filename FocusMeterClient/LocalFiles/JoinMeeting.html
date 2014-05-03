@@ -20,52 +20,49 @@ author: Maciej Baj
 
 </head>
 <body>
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
-            <div class="jumbotron">
-                <h1>Focus Meter</h1>
-                <p>Join the meeting</p>
+    <div clas"container-fluid">
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4">
+                <div class="jumbotron">
+                    <h1>Focus Meter</h1>
+                    <p>Join the meeting</p>
+                </div>
             </div>
         </div>
-      </div>
-        <br />
-
-        <h2 style="color: whitesmoke; text-align: center; font-style: italic; font-size: x-large">Enter code:</h2>
-
-        <br />
         <div class="row">
-            <!--<input class="input form-control" type="text" name="meeting_code">-->
-            
-            
-            <input class="col-sm-offset-4 col-sm-1 col-xs-offset-1  col-xs-2 input enter-code-field" onkeyup="autotab(this, code_2)" maxlength="1" required type="text" id="code_1">
+              <div class="col-xs-offset-1 col-xs-10 col-sm-offset-4 col-sm-4">
+                <h2 style="color: whitesmoke; text-align: center; font-style: italic; font-size: x-large">Enter code:</h2>
+              </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4">
+                    <input class="col-xs-offset-1 col-xs-2 enter-code-field" onkeyup="autotab(this, code_2)" maxlength="1" required type="text" id="code_1">
         
-    
-            <input class="col-sm-1 col-xs-2 input enter-code-field" onkeyup="autotab(this, code_3)" maxlength=" 1" required type="text" id="code_2">
-           
-            <input class="col-sm-1 col-xs-2 input enter-code-field" onkeyup="autotab(this, code_4)" maxlength="1" required type="text" id="code_3">
-         
-            
-            <input class="col-sm-1 col-xs-2  input enter-code-field" onkeyup="autotab(this, code_5)" maxlength="1" required type="text" id="code_4">
+                <input class="col-xs-2 enter-code-field " onkeyup="autotab(this, code_3)" maxlength="1" required type="text" id="code_2">
+
+                <input class="col-xs-2 enter-code-field" onkeyup="autotab(this, code_4)" maxlength="1" required type="text" id="code_3">
+             
+                
+                <input class="col-xs-2  enter-code-field" onkeyup="autotab(this, code_5)" maxlength="1" required type="text" id="code_4">
 
 
-            <input class="col-sm-1 col-xs-2  input enter-code-field" onkeyup="autotab(this, codeReadyButton)" maxlength="1" required type="text" id="code_5">
-          
+                <input class="col-xs-2  enter-code-field" onkeyup="autotab(this, codeReadyButton)" maxlength="1" required type="text" id="code_5">
+            </div>
         </div>
 
+        <br /><br /><br />
 
-
-        <br />
-
-
-        <br />
-    <div class="row">
-        <div class="col-sm-offset-4 col-sm-4 .col-xs-12">
-            <br />
-            <input type="button" id="codeReadyButton" class="btn btn-lg btn-warning btn-block" onclick="goToGradeScreen()" value="JOIN" />
-            <br />
-            <input type="button" class="btn btn-lg btn-success btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
+        <div class="row">
+            <div class="col-xs-offset-1 col-xs-10 col-sm-offset-4 col-sm-4">
+                <input type="button" id="codeReadyButton" class="btn btn-lg btn-warning btn-block" onclick="goToGradeScreen()" value="JOIN" />
+                <br />
+                <input type="button" class="btn btn-lg btn-success btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
+            </div>
         </div>
+
     </div>
+
 
    
 

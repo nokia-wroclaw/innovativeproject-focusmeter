@@ -112,6 +112,8 @@ function SendVote(vote) {
     var minutes = 5;
     var milliseconds = minutes * 60 * 1000;
 
+    var diff;
+
 
 
     //retriving MeetingCode from session memoty
@@ -120,9 +122,11 @@ function SendVote(vote) {
 
         if (localStorage.getItem("voteTime") != null) {
             timeOfVote = new Date(localStorage.getItem("voteTime"));
+            diff = (new Date()).getTime() - timeOfVote.getTime();
         }
         else {
             timeOfVote = new Date();
+            diff = 300001;
         }
     }
     else {
@@ -130,7 +134,7 @@ function SendVote(vote) {
         timeOfVote = new Date();
     }
 
-    var diff = (new Date()).getTime() - timeOfVote.getTime();
+    
 
     if (diff > milliseconds) {
         if (typeof (Storage) != "undefined") {
