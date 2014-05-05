@@ -109,19 +109,32 @@ var hasMeetingWithCode = function(collection, code, callbackNotExists, callbackE
     });
 };
 
+exports.startMeeting = function(db) {
+    return function(req, res) {
+        var collection = db.get('meetings');
+
+        collection.update(
+            {adminCode: req.body.adminCode},
+            {$set : {start : req.body.start}}
+            );
+
+        res.json({"message" : "Meeting started."});
+
+    }
+};
 
 exports.addMeeting = function(db) {
     return function(req, res) {
 
-        var dateArr = req.body.date.split("/");
+        //var dateArr = req.body.date.split("/");
 
-        var date = new Date(Date.UTC(dateArr[2], dateArr[1]-1, dateArr[0]));
+        //var date = new Date(Date.UTC(dateArr[2], dateArr[1]-1, dateArr[0]));
 
         var meeting = {
             mac: req.body.mac,
-            date: date,
-            startHour: req.body.startHour,
-            endHour: req.body.endHour,
+            //date: date,
+            //startHour: req.body.startHour,
+            //endHour: req.body.endHour,
             title: req.body.title
         };
 

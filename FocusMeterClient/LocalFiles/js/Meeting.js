@@ -34,8 +34,8 @@ function LoginToMeeting() {
         url: "http://antivps.pl:3033/meeting/" + MeetingCode,
         success: function (data){
             if(data) {
-                if (checkDateAndHour(data) == 1) {
-                    alert("Welcome on the meeting.");
+                
+                    
 
                     if (typeof (Storage) != "undefined") {
 
@@ -45,18 +45,21 @@ function LoginToMeeting() {
                     }
 
                     if(MeetingCode === data.meetingCode) {
-                        window.location = './GradeMeeting.html';
+                        if(!("start" in data)) {
+                            alert("The meeting hasn't been started yet.");
+                        }
+                        else {
+                            alert("Welcome on the meeting.");
+                            window.location = './GradeMeeting.html';
+                        }
                     }
                     else if(MeetingCode === data.adminCode) {
                         window.location = './ControlMeeting.html';
                     }
 
                     
-                }
+                
 
-                else {
-                    alert("Meeting with code \"" + MeetingCode + "\" has been finished or hasn't been started yet.")
-                }
             }
             else {
                 alert("There's no meeting with code: " + MeetingCode);

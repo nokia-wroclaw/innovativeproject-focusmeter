@@ -174,7 +174,29 @@
                 // getVotes(MeetingCode);
 
                 // setTimeout(getVotes(MeetingCode), 10000);
+
+                $("#changeTime").click(function() {
+                    var date = new Date();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://antivps.pl:3033/meeting/start",
+                        data: {
+                            "adminCode": adminCode,
+                            "start": date
+                        },
+                        processData: true,
+                        success: function(data) {
+                            alert(JSON.stringify(data));
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                                alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
+                            }
+                    });
+                });
             });
+
+            
 
             function getVotes(MeetingCode) {
                 $.ajax({
