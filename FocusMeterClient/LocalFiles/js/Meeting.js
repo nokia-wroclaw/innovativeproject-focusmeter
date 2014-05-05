@@ -66,7 +66,19 @@ function LoginToMeeting() {
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-                alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
+        	if (jqXHR.status === 0) {
+                alert("Verify network.");
+            } else if (jqXHR.status == 404) {
+                alert("Requested page not found.");
+            } else if (jqXHR.status == 500) {
+                alert("Internal Server Error.");
+            } else if (textStatus === "timeout") {
+                alert("Time out error.");
+            } else {
+                alert("Uncaught Error.\n" + jqXHR.responseText);
+            }
+                
+                
         }
     });
 
