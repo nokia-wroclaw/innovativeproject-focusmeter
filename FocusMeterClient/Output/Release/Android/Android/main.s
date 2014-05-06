@@ -1,6 +1,6 @@
 .model full
-	.sourcedir 'C:\MoSync\workspace\FocusMeterClient/'
-	.sourcefile 'C:\MoSync\workspace\FocusMeterClient\main.cpp'
+	.sourcedir 'C:\Users\Marcin\development\FocusMeter\innovativeproject-focusmeter\FocusMeterClient/'
+	.sourcefile 'C:\Users\Marcin\development\FocusMeter\innovativeproject-focusmeter\FocusMeterClient\main.cpp'
 	.stabs	"gcc2_compiled.",60,0,0,0
 	.stabs	"__vtbl_ptr_type:t(0,1)=*(0,2)=f(0,3)=r(0,3);-2147483648;2147483647;",128,0,0,0
 	.stabs	"bool:t(0,4)=@s8;-16;",128,0,0,0
@@ -611,7 +611,7 @@ LC0:
 	.global	_MAMain
 
 .func _MAMain, 0, int
-	.stabs	"C:\\MoSync\\workspace\\FocusMeterClient\\main.cpp",132,0,0,Ltext3
+	.stabs	"C:\\Users\\Marcin\\development\\FocusMeter\\innovativeproject-focusmeter\\FocusMeterClient\\main.cpp",132,0,0,Ltext3
 Ltext3:
 	.line 43
 	push rt,d1
