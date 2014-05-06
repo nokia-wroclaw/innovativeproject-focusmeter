@@ -123,6 +123,19 @@ exports.startMeeting = function(db) {
     }
 };
 
+exports.endMeeting = function(db) {
+    return function(req, res) {
+        var collection = db.get('meetings');
+
+        collection.update(
+            {adminCode: req.body.adminCode},
+            {$set : {end : req.body.end}}
+            );
+
+        res.json({"message" : "Meeting ended"});
+    }
+};
+
 exports.addMeeting = function(db) {
     return function(req, res) {
 

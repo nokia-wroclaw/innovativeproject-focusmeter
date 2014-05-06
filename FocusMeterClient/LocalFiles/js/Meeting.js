@@ -48,12 +48,25 @@ function LoginToMeeting() {
                         if(!("start" in data)) {
                             alert("The meeting hasn't been started yet.");
                         }
+                        else if("end" in data) {
+                            alert("The meeting has been finished.");
+                        }
                         else {
                             alert("Welcome on the meeting.");
                             window.location = './GradeMeeting.html';
                         }
                     }
                     else if(MeetingCode === data.adminCode) {
+                            if (typeof (Storage) != "undefined") {
+                                if("end" in data) {
+                                    localStorage.setItem("started", "2");
+                                }
+                                else if("start" in data) {
+                                    localStorage.setItem("started", "1");
+                                }
+                                else
+                                    localStorage.setItem("started", "0");
+                            }
                         window.location = './ControlMeeting.html';
                     }
 
