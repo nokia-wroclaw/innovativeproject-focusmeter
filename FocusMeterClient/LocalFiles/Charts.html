@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+*Panel For Creating and Setting up the new Meeting in Focus Meter System
+*author: Maciej Baj
+
+-->
+<html>
+
+<head>
+    <meta name="viewport" content="width=320, user-scalable=no">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Focus Meter</title>
+    <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="./css/slider.css" type="text/css">
+    <link rel="stylesheet" href="./js/jquery-ui.css" type="text/css" media="screen" title="no title">
+
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4">
+                <!-- Nav tabs -->
+                <ul id="myTab" class="nav nav-tabs nav-justified">
+                    <li class="active">
+                        <a href="#controlTab" data-toggle="tab">Control Meeting</a>
+                    </li>
+                    <li>
+                        <a href="#chartsTab" data-toggle="tab">Charts</a>
+                    </li>
+                    
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- My tab #1 -->
+                    <div class="tab-pane active" id="controlTab">
+                      
+
+                        <h3 style="color: whitesmoke; font-size: medium; ">Code:</h3>
+                        
+                        <div class="row">
+                            <input class="col-xs-offset-1 col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="code_1">
+
+
+                            <input class="col-xs-2 enter-code-field" readonly maxlength=" 1" required type="text" id="code_2">
+
+                            <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="code_3">
+
+
+                            <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="code_4">
+
+
+                            <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="code_5">
+                        </div>
+
+                        <h3 style="color: whitesmoke; font-size: medium; ">Admin code:</h3>
+
+                        <div class="row">
+                            <input class="col-xs-offset-1 col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="adminCode_1">
+
+
+                            <input class="col-xs-2 enter-code-field" readonly maxlength=" 1" required type="text" id="adminCode_2">
+
+                            <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="adminCode_3">
+
+
+                            <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="adminCode_4">
+
+
+                            <input class="col-xs-2 enter-code-field" readonly maxlength="1" required type="text" id="adminCode_5">
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="progress progress-striped active">
+                                <div id="meetingGrade" class="progress-bar " role="progressbar" aria-valuenow="0" aria-valuemin="-2" aria-valuemax="2" style="width: 50%">
+                                </div>
+                            </div>
+                        </div>  
+                    
+                        <div class="row">
+                            <input type="time" id="htmlTimer" style="font-size: 30px; text-align: center" class="input-lg btn-block" value="00:00:00" readonly>
+
+                            <div class="stopwatch" id="d-timer"></div>
+                        </div>
+                        <br/>   
+
+
+                        <div class="row">
+                            <input type="button" id="changeTime" class="btn btn-lg btn-success btn-block " onclick="dTimer.execute()" value="start meeting">
+                            <br>
+                            <!-- <input type="button" class="btn btn-lg btn-primary btn-block " value="Charts"> -->
+                        </div>
+
+                        <div class="row">
+                            <input type="submit" class="btn btn-lg btn-warning btn-block" onclick="goBackToStartScreen()" value="CANCEL" />
+                        </div>
+
+                    </div>
+                    
+                    <!-- My tab #2 -->
+                    <div class="tab-pane" id="chartsTab">
+                        <br/>
+                        <div class="row">
+                            <div id="hist_div" style="width: 100%; height: 50%;"></div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div id="graph_div" style="width: 100%; height: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="./js/jquery-1.8.2.js"></script>
+        <script src="./js/jquery-ui-1.8.20.js"></script>
+        <script src="./js/bootstrap.js"></script>
+        <script src="./js/bootstrap-slider.js"></script>
+        <script type="text/javascript" src="./js/Meeting.js"></script>
+        <script type="text/javascript" src="./js/Stopwatch.js"></script>
+        
+
+
+
+        <script src="./js/ChartsScripts.js"></script>
+        
+
+
+        <script type="text/javascript">
+        $('#myTab a').click(function(e) {
+            e.preventDefault()
+
+            $(this).tab('show')
+        })
+        </script>
+
+
+</body>
+
+</html>
