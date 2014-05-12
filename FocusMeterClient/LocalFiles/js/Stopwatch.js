@@ -1,12 +1,13 @@
 
 
-var Stopwatch = function(elem, options) {
+var Stopwatch = function(elem, options, startTime) {
   
   var timer       = createTimer(),
       //startButton = createButton("start", start),
       //stopButton  = createButton("stop", stop),
       resetButton = createButton("reset", reset),
       offset,
+      startTime,
       clock,
       interval,
       isRunning = false;
@@ -39,11 +40,23 @@ var Stopwatch = function(elem, options) {
   
   function start() {
     if (!interval) {
-      if(typeof offset == 'undefined') offset   = Date.now();
-      else offset   = Date.now() + offset;
+      if(typeof offset == 'undefined'){
+        offset = Date.now();
+        _startTime = 0;
+      } 
+      
+      else{
+        offset   = Date.now(startTime);
+        _startTime = startTime;
+      } 
       
       interval = setInterval(update, options.delay);
       isRunning = true;
+
+      //saving time of meeting for the first time only
+      if(localStorage.started == '0'){
+           localStorage.setItem("startTime", (new Date()).getTime().toString());
+      }
     }
   }
   
@@ -52,6 +65,13 @@ var Stopwatch = function(elem, options) {
       clearInterval(interval);
       interval = null;
       isRunning = false;
+
+
+      $('#changeTime').toggleClass('btn-danger');
+      $('#changeTime').toggleClass('btn-info');
+      $('#changeTime').attr('value', 'meeting finshed');
+      $('#changeTime').attr('disabled', 'true');
+
     }
   }
   
@@ -59,19 +79,31 @@ var Stopwatch = function(elem, options) {
     if(isRunning){
       this.stop();
       //changing style and text of button
-      $('#changeTime').toggleClass('btn-success');
-      $('#changeTime').toggleClass('btn-danger');
-      
-      $('#changeTime').attr('value', 'start meeting');
+     
       
     }
     else {
-      this.start();
       
+
+      if(localStorage.started == '2')
+      {
+
+      $('#changeTime').toggleClass('btn-success');
+      $('#changeTime').toggleClass('btn-info');
+      $('#changeTime').attr('value', 'meeting finshed');
+      $('#changeTime').attr('disabled', 'true');
+
+      }
+      else
+      {
+        this.start();
       $('#changeTime').toggleClass('btn-danger');
       $('#changeTime').toggleClass('btn-success');
       
       $('#changeTime').attr('value', 'end meeting');
+      }
+      
+
 
       //localStorage.setItem("startingTime", (new Date()).getTime().toString());
     }
@@ -89,9 +121,18 @@ var Stopwatch = function(elem, options) {
   }
   
   function render() {
-    timer.innerHTML = clock/1000; 
+    
     //w formacie ilosci sekund
-    var SecondsTillBegin = Math.floor(clock/1000);
+    //
+    if(localStorage.getItem("timeToAdd") != null && localStorage.getItem("timeToAdd") != '0'){
+    var secondsToAdd = localStorage.getItem("timeToAdd");
+
+   //secondsToAdd = Date.now(secondsToAdd) - Date.now();
+    var SecondsTillBegin = Math.floor((clock + parseInt(secondsToAdd)) / 1000);
+    }
+    else{
+    var SecondsTillBegin = Math.floor(clock / 1000);
+    }
     var SecondsString = SecondsTillBegin.toString();
     var TimeTillBegin = SecondsString.toHHMMSS();
     $('#htmlTimer').attr("value", TimeTillBegin );
@@ -127,7 +168,7 @@ String.prototype.toHHMMSS = function () {
 
 
 d = document.getElementById("d-timer");
-dTimer = new Stopwatch(d, { delay: 1000 });
+dTimer = new Stopwatch(d, { delay: 1000 }, Date.now());
 //dTimer.start();
 
 //$('#startTime').click(function () {

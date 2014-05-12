@@ -64,10 +64,14 @@ function LoginToMeeting() {
                                 }
                                 else if("start" in data) {
                                     localStorage.setItem("started", "1");
-                                    localStorage.setItem("startTime", data.end.toString());
+                                    
                                 }
                                 else
                                     localStorage.setItem("started", "0");
+                                      //clearing localStorage options for watcher
+                                    localStorage.removeItem("startingTime");
+                                    localStorage.removeItem("timeToAdd");
+
                             }
                         window.location = './Charts.html';
                     }

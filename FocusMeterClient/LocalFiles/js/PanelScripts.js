@@ -91,12 +91,22 @@ $(document).ready(function() {
 
 
 
+var isStarted = localStorage.getItem("started");
+    
+    if(isStarted == '0'){
+      localStorage.removeItem("timeToAdd");
+      $('#htmlTimer').attr("value", '00:00:00' );
 
-     var startingTimeString = localStorage.getItem("startingTime");
- 
-     var startingTime = new Date(startingTimeString);
+    }
+    //if it was started before and meeting is running
+     else if(isStarted == '1' ){
 
-     if(startingTimeString != null){
+        var startingTimeString = localStorage.getItem("startTime");
+       
+
+       // var startingTime = Date.now(startingTimeString);
+       var startingTime = parseInt(startingTimeString);
+
         currentMeetingDuration = (new Date()).getTime() - startingTime;
 
         var SecondsTillBegin = Math.floor(currentMeetingDuration/1000);
@@ -104,14 +114,17 @@ $(document).ready(function() {
         var TimeTillBegin = SecondsString.toHHMMSS();
         $('#htmlTimer').attr("value", TimeTillBegin );
 
+
+        var startingTimeString = localStorage.setItem("timeToAdd", currentMeetingDuration );
         //ustawic offset odliczania oraz wystartowac timer
         d = document.getElementById("d-timer");
-        dTimer = new Stopwatch(d, { delay: 1000 });
+        dTimer = new Stopwatch(d, { delay: 1000 }, Date.now(currentMeetingDuration));
         dTimer.offset = currentMeetingDuration;
         dTimer.execute();
 
 
     }
+    
 
     if (typeof(Storage) != "undefined") {
         MeetingCode = localStorage.getItem("MeetingCode");
