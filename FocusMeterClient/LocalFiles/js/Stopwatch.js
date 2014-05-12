@@ -54,9 +54,9 @@ var Stopwatch = function(elem, options, startTime) {
       isRunning = true;
 
       //saving time of meeting for the first time only
-      if(localStorage.started == '0'){
-           localStorage.setItem("startTime", (new Date()).getTime().toString());
-      }
+      // if(localStorage.started == '0'){
+      //      localStorage.setItem("startTime", (new Date()).getTime().toString());
+      // }
     }
   }
   

@@ -58,13 +58,20 @@ function LoginToMeeting() {
                     }
                     else if(MeetingCode === data.adminCode) {
                             if (typeof (Storage) != "undefined") {
+                                var dateTmp;
+
                                 if("end" in data) {
                                     localStorage.setItem("started", "2");
-                                    localStorage.setItem("endTime", data.start.toString());
+                                    dateTmp = new Date(data.end);
+                                    localStorage.setItem("endTime", dateTmp.getTime().toString());
+
+                                    dateTmp = new Date(data.start);
+                                    localStorage.setItem("startTime", dateTmp.getTime().toString());
                                 }
                                 else if("start" in data) {
                                     localStorage.setItem("started", "1");
-                                    
+                                    dateTmp = new Date(data.start);
+                                    localStorage.setItem("startTime", dateTmp.getTime().toString());
                                 }
                                 else
                                     localStorage.setItem("started", "0");

@@ -89,41 +89,10 @@ $(document).ready(function() {
         startRefresh();
     });
 
+    initTimer();
 
+    initStartEndButton();
 
-var isStarted = localStorage.getItem("started");
-    
-    if(isStarted == '0'){
-      localStorage.removeItem("timeToAdd");
-      $('#htmlTimer').attr("value", '00:00:00' );
-
-    }
-    //if it was started before and meeting is running
-     else if(isStarted == '1' ){
-
-        var startingTimeString = localStorage.getItem("startTime");
-       
-
-       // var startingTime = Date.now(startingTimeString);
-       var startingTime = parseInt(startingTimeString);
-
-        currentMeetingDuration = (new Date()).getTime() - startingTime;
-
-        var SecondsTillBegin = Math.floor(currentMeetingDuration/1000);
-        var SecondsString = SecondsTillBegin.toString();
-        var TimeTillBegin = SecondsString.toHHMMSS();
-        $('#htmlTimer').attr("value", TimeTillBegin );
-
-
-        var startingTimeString = localStorage.setItem("timeToAdd", currentMeetingDuration );
-        //ustawic offset odliczania oraz wystartowac timer
-        d = document.getElementById("d-timer");
-        dTimer = new Stopwatch(d, { delay: 1000 }, Date.now(currentMeetingDuration));
-        dTimer.offset = currentMeetingDuration;
-        dTimer.execute();
-
-
-    }
     
 
     if (typeof(Storage) != "undefined") {
@@ -157,6 +126,73 @@ var isStarted = localStorage.getItem("started");
     $("#changeTime").click(startAndStop);
 });
 
+
+function initTimer() {
+    var isStarted = localStorage.getItem("started");
+    
+    if(isStarted == '0'){
+      localStorage.removeItem("timeToAdd");
+      $('#htmlTimer').attr("value", '00:00:00' );
+
+    }
+    //if it was started before and meeting is running
+     else{
+
+        var startingTimeString = localStorage.getItem("startTime");
+       
+
+        // var startingTime = Date.now(startingTimeString);
+        var startingTime = parseInt(startingTimeString);
+
+        var currentMeetingDuration;
+
+        // If the meeting is finished we want to show on timer the length of it.
+        // If the meeting is still running, we want to show the time from start of meeting till now.
+        if(isStarted == '1') {
+            currentMeetingDuration = (new Date()).getTime() - startingTime;
+        }
+        else if(isStarted == '2') {
+            var endTimeString = localStorage.getItem("endTime");
+
+            var endingTime = parseInt(endTimeString);
+
+            currentMeetingDuration = endingTime - startingTime;
+        }
+
+        var SecondsTillBegin = Math.floor(currentMeetingDuration/1000);
+        var SecondsString = SecondsTillBegin.toString();
+        var TimeTillBegin = SecondsString.toHHMMSS();
+        $('#htmlTimer').attr("value", TimeTillBegin );
+
+        var startingTimeString = localStorage.setItem("timeToAdd", currentMeetingDuration );
+        //ustawic offset odliczania oraz wystartowac timer
+        d = document.getElementById("d-timer");
+        dTimer = new Stopwatch(d, { delay: 1000 }, Date.now(currentMeetingDuration));
+        dTimer.offset = currentMeetingDuration;
+
+        // Run timer if meeting isn't finished.
+        if(isStarted == '1') {
+            dTimer.execute();
+        }
+
+
+    }
+}
+
+
+function initStartEndButton() {
+    var isStarted = localStorage.started;
+
+    // If the meeting is finished, disable timer button.
+    if (isStarted == '2') {
+        $('#changeTime').toggleClass('btn-info');
+        $('#changeTime').attr('value', 'meeting finshed');
+        $('#changeTime').attr('disabled', 'true');
+    }
+
+    // If the meeting is still running, we don't need to change button, because it is already done in 
+    // dTimer.execute()
+}
 
 /**
  * Function gets average vote value from server with specific meeting code and changes progress bar
