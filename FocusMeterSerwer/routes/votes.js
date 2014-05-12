@@ -1,18 +1,47 @@
 /**
-Funkcja zwraca glosy z danego spotkania.
-*/
+ * Function sending the response with JSON object with complete information about meeting votes. The keys of the
+ * object are names of grades and the corresponding values are the numbers of that votes.
+ */
 
 exports.getVotes = function(db) {
 	return function(req, res) {
-		var coll = db.get('votes');
+		var collection = db.get('votes');
 
-		coll.find({"meetingCode" : req.params.meeting}, function(e, docs) {
+		collection.find({"meetingCode" : req.params.meeting}, function(e, docs) {
 			if(e) {
 				res.send("Błąd w dostępie do bazy danych.")
 			}
 			else
 			{
-				res.json(docs);	
+				var result = {
+					"awesome" : 0,
+					"great" : 0,
+					"ok" : 0,
+					"boring" : 0,
+					"disaster" : 0
+				};
+
+				docs.forEach(function(vote) {
+					switch(vote.value) {
+						case "2":
+							result.awesome += 1;
+							break;
+						case "1":
+							result.great += 1;
+							break;
+						case "0":
+							result.ok += 1;
+							break;
+						case "-1":
+							result.boring += 1;
+							break;
+						case "-2":
+							result.disaster += 1;
+							break;
+					}
+				});
+
+				res.json(result);
 			}			
 		});
 	};
