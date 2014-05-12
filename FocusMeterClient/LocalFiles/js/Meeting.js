@@ -60,9 +60,11 @@ function LoginToMeeting() {
                             if (typeof (Storage) != "undefined") {
                                 if("end" in data) {
                                     localStorage.setItem("started", "2");
+                                    localStorage.setItem("endTime", data.start.toString());
                                 }
                                 else if("start" in data) {
                                     localStorage.setItem("started", "1");
+                                    localStorage.setItem("startTime", data.end.toString());
                                 }
                                 else
                                     localStorage.setItem("started", "0");
