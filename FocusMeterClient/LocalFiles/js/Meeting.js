@@ -67,7 +67,7 @@ function LoginToMeeting() {
                                 else
                                     localStorage.setItem("started", "0");
                             }
-                        window.location = './ControlMeeting.html';
+                        window.location = './Charts.html';
                     }
 
                     
