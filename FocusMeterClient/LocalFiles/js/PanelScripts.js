@@ -91,6 +91,28 @@ $(document).ready(function() {
 
 
 
+
+     var startingTimeString = localStorage.getItem("startingTime");
+ 
+     var startingTime = new Date(startingTimeString);
+
+     if(startingTimeString != null){
+        currentMeetingDuration = (new Date()).getTime() - startingTime;
+
+        var SecondsTillBegin = Math.floor(currentMeetingDuration/1000);
+        var SecondsString = SecondsTillBegin.toString();
+        var TimeTillBegin = SecondsString.toHHMMSS();
+        $('#htmlTimer').attr("value", TimeTillBegin );
+
+        //ustawic offset odliczania oraz wystartowac timer
+        d = document.getElementById("d-timer");
+        dTimer = new Stopwatch(d, { delay: 1000 });
+        dTimer.offset = currentMeetingDuration;
+        dTimer.execute();
+
+
+    }
+
     if (typeof(Storage) != "undefined") {
         MeetingCode = localStorage.getItem("MeetingCode");
         adminCode = localStorage.getItem("meetingCodeControl");

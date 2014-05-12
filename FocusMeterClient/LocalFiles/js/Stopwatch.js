@@ -39,7 +39,9 @@ var Stopwatch = function(elem, options) {
   
   function start() {
     if (!interval) {
-      offset   = Date.now();
+      if(typeof offset == 'undefined') offset   = Date.now();
+      else offset   = Date.now() + offset;
+      
       interval = setInterval(update, options.delay);
       isRunning = true;
     }
@@ -54,23 +56,25 @@ var Stopwatch = function(elem, options) {
   }
   
   function execute(){
-	  if(isRunning){
-		  this.stop();
-		  //changing style and text of button
-		  $('#changeTime').toggleClass('btn-success');
-		  $('#changeTime').toggleClass('btn-danger');
-		  
-		  $('#changeTime').attr('value', 'start meeting');
-		  
-	  }
-	  else {
-		  this.start();
-		  
-		  $('#changeTime').toggleClass('btn-danger');
-		  $('#changeTime').toggleClass('btn-success');
-		  
-		  $('#changeTime').attr('value', 'end meeting');
-	  }
+    if(isRunning){
+      this.stop();
+      //changing style and text of button
+      $('#changeTime').toggleClass('btn-success');
+      $('#changeTime').toggleClass('btn-danger');
+      
+      $('#changeTime').attr('value', 'start meeting');
+      
+    }
+    else {
+      this.start();
+      
+      $('#changeTime').toggleClass('btn-danger');
+      $('#changeTime').toggleClass('btn-success');
+      
+      $('#changeTime').attr('value', 'end meeting');
+
+      //localStorage.setItem("startingTime", (new Date()).getTime().toString());
+    }
   }
   
   
