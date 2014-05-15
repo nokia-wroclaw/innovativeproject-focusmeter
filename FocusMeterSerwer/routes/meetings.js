@@ -2,6 +2,8 @@
  * GET users listing.
  */
 
+var messages = require("../messages.js");
+var message = messages.message;
 
 exports.find = function(db) {
     return function(req, res) {
@@ -9,7 +11,7 @@ exports.find = function(db) {
 
         coll.find({}, function(e, docs) {
             if (e) {
-                res.send("Błąd w dostępie do bazy danych.");
+                res.json({"message" : message.DB_ERROR});
             } else {
                 res.json(docs);
             }
@@ -32,7 +34,17 @@ exports.exists = function(db) {
                 {"adminCode": req.params.m}
             ]
         }, function(e, docs) {
-            res.json(docs);
+            if(e) {
+                res.json({"message" : message.DB_ERROR});
+            }
+            else {
+                if(docs) {
+                    res.json(docs);
+                }
+                else {
+                    res.json({"message" : message.NO_MEETING});
+                }
+            }
         });
     };
 };
@@ -44,16 +56,21 @@ exports.getMeetingVotesValue = function(db) {
 
         coll.find({ "meetingCode" : req.params.meeting }, function(e, docs) {
             if(e) {
-                res.send("Błąd w dostępie do bazy danych.")
+                res.json({"message" : message.DB_ERROR});
             }
             else
             {
-                var srednia = parseFloat(0);
-                for (var i = docs.length - 1; i >= 0; i--) {
-                    srednia += parseFloat(docs[i].value);
-                };
-                srednia = srednia/docs.length;
-                res.json({"value": srednia}); 
+                if(docs) {
+                    var srednia = parseFloat(0);
+                    for (var i = docs.length - 1; i >= 0; i--) {
+                        srednia += parseFloat(docs[i].value);
+                    };
+                    srednia = srednia/docs.length;
+                    res.json({"value": srednia}); 
+                }
+                else {
+                    res.json({"message" : message.NO_MEETING});
+                }
             }
             
         });
@@ -118,7 +135,7 @@ exports.startMeeting = function(db) {
             {$set : {start : req.body.start}}
             );
 
-        res.json({"message" : "Meeting started."});
+        res.json({"message" : message.MT_START});
 
     }
 };
@@ -132,7 +149,7 @@ exports.endMeeting = function(db) {
             {$set : {end : req.body.end}}
             );
 
-        res.json({"message" : "Meeting ended"});
+        res.json({"message" : message.MT_END});
     }
 };
 

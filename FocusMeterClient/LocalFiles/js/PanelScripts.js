@@ -31,6 +31,8 @@ $(document).ready(function() {
     $("#adminCode_4").val(adminCode.charAt(3));
     $("#adminCode_5").val(adminCode.charAt(4));
 
+    getVotes(MeetingCode);
+
     setInterval(function(){getVotes(MeetingCode)}, 30000);
 
     $("#changeTime").click(function() {startAndStop(adminCode)});
@@ -176,6 +178,10 @@ function drawGraph() {
     title: 'Graph',
     curveType: 'function',
     legend: { position: 'none' },
+    vAxis: {
+        minValue: -2,
+        maxValue: 2
+    },
     // chartArea: {
     //         width: "80%",
     //         height: "70%"

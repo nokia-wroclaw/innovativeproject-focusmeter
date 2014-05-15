@@ -33,7 +33,7 @@ function LoginToMeeting() {
         type: "GET",
         url: "http://antivps.pl:3033/meeting/" + MeetingCode,
         success: function (data){
-            if(data) {
+            if("_id" in data) {
                 
                     
 
