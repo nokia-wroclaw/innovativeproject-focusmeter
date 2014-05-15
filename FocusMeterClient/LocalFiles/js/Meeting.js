@@ -73,11 +73,12 @@ function LoginToMeeting() {
                                     dateTmp = new Date(data.start);
                                     localStorage.setItem("startTime", dateTmp.getTime().toString());
                                 }
-                                else
+                                else {
                                     localStorage.setItem("started", "0");
                                       //clearing localStorage options for watcher
                                     localStorage.removeItem("startingTime");
                                     localStorage.removeItem("timeToAdd");
+                                }
 
                             }
                         window.location = './Charts.html';

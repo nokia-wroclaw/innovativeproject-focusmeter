@@ -11,5 +11,9 @@
     "mongojs": "*",
     "mongodb": "*",
     "monk": "*"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-mocha": "^0.4.10"
   }
 }
