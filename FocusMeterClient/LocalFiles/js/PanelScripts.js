@@ -130,7 +130,10 @@ function drawHistogram(data) {
         dataOpacity: 0.9,
     };
 
-    var chart = new google.visualization.ColumnChart(document.getElementById('hist_div'));
+    var chartDiv = document.getElementById('hist_div');
+
+    var chart = new google.visualization.ColumnChart(chartDiv);
+
     chart.draw(data, options);
 }
 
@@ -308,6 +311,7 @@ var startAndStop = function(adminCode) {
 
                 if (typeof(Storage) != "undefined") {
                     localStorage.setItem("started", "1");
+                    localStorage.setItem("startTime", date.getTime().toString());
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -330,6 +334,7 @@ var startAndStop = function(adminCode) {
 
                 if (typeof(Storage) != "undefined") {
                     localStorage.setItem("started", "2");
+                    localStorage.setItem("endTime", date.getTime().toString());
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
