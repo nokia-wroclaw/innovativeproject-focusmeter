@@ -5,7 +5,7 @@ var Stopwatch = function(elem, options, startTime) {
   var timer       = createTimer(),
       //startButton = createButton("start", start),
       //stopButton  = createButton("stop", stop),
-      resetButton = createButton("reset", reset),
+      //resetButton = createButton("reset", reset),
       offset,
       startTime,
       clock,
