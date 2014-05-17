@@ -190,8 +190,7 @@ function SendVote(vote) {
             type: "POST",
             url: "http://antivps.pl:3033/vote",
             data: {
-
-                "mac": mac,
+                "voteTime" : (new Date()),
                 "meetingCode": MeetingCode,
                 "value": grade
             },
@@ -202,22 +201,23 @@ function SendVote(vote) {
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
+                if (jqXHR.status === 0) {
+                    alert("Verify network.");
+                } else if (jqXHR.status == 404) {
+                    alert("Requested page not found.");
+                } else if (jqXHR.status == 500) {
+                    alert("Internal Server Error.");
+                } else if (textStatus === "timeout") {
+                    alert("Time out error.");
+                } else {
+                    alert("Uncaught Error.\n" + jqXHR.responseText);
+                }
             }
         });
     }
     else {
-    	if (jqXHR.status === 0) {
-            alert("Verify network.");
-        } else if (jqXHR.status == 404) {
-            alert("Requested page not found.");
-        } else if (jqXHR.status == 500) {
-            alert("Internal Server Error.");
-        } else if (textStatus === "timeout") {
-            alert("Time out error.");
-        } else {
-            alert("Uncaught Error.\n" + jqXHR.responseText);
-        }
+        alert("You can't vote for this meeting yet. You can add new vote after " + ((milliseconds-diff)/1000) + " s");
+    	
     }
 
 

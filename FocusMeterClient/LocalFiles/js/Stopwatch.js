@@ -17,7 +17,7 @@ var Stopwatch = function(elem, options, startTime) {
   options.delay = options.delay || 1;
  
   
-  elem.appendChild(resetButton);
+  //elem.appendChild(resetButton);
   
   // initialize
   reset();

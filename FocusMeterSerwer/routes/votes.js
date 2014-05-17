@@ -57,7 +57,7 @@ var validateVote = function(vote, collecion)
 {	
 	var messages = [];
 	appendIf(vote.value < -2 || vote.value > 2 || isNaN(vote.value), messages, "incorrect vote value");	// value: [-2; 2]
-	appendIf(vote.mac.length != 17, messages, "incorrect vote mac");				//XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX
+	//appendIf(vote.mac.length != 17, messages, "incorrect vote mac");				//XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX
 	appendIf(vote.meetingCode.length != 5, messages, "incorrect vote meetingCode");	//XXXX
 	return messages;
 };
@@ -65,14 +65,14 @@ var validateVote = function(vote, collecion)
 exports.addVote = function(db) {
 	return function(req, res) {
 		var meetingCode = req.body.meetingCode;
-		var mac = req.body.mac;
+		var voteTime = req.body.voteTime;
 		var value = req.body.value;
 
 		var collection = db.get('votes');
 		
 		var vote = {
 			meetingCode : req.body.meetingCode,
-			mac : req.body.mac,
+			voteTime : req.body.voteTime,
 			value : req.body.value
         };
 
@@ -88,7 +88,7 @@ exports.addVote = function(db) {
 		
 	
 		collection.insert({
-			"mac" : vote.mac,
+			"voteTime" : vote.voteTime,
 			"meetingCode" : vote.meetingCode,
 			"value" : vote.value
 		}, function(err, doc) {
