@@ -237,7 +237,7 @@ exports.deleteAllMeetings = function(db) {
 
         collection.drop();
 
-        res.send("Skasowano wszystkie spotkania.");
+        res.send("All meetings has been deleted.");
     }
 
 }

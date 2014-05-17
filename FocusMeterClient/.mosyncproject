@@ -8,6 +8,7 @@
 </filter>
 </criteria>
 <properties>
+<property key="android:manifest.template" value="AndroidManifest.template"/>
 <property key="build.prefs:additional.libraries" value="MAUtil.lib, NativeUI.lib, MAFS.lib, Wormhole.lib, yajl.lib, Notification.lib"/>
 <property key="build.prefs:additional.libraries/Debug" value="MAUtilD.lib, NativeUID.lib, MAFSD.lib, WormholeD.lib, yajlD.lib, NotificationD.lib"/>
 <property key="build.prefs:gcc.warnings/Debug" value="10"/>

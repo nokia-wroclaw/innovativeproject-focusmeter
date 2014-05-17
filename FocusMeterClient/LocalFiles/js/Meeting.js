@@ -1,4 +1,4 @@
-MeetingCode = "";
+var meetingCode = "";
 
 function goBackToStartScreen() {
     window.location = './index.html';
@@ -18,20 +18,20 @@ $("#codeReadyButton").bind("click",
 
 function LoginToMeeting() {
 
-    MeetingCode = $("#code_1").val();
-    MeetingCode = MeetingCode + $("#code_2").val();
-    MeetingCode = MeetingCode + $("#code_3").val();
-    MeetingCode = MeetingCode + $("#code_4").val();
-    MeetingCode = MeetingCode + $("#code_5").val();
-    MeetingCode = MeetingCode.toUpperCase();
+    meetingCode = $("#code_1").val();
+    meetingCode = meetingCode + $("#code_2").val();
+    meetingCode = meetingCode + $("#code_3").val();
+    meetingCode = meetingCode + $("#code_4").val();
+    meetingCode = meetingCode + $("#code_5").val();
+    meetingCode = meetingCode.toUpperCase();
 
     //inserting into session html memory
 
     
-    
+    // Having adminCode in response is insecure (!)
     $.ajax({
         type: "GET",
-        url: "http://antivps.pl:3033/meeting/" + MeetingCode,
+        url: "http://antivps.pl:3033/meeting/" + meetingCode,
         success: function (data){
             if("_id" in data) {
                 
@@ -39,12 +39,13 @@ function LoginToMeeting() {
 
                     if (typeof (Storage) != "undefined") {
 
-                        localStorage.setItem("MeetingCode", data.meetingCode);
+                        localStorage.setItem("meetingCode", data.meetingCode);
 
                         localStorage.setItem("meetingCodeControl", data.adminCode);
+                        localStorage.setItem("meetingTitle", data.title);
                     }
 
-                    if(MeetingCode === data.meetingCode) {
+                    if(meetingCode === data.meetingCode) {
                         if(!("start" in data)) {
                             alert("The meeting hasn't been started yet.");
                         }
@@ -56,7 +57,7 @@ function LoginToMeeting() {
                             window.location = './GradeMeeting.html';
                         }
                     }
-                    else if(MeetingCode === data.adminCode) {
+                    else if(meetingCode === data.adminCode) {
                             if (typeof (Storage) != "undefined") {
                                 var dateTmp;
 
@@ -89,7 +90,7 @@ function LoginToMeeting() {
 
             }
             else {
-                alert("There's no meeting with code: " + MeetingCode);
+                alert("There's no meeting with code: " + meetingCode);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -158,9 +159,9 @@ function SendVote(vote) {
 
 
 
-    //retriving MeetingCode from session memoty
+    //retriving meetingCode from session memoty
     if (typeof (Storage) != "undefined") {
-        MeetingCode = localStorage.getItem("MeetingCode");
+        meetingCode = localStorage.getItem("meetingCode");
 
         if (localStorage.getItem("voteTime") != null) {
             timeOfVote = new Date(localStorage.getItem("voteTime"));
@@ -172,7 +173,7 @@ function SendVote(vote) {
         }
     }
     else {
-        MeetingCode = "dupa";
+        meetingCode = "dupa";
         timeOfVote = new Date();
     }
 
@@ -191,7 +192,7 @@ function SendVote(vote) {
             url: "http://antivps.pl:3033/vote",
             data: {
                 "voteTime" : (new Date()),
-                "meetingCode": MeetingCode,
+                "meetingCode": meetingCode,
                 "value": grade
             },
             processData: true,
@@ -216,7 +217,7 @@ function SendVote(vote) {
         });
     }
     else {
-        alert("You can't vote for this meeting yet. You can add new vote after " + ((milliseconds-diff)/1000) + " s");
+        alert("You can't vote for this meeting yet.\nYou can add new vote after " + ((milliseconds-diff)/1000) + " s");
     	
     }
 

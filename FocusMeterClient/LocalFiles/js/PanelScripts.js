@@ -1,10 +1,27 @@
+var histData = null;
+var graphData = [
+                 ['Time', 'Opinion',],
+                 ['12:30', 0],
+                 ['12:35', 1],
+                 ['12:40', 1.7],
+                 ['12:50', 1.6],
+                 ['13:05', 0.7],
+                 ['13:10', 0.2],
+                 ['13:15', - 0.5],
+                 ['13:20', 0],
+                 ['13:25', 0.2],
+             ];
 
-
+// google charts..
+google.load("visualization", "1", {
+    packages: ["corechart"]
+});
+google.setOnLoadCallback(redrawCharts);
 
 
 $(document).ready(function() {
 
-    var MeetingCode;
+    var meetingCode;
     var adminCode;
     var started;
 
@@ -13,17 +30,17 @@ $(document).ready(function() {
     initStartEndButton();
 
     if (typeof(Storage) != "undefined") {
-        MeetingCode = localStorage.getItem("MeetingCode");
+        meetingCode = localStorage.getItem("meetingCode");
         adminCode = localStorage.getItem("meetingCodeControl");
     } else {
-        MeetingCode = "dupa";
+        meetingCode = "dupa";
     }
 
-    $("#code_1").val(MeetingCode.charAt(0));
-    $("#code_2").val(MeetingCode.charAt(1));
-    $("#code_3").val(MeetingCode.charAt(2));
-    $("#code_4").val(MeetingCode.charAt(3));
-    $("#code_5").val(MeetingCode.charAt(4));
+    $("#code_1").val(meetingCode.charAt(0));
+    $("#code_2").val(meetingCode.charAt(1));
+    $("#code_3").val(meetingCode.charAt(2));
+    $("#code_4").val(meetingCode.charAt(3));
+    $("#code_5").val(meetingCode.charAt(4));
 
     $("#adminCode_1").val(adminCode.charAt(0));
     $("#adminCode_2").val(adminCode.charAt(1));
@@ -31,24 +48,36 @@ $(document).ready(function() {
     $("#adminCode_4").val(adminCode.charAt(3));
     $("#adminCode_5").val(adminCode.charAt(4));
 
-    getVotes(MeetingCode);
+    getVotes(meetingCode);
 
-    setInterval(function(){getVotes(MeetingCode)}, 30000);
+    setInterval(function(){getVotes(meetingCode)}, 10000);
 
     $("#changeTime").click(function() {startAndStop(adminCode)});
 
-    $(window).resize(function() {
-        getVotes(MeetingCode);
-    })
+    // Redraw charts on tab click or resize
+    $('#myTab a').click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+    }).on('shown.bs.tab', redrawCharts);
+    $(window).resize(redrawCharts);
 
-    
 });
 
 
-function getVotes(MeetingCode) {
+function redrawCharts() {
+	if (histData !== null) {
+        drawHistogram();
+	}
+	if (graphData !== null) {
+		drawGraph();
+	}
+}
+
+
+function getVotes(meetingCode) {
     $.ajax({
         type: "GET",
-        url: "http://antivps.pl:3033/vote/average/" + MeetingCode,
+        url: "http://antivps.pl:3033/vote/average/" + meetingCode,
         success: function(data) {
             refreshProgressBar(data.value);
         },
@@ -59,8 +88,9 @@ function getVotes(MeetingCode) {
 
     $.ajax({
         type: "GET",
-        url: "http://antivps.pl:3033/vote/" + MeetingCode,
+        url: "http://antivps.pl:3033/vote/" + meetingCode,
         success: function(data) {
+        	histData = data;
             drawHistogram(data);
         },
         error: function(jqXHRm, textStatus, errorThrown) {
@@ -108,13 +138,10 @@ function refreshProgressBar(average) {
 
 function drawHistogram(data) {
 
-    //google charts..
-    google.load("visualization", "1", {
-        packages: ["corechart"]
-    });
-    google.setOnLoadCallback(drawHistogram);
+	// Take data from current or previous response
+	data = data || histData;
 
-    var data = google.visualization.arrayToDataTable(
+    var formatedData = google.visualization.arrayToDataTable(
         convertJsonToGoogleFormat(data));
 
     var options = {
@@ -138,7 +165,7 @@ function drawHistogram(data) {
 
     var chart = new google.visualization.ColumnChart(chartDiv);
 
-    chart.draw(data, options);
+    chart.draw(formatedData, options);
 }
 
 
@@ -161,25 +188,12 @@ function convertJsonToGoogleFormat(votesData) {
 }
 
 
-google.load("visualization", "1", {
-    packages: ["corechart"]
-});
-google.setOnLoadCallback(drawGraph);
+function drawGraph(data) {
 
-function drawGraph() {
-    var data = google.visualization.arrayToDataTable([
-        ['Time', 'Opinion',],
-        ['12:30', 0],
-        ['12:35', 1],
-        ['12:40', 1.7],
-        ['12:50', 1.6],
-        ['13:05', 0.7],
-        ['13:10', 0.2],
-        ['13:15', - 0.5],
-        ['13:20', 0],
-        ['13:25', 0.2],
-        
-    ]);
+	// Take data from current or previous response
+	data = data || graphData;
+
+    var formatedData = google.visualization.arrayToDataTable(data);
 
     var options = {
     title: 'Graph',
@@ -197,17 +211,13 @@ function drawGraph() {
   };
 
     var chart = new google.visualization.LineChart(document.getElementById('graph_div'));
-    chart.draw(data, options);
+    chart.draw(formatedData, options);
 }
-//..google charts
 
 
 function goBackToStartScreen() {
     window.location = './index.html';
 }
-
-
-
 
 
 function initTimer() {
@@ -280,7 +290,7 @@ function initStartEndButton() {
 /**
  * Function gets average vote value from server with specific meeting code and changes progress bar
  * which shows average grade.
- * @param {string} MeetingCode - meeting code generated by server.
+ * @param {string} meetingCode - meeting code generated by server.
  */
 
 
@@ -311,7 +321,7 @@ var startAndStop = function(adminCode) {
             },
             processData: true,
             success: function(data) {
-                alert(JSON.stringify(data));
+                alert(data.message);
 
                 if (typeof(Storage) != "undefined") {
                     localStorage.setItem("started", "1");
@@ -334,7 +344,7 @@ var startAndStop = function(adminCode) {
             },
             processData: true,
             success: function(data) {
-                alert(JSON.stringify(data));
+                alert(data.message);
 
                 if (typeof(Storage) != "undefined") {
                     localStorage.setItem("started", "2");

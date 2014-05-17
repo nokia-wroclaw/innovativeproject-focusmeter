@@ -9,7 +9,7 @@ exports.getVotes = function(db) {
 
 		collection.find({"meetingCode" : req.params.meeting}, function(e, docs) {
 			if(e) {
-				res.send("Błąd w dostępie do bazy danych.")
+				res.send("An error occurred while trying to access the database.")
 			}
 			else
 			{
@@ -93,11 +93,11 @@ exports.addVote = function(db) {
 			"value" : vote.value
 		}, function(err, doc) {
 			if(err) {
-				res.send("Blad przy oddawaniu glosu.");
+				res.send("Voting attempt failed!");
 			}
 			else
 			{
-				res.send("Dodano glos");
+				res.send("Your vote has been received!");
 		}
 		})
 	}

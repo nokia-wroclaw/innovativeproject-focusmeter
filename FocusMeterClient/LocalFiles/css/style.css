@@ -1,0 +1,32 @@
+h2 {
+	color: whitesmoke;
+	text-align: center;
+	font-style: italic;
+	font-size: x-large;
+}
+
+h3 {
+	color: whitesmoke;
+	font-size: large;
+}
+
+.stopwatch {
+	font-size: 2em;
+	text-align: center;	
+}
+
+.progress {
+	height: 45px;
+}
+
+.legend {
+	color: whitesmoke;
+	text-align: center;
+	font-style: italic;
+	font-size: x-large;
+	margin-bottom: 0;
+}
+
+.cancel {
+	margin-top: 20px;
+}

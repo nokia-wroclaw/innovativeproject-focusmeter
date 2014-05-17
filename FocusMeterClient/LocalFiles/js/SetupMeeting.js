@@ -47,7 +47,7 @@ $(document).ready(function () {
             },
             processData: true,
             success: function (data) {
-                alert("Utworzono spotkanie! Kod spotkania: " + data.meetingCode);
+                alert("Meeting created!\nMeeting code: " + data.meetingCode);
                 $("#code_1").val(data.meetingCode.charAt(0));
                 $("#code_2").val(data.meetingCode.charAt(1));
                 $("#code_3").val(data.meetingCode.charAt(2));

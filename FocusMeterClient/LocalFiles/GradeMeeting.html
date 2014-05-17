@@ -10,19 +10,17 @@ author: Maciej Baj
 -->
 <html>
 <head>
-    <!--<meta name="viewport" content="width=320, user-scalable=no">-->
-    <!--<meta http-equiv="Content-type" content="text/html; charset=utf-8">-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>Focus Meter</title>
-
     <link rel="stylesheet" href="./css/bootstrap.css" type="text/css">
-   
+    <link rel="stylesheet" href="./css/style.css" type="text/css">
 
 
 </head>
 <body>
     <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-3">
+        <div class="col-sm-offset-4 col-sm-4">
             <div class="jumbotron">
                 <h1>Focus Meter</h1>
                 <p>Grade the meeting</p>
@@ -32,7 +30,7 @@ author: Maciej Baj
             <!--<h2 style="text-align: center">"Bash Scripting"</h2>-->
             <br />
             <fieldset>
-                <legend style="color: whitesmoke; text-align: center; font-style: italic; font-size: x-large">"Bash Scripting"</legend>
+                <legend class="legend"></legend>
             </fieldset>
             <br />
             <input type="button" id="voteGrade2" class="btn btn-lg btn-success btn-block" onclick="SendVote(this)" value="AWESOME" />
@@ -45,7 +43,7 @@ author: Maciej Baj
             <br />
             <input type="button" id="voteGrade-2" class="btn btn-lg btn-danger btn-block" onclick="SendVote(this)" value="DISASTER" />
             <br />
-            <input type="button" class="btn btn-md  btn-block" onclick="goBackToStartScreen()" value="Cancel" />
+            <input type="button" class="cancel btn btn-md btn-block" onclick="goBackToStartScreen()" value="Cancel" />
         </div>
 
     </div>
@@ -55,13 +53,19 @@ author: Maciej Baj
     <!-- <div id="ThanksForVoteModal" class="fade" ></div> -->
     
     
-    
-    <script src="./js/jquery-1.8.2.js"></script>
-    <script type="text/javascript" src="./js/Meeting.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="./js/jquery-1.8.2.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/Meeting.js"></script>
+
+
+    <script type="text/javascript">
+	$(document).ready(function() {
+	    if (typeof (Storage) != "undefined") {
+	    	$('.legend').text('"' + localStorage.getItem("meetingTitle") + '"');
+	    }
+	});
+    </script>
 
 
 </body>

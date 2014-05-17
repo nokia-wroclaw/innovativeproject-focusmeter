@@ -69,7 +69,7 @@ var Stopwatch = function(elem, options, startTime) {
 
       $('#changeTime').toggleClass('btn-danger');
       $('#changeTime').toggleClass('btn-info');
-      $('#changeTime').attr('value', 'meeting finshed');
+      $('#changeTime').attr('value', 'Meeting finshed');
       $('#changeTime').attr('disabled', 'true');
 
     }
@@ -90,7 +90,7 @@ var Stopwatch = function(elem, options, startTime) {
 
       $('#changeTime').toggleClass('btn-success');
       $('#changeTime').toggleClass('btn-info');
-      $('#changeTime').attr('value', 'meeting finshed');
+      $('#changeTime').attr('value', 'Meeting finshed');
       $('#changeTime').attr('disabled', 'true');
 
       }
@@ -100,7 +100,7 @@ var Stopwatch = function(elem, options, startTime) {
       $('#changeTime').toggleClass('btn-danger');
       $('#changeTime').toggleClass('btn-success');
       
-      $('#changeTime').attr('value', 'end meeting');
+      $('#changeTime').attr('value', 'End meeting');
       }
       
 
