@@ -37,6 +37,10 @@ $(document).ready(function() {
 
     $("#changeTime").click(function() {startAndStop(adminCode)});
 
+    $(window).resize(function() {
+        getVotes(MeetingCode);
+    })
+
     
 });
 
@@ -120,10 +124,10 @@ function drawHistogram(data) {
         bar: {
             groupWidth: "85%"
         },
-        // chartArea: {
-        //     width: "80%",
-        //     height: "70%"
-        // },
+        chartArea: {
+            width: "80%",
+            height: "70%"
+        },
         legend: {
             position: "none"
         },
