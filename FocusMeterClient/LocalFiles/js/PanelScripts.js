@@ -279,7 +279,7 @@ function initStartEndButton() {
     // If the meeting is finished, disable timer button.
     if (isStarted == '2') {
         $('#changeTime').toggleClass('btn-info');
-        $('#changeTime').attr('value', 'meeting finshed');
+        $('#changeTime').attr('value', 'Meeting finshed');
         $('#changeTime').attr('disabled', 'true');
     }
 
