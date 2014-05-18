@@ -6,7 +6,10 @@ function goBackToStartScreen() {
 function goToGradeScreen() {
     //window.location = './GradeMeeting.html';
 }
-
+/*
+Funkcja umo¿liwia szybsze i bardziej intuicyjne wpisywanie kodu. Przyjmuj¹c w argumencie 2 elementy: Ÿród³owy i docelowy,
+zaznacza docelowy jako aktywny po wpisaniu jednego znaku w elemencie Ÿród³owym.
+*/
 function autotab(current, to) {
     if (current.getAttribute &&
       current.value.length == "1") {

@@ -3,9 +3,6 @@
 var Stopwatch = function(elem, options, startTime) {
   
   var timer       = createTimer(),
-      //startButton = createButton("start", start),
-      //stopButton  = createButton("stop", stop),
-      //resetButton = createButton("reset", reset),
       offset,
       startTime,
       clock,
@@ -37,7 +34,9 @@ var Stopwatch = function(elem, options, startTime) {
     });
     return a;
   }
-  
+    /*
+  Funkcja start ustawia odpowiednie wartoœci zmiennej offset. Jest ona nastêpnie odejmowana od bie¿¹cej daty, co pozwoli na uzyskanie czasu trwania spoktania. 
+  */
   function start() {
     if (!interval) {
       if(typeof offset == 'undefined'){
@@ -53,13 +52,11 @@ var Stopwatch = function(elem, options, startTime) {
       interval = setInterval(update, options.delay);
       isRunning = true;
 
-      //saving time of meeting for the first time only
-      // if(localStorage.started == '0'){
-      //      localStorage.setItem("startTime", (new Date()).getTime().toString());
-      // }
     }
   }
-  
+    /*
+  Funkcja stop czyœci zmienne isntancji obiektu Stopwatch oraz modyfikuje wygl¹d przycisku koñcz¹cego b¹dŸ zaczynaj¹cego spotkanie
+  */
   function stop() {
     if (interval) {
       clearInterval(interval);
@@ -74,14 +71,15 @@ var Stopwatch = function(elem, options, startTime) {
 
     }
   }
-  
+
+    /*
+    Funkcja execute jest wywo³ywana po naciœniêciu przycisku rozpoczynaj¹cego b¹dŸ koñcz¹cego spotkanie. 
+    Jej zadaniem jest zakoñczenie b¹dŸ rozpocz¹cie pracy stopera aplikacji, jak równie¿ stosowne do statusu spotkania zmodyfikowanie elementów jego widoku.
+    */
   function execute(){
     if(isRunning){
       this.stop();
-      //changing style and text of button
-     
-      
-    }
+        }
     else {
       
 
@@ -114,12 +112,20 @@ var Stopwatch = function(elem, options, startTime) {
     clock = 0;
     render(0);
   }
-  
+    /*
+  Funkcja powiêksza liczony czas o d³ugoœæ odœwie¿eñ zegara, a nastêpnie wywo³uje funkcjê render (1.2.7.3)
+
+  */
   function update() {
     clock += delta();
     render();
   }
-  
+    /*
+    funkcja wywo³ywana co sekunde. Odczytuje obecny czas trwania spotkania, przelicza go na sekundy, 
+    a wywo³uj¹c funkcjê String.toHHMMSS zamienia go na format przyjazny dla u¿ytkownika. Zmienna timeToAdd odczytywana 
+    z pamiêci urz¹dzenia gwarantuje nam, ¿e informacje o rzeczywistym czasie trwania spotkania zostan¹ uwzglêdnione nawet
+    po zakoñczeniu obecnej sesji oraz zniszczeniu aktualnego obiektu Stopwatch
+    */
   function render() {
     
     //w formacie ilosci sekund
@@ -137,7 +143,10 @@ var Stopwatch = function(elem, options, startTime) {
     var TimeTillBegin = SecondsString.toHHMMSS();
     $('#htmlTimer').attr("value", TimeTillBegin );
   }
-  
+    /*
+  Funkcja oblicza aktualn¹ ró¿nicê czasu dla koljenych odœwie¿eñ stopera.
+
+  */
   function delta() {
     var now = Date.now(),
         d   = now - offset;
@@ -152,6 +161,11 @@ var Stopwatch = function(elem, options, startTime) {
   this.reset  = reset;
   this.execute = execute;
 };
+
+/*
+funkcja operuja na oniektach typu string. Dowolna iloœæ (liczba ca³kowita dodatnia) mo¿e byæ zamieniona na format czytelny dla oka ludzkiego,
+a tak¿e akceptowalny przez input typu time obiektu HTML5, czyli czas w postaci HH:MM:SS (np. 10:32:11)
+*/
 
 String.prototype.toHHMMSS = function () {
     var sec_num = parseInt(this, 10); // don't forget the second param

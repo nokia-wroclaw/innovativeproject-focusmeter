@@ -19,6 +19,18 @@ google.load("visualization", "1", {
 google.setOnLoadCallback(redrawCharts);
 
 
+/*
+Przejœcie do widoku Charts, bêd¹cego panalem widocznym tylko dla prowadz¹cego spotkanie powoduje wyzwolenie funckcji ‘$(document).ready’. 
+Wywo³ywana jest  w niej funkcja initTimer() (1.2.2), a nastêpnie initStartEndButton() (1.2.3). Do obecnego widoku mo¿emy 
+dostaæ siê tylko loguj¹c siê na odpowiednie spotkanie w widoku JoinMeeting. Uzupe³nia ona pamiêæ LocalStorage urz¹dzenia
+o pola meetingCode oraz adminCode, które s¹ przypisywane zmiennym.
+Widoczne dla u¿ytkownika pola code- informuj¹ce o kodzie bie¿¹cego spotkania oraz adminCode zostaj¹ 
+uzupe³nione o odpowiednio sformatowany tekst ze zmeinnych meetinfCode oraz adminCode. 
+Wywo³ana zostaje funkcja getVotes (1.2.4), która w argumencie przyjmuje kod spotkania, a tak¿e funkcje 
+setInterval (1.2.6) oraz StartAndStop (1.2.6) w wypadku klikniêcia przycisku odpowiadaj¹cego za rozpoczêcia lub zakoñczenie spotkania.
+
+*/
+
 $(document).ready(function() {
 
     var meetingCode;
@@ -108,7 +120,10 @@ function getVotes(meetingCode) {
         }
     });
 };
-
+/**
+Funkcja przyjmuj¹c w argumencie aktualn¹ ocenê spotkania (liczba rzeczywista z zakresu -2 do 2), przelicza j¹ na wartoœæ procentow¹.
+W oparciu o obliczon¹ wartoœæ uzupe³nia wskaŸnik jakoœci spotkania- progressBar, definiuj¹c jego rozmiar oraz nadaj¹c mu odpowiedni kolor
+*/
 
 function refreshProgressBar(average) {
     var gradePercent = ((average + 2) / 4) * 100;
@@ -219,7 +234,17 @@ function goBackToStartScreen() {
     window.location = './index.html';
 }
 
+/*
+Funkcja odpowiada za poprawne wyœwietlenie wartoœci na stoperze spotkania, jak równie¿ dba o ustawienie przycisku rozpoczynaj¹cego
+lub koñcz¹cego spotkanie w odpowiedni stan. Jest wywo³ywana za ka¿dym razem, gdy u¿ytkownik zaloguje sie na spotkanie - obejmuje to
+równie¿ przypadek, gdy urz¹dzenie prowadz¹cego zostanie odblokwane. Funkcja musi dzia³aæ poprawnie uwzglêdniaj¹c ostatni rzeczywisty 
+stan spotkania. W oparciu o aktualny stan spotkania, zapamiêtany w pamiêci urz¹dzenia czas startu spotkania oraz czas bie¿¹cy, pola widoku s¹ odpowiednio konfigurowane.
+Kolejna czêœæ funkcji odpowiada za poprawne wystartowanie stopera. W oparciu o czas trwania odbywaj¹cego siê spotkania uzupe³niane jest 
+pole timeToAdd pamiêci urz¹dzenia. Zmienna ta zostanie dodawana za ka¿dym razem do czasu pokazywanego na stoperze. Tworzony zostaje nowy 
+obiekt Stopwatch (1.2.7) z odstêpem czasu aktualizacji zegara co 1 sekundê oraz czasem trwania spotkania. Gdy status spotkania jest równy 1,
+znaczy to, ¿e spotkanie trwa. Musimy wiêc wystartowaæ stoper korzystaj¹c z funkcji obiektu Stopwatch execute (1.2.7.1)
 
+*/
 function initTimer() {
     var isStarted = localStorage.getItem("started");
     
@@ -271,8 +296,9 @@ function initTimer() {
 
     }
 }
-
-
+/*
+Funkcja ma za zadanie wype³nienia odpowiedni¹ zawartoœci¹ przycisku koñcz¹cego lub zaczynaj¹cego spotkanie, w wypadku jego zakoñczenia.
+*/
 function initStartEndButton() {
     var isStarted = localStorage.started;
 
