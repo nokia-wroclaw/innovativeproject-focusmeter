@@ -59,6 +59,7 @@ app.get('/meeting/:m', meetings.exists(db));
 app.get('/deleteAllMeetings', meetings.deleteAllMeetings(db));
 app.get('/vote/average/:meeting', meetings.getMeetingVotesValue(db));
 app.get('/vote/:meeting', votes.getVotes(db));
+app.get('/lav/:meeting', meetings.getLastAverageVotes(db));
 
 app.post('/vote', votes.addVote(db));
 app.post('/meeting', meetings.addMeeting(db));
