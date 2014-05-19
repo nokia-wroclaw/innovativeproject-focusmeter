@@ -1,16 +1,5 @@
 var histData = null;
-var graphData = [
-                 ['Time', 'Opinion',],
-                 ['12:30', 0],
-                 ['12:35', 1],
-                 ['12:40', 1.7],
-                 ['12:50', 1.6],
-                 ['13:05', 0.7],
-                 ['13:10', 0.2],
-                 ['13:15', - 0.5],
-                 ['13:20', 0],
-                 ['13:25', 0.2],
-             ];
+var graphData = null;
 
 // google charts..
 google.load("visualization", "1", {
@@ -61,8 +50,16 @@ $(document).ready(function() {
     $("#adminCode_5").val(adminCode.charAt(4));
 
     getVotes(meetingCode);
+    getAverages(meetingCode);
 
-    setInterval(function(){getVotes(meetingCode)}, 10000);
+
+    setInterval(function(){
+        getVotes(meetingCode)
+    }, 10000);
+
+    setInterval(function(){
+        getAverages(meetingCode)
+    }, 60000);
 
     
 
@@ -94,39 +91,77 @@ function redrawCharts() {
  * @param meetingCode - kod spotkania, którego głosy chcemy dostać z serwera
  */
 function getVotes(meetingCode) {
-    $.ajax({
-        type: "GET",
-        url: "http://antivps.pl:3033/vote/average/" + meetingCode,
-        success: function(data) {
-            refreshProgressBar(data.value);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
-        }
-    });
+    var isStarted = localStorage.getItem("started");
 
-    $.ajax({
-        type: "GET",
-        url: "http://antivps.pl:3033/vote/" + meetingCode,
-        success: function(data) {
-        	histData = data;
-            drawHistogram(data);
-        },
-        error: function(jqXHRm, textStatus, errorThrown) {
-            if (jqXHR.status === 0) {
-                alert("Verify network.");
-            } else if (jqXHR.status == 404) {
-                alert("Requested page not found.");
-            } else if (jqXHR.status == 500) {
-                alert("Internal Server Error.");
-            } else if (textStatus === "timeout") {
-                alert("Time out error.");
-            } else {
-                alert("Uncaught Error.\n" + jqXHR.responseText);
+    if(isStarted == "1") {
+        $.ajax({
+            type: "GET",
+            url: "http://antivps.pl:3033/vote/average/" + meetingCode,
+            success: function(data) {
+                refreshProgressBar(data.value);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
             }
-        }
-    });
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "http://antivps.pl:3033/vote/" + meetingCode,
+            success: function(data) {
+            	histData = data;
+                drawHistogram(data);
+            },
+            error: function(jqXHRm, textStatus, errorThrown) {
+                if (jqXHR.status === 0) {
+                    alert("Verify network.");
+                } else if (jqXHR.status == 404) {
+                    alert("Requested page not found.");
+                } else if (jqXHR.status == 500) {
+                    alert("Internal Server Error.");
+                } else if (textStatus === "timeout") {
+                    alert("Time out error.");
+                } else {
+                    alert("Uncaught Error.\n" + jqXHR.responseText);
+                }
+            }
+        });
+    }
 };
+
+/**
+ * Funkcja pobierająca z serwera dane o średniej głosów z danego spotkania z ostatnich 10 minut.
+ * Dane te są przekazywane do funkcji rysującej wykres liniowy.
+ * @param meetingCode - kod spotkania
+ */
+function getAverages(meetingCode) {
+    var isStarted = localStorage.getItem("started");
+
+    if(isStarted == "1") {
+        $.ajax({
+            type: "GET",
+            url: "http://antivps.pl:3033/lav/" + meetingCode,
+            success: function(data) {
+                graphData = data;
+                drawGraph(data);
+            },
+            error: function(jqXHRm, textStatus, errorThrown) {
+                if (jqXHR.status === 0) {
+                    alert("Verify network.");
+                } else if (jqXHR.status == 404) {
+                    alert("Requested page not found.");
+                } else if (jqXHR.status == 500) {
+                    alert("Internal Server Error.");
+                } else if (textStatus === "timeout") {
+                    alert("Time out error.");
+                } else {
+                    alert("Uncaught Error.\n" + jqXHR.responseText);
+                }
+            }
+        });
+    }
+};
+
 /**
 Funkcja przyjmuj¹c w argumencie aktualn¹ ocenê spotkania (liczba rzeczywista z zakresu -2 do 2), przelicza j¹ na wartoœæ procentow¹.
 W oparciu o obliczon¹ wartoœæ uzupe³nia wskaŸnik jakoœci spotkania- progressBar, definiuj¹c jego rozmiar oraz nadaj¹c mu odpowiedni kolor
@@ -184,6 +219,12 @@ function drawHistogram(data) {
         legend: {
             position: "none"
         },
+        hAxis: {
+            title: "Grade name"
+        },
+        vAxis: {
+            title: "Number of votes"
+        },
         dataOpacity: 0.9,
     };
 
@@ -213,21 +254,43 @@ function convertJsonToGoogleFormat(votesData) {
     return resultArray;
 }
 
-
+/**
+ * Funkcja rysująca wykres liniowy na podstawie otrzymanych z serwera danych.
+ * @param data - tablica obiektów JSON zawierająca informację o średniej głosów z ostatnich 10 min.
+ */
 function drawGraph(data) {
 
+    if(graphData.length === 0) {
+        graphData = [
+        {
+            "average" : 0,
+            "time" : 0
+        }];
+    }
 	// Take data from current or previous response
 	data = data || graphData;
 
-    var formatedData = google.visualization.arrayToDataTable(data);
+    var formatedData = google.visualization.arrayToDataTable(
+        convertJsonArrayToGoogleFormat(data));
 
     var options = {
     title: 'Graph',
-    curveType: 'function',
+    curveType: 'none',
     legend: { position: 'none' },
     vAxis: {
         minValue: -2,
-        maxValue: 2
+        maxValue: 2,
+        title: "Average",
+        ticks: [
+            {v: -2, f:"Disaster"}, 
+            {v: -1, f:"Boring"},
+            {v: 0, f:"OK"},
+            {v: 1, f:"Great"},
+            {v: 2, f:"Awesome"}
+        ]
+    },
+    hAxis: {
+        title: "Minutes from the begining"
     },
     // chartArea: {
     //         width: "80%",
@@ -238,6 +301,20 @@ function drawGraph(data) {
 
     var chart = new google.visualization.LineChart(document.getElementById('graph_div'));
     chart.draw(formatedData, options);
+}
+
+/**
+ * Funkcja konwertująca tablicę obiektów JSON na tablicę wymaganą przez Google Charts API.
+ * @param votesArray - tablica zawierająca dane o średniej głosów.
+ */
+function convertJsonArrayToGoogleFormat(votesArray) {
+    var resultArray = [["Time from begining", "Average"]];
+
+    for (var i = 0; i < votesArray.length; i++) {
+        resultArray.push([votesArray[i].time, votesArray[i].average]);
+    }
+
+    return resultArray;
 }
 
 
@@ -323,16 +400,6 @@ function initStartEndButton() {
     // If the meeting is still running, we don't need to change button, because it is already done in 
     // dTimer.execute()
 }
-
-/**
- * Function gets average vote value from server with specific meeting code and changes progress bar
- * which shows average grade.
- * @param {string} meetingCode - meeting code generated by server.
- */
-
-
-
-
 
 /**
  * Funkcja wysyłająca do serwera zapytanie o wystartowanie lub zatrzymanie danego spotkania.
