@@ -20,14 +20,14 @@ google.setOnLoadCallback(redrawCharts);
 
 
 /*
-Przejœcie do widoku Charts, bêd¹cego panalem widocznym tylko dla prowadz¹cego spotkanie powoduje wyzwolenie funckcji ‘$(document).ready’. 
-Wywo³ywana jest  w niej funkcja initTimer() (1.2.2), a nastêpnie initStartEndButton() (1.2.3). Do obecnego widoku mo¿emy 
-dostaæ siê tylko loguj¹c siê na odpowiednie spotkanie w widoku JoinMeeting. Uzupe³nia ona pamiêæ LocalStorage urz¹dzenia
-o pola meetingCode oraz adminCode, które s¹ przypisywane zmiennym.
-Widoczne dla u¿ytkownika pola code- informuj¹ce o kodzie bie¿¹cego spotkania oraz adminCode zostaj¹ 
-uzupe³nione o odpowiednio sformatowany tekst ze zmeinnych meetinfCode oraz adminCode. 
-Wywo³ana zostaje funkcja getVotes (1.2.4), która w argumencie przyjmuje kod spotkania, a tak¿e funkcje 
-setInterval (1.2.6) oraz StartAndStop (1.2.6) w wypadku klikniêcia przycisku odpowiadaj¹cego za rozpoczêcia lub zakoñczenie spotkania.
+PrzejÅ“cie do widoku Charts, bÃªdÂ¹cego panalem widocznym tylko dla prowadzÂ¹cego spotkanie powoduje wyzwolenie funckcji â€˜$(document).readyâ€™. 
+WywoÂ³ywana jest  w niej funkcja initTimer() (1.2.2), a nastÃªpnie initStartEndButton() (1.2.3). Do obecnego widoku moÂ¿emy 
+dostaÃ¦ siÃª tylko logujÂ¹c siÃª na odpowiednie spotkanie w widoku JoinMeeting. UzupeÂ³nia ona pamiÃªÃ¦ LocalStorage urzÂ¹dzenia
+o pola meetingCode oraz adminCode, ktÃ³re sÂ¹ przypisywane zmiennym.
+Widoczne dla uÂ¿ytkownika pola code- informujÂ¹ce o kodzie bieÂ¿Â¹cego spotkania oraz adminCode zostajÂ¹ 
+uzupeÂ³nione o odpowiednio sformatowany tekst ze zmeinnych meetinfCode oraz adminCode. 
+WywoÂ³ana zostaje funkcja getVotes (1.2.4), ktÃ³ra w argumencie przyjmuje kod spotkania, a takÂ¿e funkcje 
+setInterval (1.2.6) oraz StartAndStop (1.2.6) w wypadku klikniÃªcia przycisku odpowiadajÂ¹cego za rozpoczÃªcia lub zakoÃ±czenie spotkania.
 
 */
 
@@ -64,6 +64,8 @@ $(document).ready(function() {
 
     setInterval(function(){getVotes(meetingCode)}, 10000);
 
+    
+
     $("#changeTime").click(function() {startAndStop(adminCode)});
 
     // Redraw charts on tab click or resize
@@ -85,7 +87,12 @@ function redrawCharts() {
 	}
 }
 
-
+/**
+ * Funkcja wysyÅ‚ajÄ…ca do serwera zapytanie o informacjÄ™ o gÅ‚osach spotkania o zadanym w parametrze kodzie spotkania.
+ * Pobiera z serwera informacjÄ™ o aktualnej Å›redniej gÅ‚osÃ³w, a takÅ¼e o dokÅ‚adnym rozÅ‚oÅ¼eniu gÅ‚osÃ³w. Otrzymane dane sÄ… pÃ³Åºniej
+ * przekazywane do funkcji rysujÄ…cych wykresy.
+ * @param meetingCode - kod spotkania, ktÃ³rego gÅ‚osy chcemy dostaÄ‡ z serwera
+ */
 function getVotes(meetingCode) {
     $.ajax({
         type: "GET",
@@ -121,8 +128,8 @@ function getVotes(meetingCode) {
     });
 };
 /**
-Funkcja przyjmuj¹c w argumencie aktualn¹ ocenê spotkania (liczba rzeczywista z zakresu -2 do 2), przelicza j¹ na wartoœæ procentow¹.
-W oparciu o obliczon¹ wartoœæ uzupe³nia wskaŸnik jakoœci spotkania- progressBar, definiuj¹c jego rozmiar oraz nadaj¹c mu odpowiedni kolor
+Funkcja przyjmujÂ¹c w argumencie aktualnÂ¹ ocenÃª spotkania (liczba rzeczywista z zakresu -2 do 2), przelicza jÂ¹ na wartoÅ“Ã¦ procentowÂ¹.
+W oparciu o obliczonÂ¹ wartoÅ“Ã¦ uzupeÂ³nia wskaÅ¸nik jakoÅ“ci spotkania- progressBar, definiujÂ¹c jego rozmiar oraz nadajÂ¹c mu odpowiedni kolor
 */
 
 function refreshProgressBar(average) {
@@ -151,6 +158,10 @@ function refreshProgressBar(average) {
     }
 };
 
+/**
+ * Funkcja rysujÄ…ca histogram na podstawie otrzymanych z serwera danych.
+ * @param data - obiekt JSON zawierajÄ…cy dokÅ‚adnÄ… informacjÄ™ o gÅ‚osach
+ */ 
 function drawHistogram(data) {
 
 	// Take data from current or previous response
@@ -185,10 +196,10 @@ function drawHistogram(data) {
 
 
 /**
- * Function converting the JSON object returned by Focus Meter Server to an array
- * needed by Google Charts API.
- * @param votesData - object with number of votes
- * @return an array.
+ * Funkcja konwertujÄ…ca obiekt JSON otrzymany z serwera na tablicÄ™
+ * wymaganÄ… do narysowania wykresu przez Google Chart API.
+ * @param votesData - obiekt z informacjÄ… o gÅ‚osach
+ * @return skonwertowana tablica.
  */
 function convertJsonToGoogleFormat(votesData) {
     var resultArray = [['Grade', 'Votes', {role: 'style'}]];
@@ -235,14 +246,14 @@ function goBackToStartScreen() {
 }
 
 /*
-Funkcja odpowiada za poprawne wyœwietlenie wartoœci na stoperze spotkania, jak równie¿ dba o ustawienie przycisku rozpoczynaj¹cego
-lub koñcz¹cego spotkanie w odpowiedni stan. Jest wywo³ywana za ka¿dym razem, gdy u¿ytkownik zaloguje sie na spotkanie - obejmuje to
-równie¿ przypadek, gdy urz¹dzenie prowadz¹cego zostanie odblokwane. Funkcja musi dzia³aæ poprawnie uwzglêdniaj¹c ostatni rzeczywisty 
-stan spotkania. W oparciu o aktualny stan spotkania, zapamiêtany w pamiêci urz¹dzenia czas startu spotkania oraz czas bie¿¹cy, pola widoku s¹ odpowiednio konfigurowane.
-Kolejna czêœæ funkcji odpowiada za poprawne wystartowanie stopera. W oparciu o czas trwania odbywaj¹cego siê spotkania uzupe³niane jest 
-pole timeToAdd pamiêci urz¹dzenia. Zmienna ta zostanie dodawana za ka¿dym razem do czasu pokazywanego na stoperze. Tworzony zostaje nowy 
-obiekt Stopwatch (1.2.7) z odstêpem czasu aktualizacji zegara co 1 sekundê oraz czasem trwania spotkania. Gdy status spotkania jest równy 1,
-znaczy to, ¿e spotkanie trwa. Musimy wiêc wystartowaæ stoper korzystaj¹c z funkcji obiektu Stopwatch execute (1.2.7.1)
+Funkcja odpowiada za poprawne wyÅ“wietlenie wartoÅ“ci na stoperze spotkania, jak rÃ³wnieÂ¿ dba o ustawienie przycisku rozpoczynajÂ¹cego
+lub koÃ±czÂ¹cego spotkanie w odpowiedni stan. Jest wywoÂ³ywana za kaÂ¿dym razem, gdy uÂ¿ytkownik zaloguje sie na spotkanie - obejmuje to
+rÃ³wnieÂ¿ przypadek, gdy urzÂ¹dzenie prowadzÂ¹cego zostanie odblokwane. Funkcja musi dziaÂ³aÃ¦ poprawnie uwzglÃªdniajÂ¹c ostatni rzeczywisty 
+stan spotkania. W oparciu o aktualny stan spotkania, zapamiÃªtany w pamiÃªci urzÂ¹dzenia czas startu spotkania oraz czas bieÂ¿Â¹cy, pola widoku sÂ¹ odpowiednio konfigurowane.
+Kolejna czÃªÅ“Ã¦ funkcji odpowiada za poprawne wystartowanie stopera. W oparciu o czas trwania odbywajÂ¹cego siÃª spotkania uzupeÂ³niane jest 
+pole timeToAdd pamiÃªci urzÂ¹dzenia. Zmienna ta zostanie dodawana za kaÂ¿dym razem do czasu pokazywanego na stoperze. Tworzony zostaje nowy 
+obiekt Stopwatch (1.2.7) z odstÃªpem czasu aktualizacji zegara co 1 sekundÃª oraz czasem trwania spotkania. Gdy status spotkania jest rÃ³wny 1,
+znaczy to, Â¿e spotkanie trwa. Musimy wiÃªc wystartowaÃ¦ stoper korzystajÂ¹c z funkcji obiektu Stopwatch execute (1.2.7.1)
 
 */
 function initTimer() {
@@ -297,7 +308,7 @@ function initTimer() {
     }
 }
 /*
-Funkcja ma za zadanie wype³nienia odpowiedni¹ zawartoœci¹ przycisku koñcz¹cego lub zaczynaj¹cego spotkanie, w wypadku jego zakoñczenia.
+Funkcja ma za zadanie wypeÂ³nienia odpowiedniÂ¹ zawartoÅ“ciÂ¹ przycisku koÃ±czÂ¹cego lub zaczynajÂ¹cego spotkanie, w wypadku jego zakoÃ±czenia.
 */
 function initStartEndButton() {
     var isStarted = localStorage.started;
@@ -324,7 +335,8 @@ function initStartEndButton() {
 
 
 /**
- * Function sends request to the server to start or stop specific meeting.
+ * Funkcja wysyÅ‚ajÄ…ca do serwera zapytanie o wystartowanie lub zatrzymanie danego spotkania.
+ * @param adminCode - kod admina spotkania
  */
 var startAndStop = function(adminCode) {
     var date = new Date();

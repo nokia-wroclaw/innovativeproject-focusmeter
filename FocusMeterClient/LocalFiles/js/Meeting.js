@@ -7,8 +7,8 @@ function goToGradeScreen() {
     //window.location = './GradeMeeting.html';
 }
 /*
-Funkcja umo�liwia szybsze i bardziej intuicyjne wpisywanie kodu. Przyjmuj�c w argumencie 2 elementy: �r�d�owy i docelowy,
-zaznacza docelowy jako aktywny po wpisaniu jednego znaku w elemencie �r�d�owym.
+Funkcja umo¿liwia szybsze i bardziej intuicyjne wpisywanie kodu. Przyjmuj¹c w argumencie 2 elementy: Ÿród³owy i docelowy,
+zaznacza docelowy jako aktywny po wpisaniu jednego znaku w elemencie Ÿród³owym.
 */
 function autotab(current, to) {
     if (current.getAttribute &&
@@ -17,6 +17,11 @@ function autotab(current, to) {
     }
 }
 
+/**
+ * Funkcja odpowiedzialna za zalogowanie na spotkanie. Do serwera wysyłane jest zapytanie, czy spotkanie o danym kodzie
+ * jest zarejestrowane w bazie danych. W zależności od tego, czy wpisano kod spotkania, czy kod admina, użytkownik przenoszony
+ * jest odpowiednio do panelu głosowania lub do panelu prowadzącego spotkanie.
+ */
 $("#codeReadyButton").bind("click",
 
 function LoginToMeeting() {
@@ -115,24 +120,6 @@ function LoginToMeeting() {
 
 });
 
-function checkDateAndHour(meeting) {
-    //var dateArr = meeting.date.split("/");
-
-    //var date = new Date(dateArr[2], dateArr[1]-1, dateArr[0]);
-    var today = new Date();
-    var date = new Date(meeting.date);
-
-    if (date.getYear() == today.getYear()
-        && date.getMonth() == today.getMonth()
-        && date.getDate() == today.getDate()) {
-        return 1;
-    }
-
-    else {
-        return 0;
-    }
-};
-
 
 
 //////////////////////////////
@@ -148,7 +135,9 @@ function ShowVoteModal() {
 
 
 
-
+/**
+ * Funkcja odpowiedzialna za wysłanie głosu na serwer.
+ */
 function SendVote(vote) {
 
     var gradeName = $(vote).attr("id");

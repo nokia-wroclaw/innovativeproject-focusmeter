@@ -52,17 +52,70 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-// 
+/**
+ * GET
+ * Wysyła do klienta tablicę zawierającą dane o wszystkich zarejestrowanych spotkaniach.
+ */
 app.get('/meetings', meetings.find(db));
+
+/**
+ * GET
+ * Jeśli spotkanie o zadanym kodzie istnieje w bazie danych, wysyła dane tego spotkania do klienta.
+ * @param m - kod spotkania
+ */
 app.get('/meeting/:m', meetings.exists(db));
-//app.get('/vote/:meeting', votes.getVotes(db));
-app.get('/deleteAllMeetings', meetings.deleteAllMeetings(db));
+
+/**
+ * GET
+ * Wysyła do klienta średnią ocen spotkania o zadanym kodzie spotkania.
+ * @param meeting - kod spotkania
+ */
 app.get('/vote/average/:meeting', meetings.getMeetingVotesValue(db));
+
+/**
+ * GET
+ * Wysyła do klienta dokładną informację o głosach oddanych na danym spotkaniu. Wynik wysyłany jest w następującej postaci:
+ * {awesome: x,
+ *  great: x,
+ *  ok: x,
+ *  boring: x,
+ *  disaster: x}
+ *
+ * @param meeting - kod spotkania 
+ */
 app.get('/vote/:meeting', votes.getVotes(db));
 
+/**
+ * POST
+ * Dodaje głos do bazy danych.
+ * @param meetingCode - kod spotkania, którego dotyczy głos
+ * @param voteTime - dokładny czas dodawania głosu
+ * @param value - wartość głosu z zakresu [-2, 2]
+ */
 app.post('/vote', votes.addVote(db));
+
+/**
+ * POST
+ * Rejestruje w bazie danych nowe spotkanie. Generuje kod spotkania i kod admina, a następnie wysyła do klienta kompletną informację o nowo
+ * utworzonym spotkaniu
+ * @param title - tytuł spotkania
+ */
 app.post('/meeting', meetings.addMeeting(db));
+
+/**
+ * POST
+ * Wpisuje do spotkania czas jego rozpoczęcia.
+ * @param adminCode - kod admina danego spotkania
+ * @param start - dokładny czas rozpoczęcia spotkania
+ */
 app.post('/meeting/start', meetings.startMeeting(db));
+
+/**
+ * POST
+ * Wpisuje do spotkania czas jego zakończenia,
+ * @param adminCode - kod admina danego spotkania
+ * @param end - dokładny czas zakończenia spotkania
+ */
 app.post('/meeting/end', meetings.endMeeting(db));
 
 http.createServer(app).listen(app.get('port'), function(){
