@@ -1,5 +1,5 @@
 var histData = null;
-var graphData = null;
+var graphData = [];
 
 // google charts..
 google.load("visualization", "1", {
@@ -48,6 +48,9 @@ $(document).ready(function() {
     $("#adminCode_3").val(adminCode.charAt(2));
     $("#adminCode_4").val(adminCode.charAt(3));
     $("#adminCode_5").val(adminCode.charAt(4));
+
+    drawHistogram();
+    drawGraph();
 
     getVotes(meetingCode);
     getAverages(meetingCode);
@@ -199,6 +202,15 @@ function refreshProgressBar(average) {
  */ 
 function drawHistogram(data) {
 
+    if(histData == null) {
+        histData = {
+            "awesome" : 0,
+            "great" : 0,
+            "ok" : 0,
+            "boring" : 0,
+            "disaster" :0
+        }
+    }
 	// Take data from current or previous response
 	data = data || histData;
 
