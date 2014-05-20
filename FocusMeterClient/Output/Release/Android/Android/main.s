@@ -607,19 +607,19 @@ Lscope16:
 LC0:
 	.ascii "index.html\0"
 .code
-	.stabs	"MAMain:F(0,3)",36,0,43,_MAMain
+	.stabs	"MAMain:F(0,3)",36,0,46,_MAMain
 	.global	_MAMain
 
 .func _MAMain, 0, int
 	.stabs	"C:\\Users\\Marcin\\development\\FocusMeter\\innovativeproject-focusmeter\\FocusMeterClient\\main.cpp",132,0,0,Ltext3
 Ltext3:
-	.line 43
+	.line 46
 	push rt,d1
 	sub  sp,#0x4
 	ld   fr,sp
 	add  fr,#0x14
 	.dlab LBB2
-	.line 44
+	.line 47
 	ld   i0,#0x104
 	call &__Znwm ; call non-native
 	ld   d0,r14
@@ -653,6 +653,18 @@ Ltext3:
 	ld   i0,d0
 	ld   i1,#0x2
 	call &__ZN8Wormhole12HybridMoblet12setBeepSoundEi ; call non-native
+	.dlab LBB5
+	.dlab LBB6
+	.stabs	"c:/MoSync/include/maapi.h",132,0,0,Ltext4
+Ltext4:
+	.line 8755
+	ld   i0,#0x20d
+	ld   i1,#0xf
+	ld   i2,#0x0
+	ld   i3,i2
+	call &_maIOCtl ; call non-native
+	.dlab LBE6
+	.dlab LBE5
 	.dlab LBE4
 	.dlab LBE3
 	ld   r14,[d0]
@@ -660,7 +672,9 @@ Ltext3:
 	ld   i0,d0
 	call d1 ; call non-native
 	.dlab LBE2
-	.line 46
+	.stabs	"C:\\Users\\Marcin\\development\\FocusMeter\\innovativeproject-focusmeter\\FocusMeterClient\\main.cpp",132,0,0,Ltext5
+Ltext5:
+	.line 49
 	ld   r14,#0x0
 	add  sp,#0x4
 	pop  rt,d1
@@ -694,16 +708,16 @@ Lscope18:
 	pop  rt,fr
 	ret
 Lscope19:
-	.stabs	"_ZN8MyMobletD1Ev:f(0,6)",36,0,45,__ZN8MyMobletD1Ev
+	.stabs	"_ZN8MyMobletD1Ev:f(0,6)",36,0,48,__ZN8MyMobletD1Ev
 	.stabs	"this:P(0,66)",64,0,24,30
 
 .func __ZN8MyMobletD1Ev, 1, void
-	.line 45
+	.line 48
 	push rt,fr
 	ld   fr,sp
 	add  fr,#0x8
-	.dlab LBB5
-	.line 45
+	.dlab LBB7
+	.line 48
 	ld   r0,#__ZTV8MyMoblet+8
 	ld   [i0],r0
 	ld   r0,#__ZTV8MyMoblet+192
@@ -715,7 +729,7 @@ Lscope19:
 	ld   r0,#__ZTV8MyMoblet+280
 	ld   [i0,228],r0
 	call &__ZN8Wormhole12HybridMobletD2Ev ; call non-native
-	.dlab LBE5
+	.dlab LBE7
 	pop  rt,fr
 	ret
 Lscope20:
@@ -747,17 +761,17 @@ Lscope21:
 	pop  rt,fr
 	ret
 Lscope22:
-	.stabs	"_ZN8MyMobletD0Ev:f(0,6)",36,0,45,__ZN8MyMobletD0Ev
+	.stabs	"_ZN8MyMobletD0Ev:f(0,6)",36,0,48,__ZN8MyMobletD0Ev
 	.stabs	"this:P(0,66)",64,0,24,4
 
 .func __ZN8MyMobletD0Ev, 1, void
-	.line 45
+	.line 48
 	push rt,d0
 	ld   fr,sp
 	add  fr,#0xc
 	ld   d0,i0
-	.dlab LBB6
-	.line 45
+	.dlab LBB8
+	.line 48
 	ld   r14,#__ZTV8MyMoblet+8
 	ld   [i0],r14
 	ld   r14,#__ZTV8MyMoblet+192
@@ -769,7 +783,7 @@ Lscope22:
 	ld   r14,#__ZTV8MyMoblet+280
 	ld   [i0,228],r14
 	call &__ZN8Wormhole12HybridMobletD2Ev ; call non-native
-	.dlab LBE6
+	.dlab LBE8
 	ld   i0,d0
 	call &__ZdlPv ; call non-native
 	pop  rt,d0
