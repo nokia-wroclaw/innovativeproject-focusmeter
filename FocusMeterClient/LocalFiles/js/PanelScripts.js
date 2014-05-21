@@ -285,6 +285,17 @@ function drawGraph(data) {
     var formatedData = google.visualization.arrayToDataTable(
         convertJsonArrayToGoogleFormat(data));
 
+    var ticks = [];
+
+    if(data.length < 10) {
+        ticks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    }
+    else {
+        for (var i = 9; i >= 0; i--) {
+            ticks.push(data[i].time);
+        }
+    }
+
     var options = {
     title: 'Graph',
     curveType: 'none',
@@ -302,7 +313,8 @@ function drawGraph(data) {
         ]
     },
     hAxis: {
-        title: "Minutes from the begining"
+        title: "Minutes from the begining",
+        ticks: ticks
     },
     // chartArea: {
     //         width: "80%",
