@@ -116,11 +116,11 @@ exports.addVote = function(db) {
 					"value" : vote.value
 					}, function(err, doc) {
 						if(err) {
-							res.send(message.VOTE_FAIL);
+							res.send({"message": message.VOTE_FAIL});
 						}
 						else
 						{
-							res.send(message.VOTE_OK);
+							res.send({"message" : message.VOTE_OK});
 						}
 					});
 		        };
