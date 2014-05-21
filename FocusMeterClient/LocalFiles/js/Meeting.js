@@ -144,7 +144,7 @@ function SendVote(vote) {
     var grade = gradeName.substr(9, gradeName.length);
     var timeOfVote;
 
-    var minutes = 5;
+    var minutes = 0.01;
     var milliseconds = minutes * 60 * 1000;
 
     var diff;
@@ -189,7 +189,12 @@ function SendVote(vote) {
             },
             processData: true,
             success: function (message) {
-                alert(message);
+                if ("errors" in message) {
+                    alert(message.errors);
+                }
+                else {
+                    alert(message);
+                }
 
 
             },

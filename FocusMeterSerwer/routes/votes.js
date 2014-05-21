@@ -1,3 +1,6 @@
+var MESSAGES = require("../messages.js");
+var message = MESSAGES.message;
+
 /**
  * Function sending the response with JSON object with complete information about meeting votes. The keys of the
  * object are names of grades and the corresponding values are the numbers of that votes.
@@ -53,13 +56,36 @@ var appendIf = function(condition, array, message) {
     }
 };
 
-var validateVote = function(vote, collecion)
+var validateVote = function(vote, db, callbackFunction)
 {	
 	var messages = [];
 	appendIf(vote.value < -2 || vote.value > 2 || isNaN(vote.value), messages, "incorrect vote value");	// value: [-2; 2]
 	//appendIf(vote.mac.length != 17, messages, "incorrect vote mac");				//XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX
 	appendIf(vote.meetingCode.length != 5, messages, "incorrect vote meetingCode");	//XXXX
-	return messages;
+	
+	var collection = db.get('meetings');
+
+	var meeting = null;
+
+	collection.findOne({
+		meetingCode: vote.meetingCode
+	}, function(err, docs) {
+		if(err) {
+			appendIf(true, messages, message.DB_ERROR);
+			
+		}
+		else
+		{
+			if(docs) {
+				appendIf("end" in docs, messages, message.MT_END);
+			}
+			else {
+				appendIf(true, messages, message.NO_MEETING);
+			}
+		}
+
+		callbackFunction(messages);
+	});
 };
 
 exports.addVote = function(db) {
@@ -77,28 +103,27 @@ exports.addVote = function(db) {
         };
 
         
-        var validationMessages = validateVote(vote, collection);
-        //return if some error appeared
-        if (validationMessages.length != 0) {
-            res.send({
-                'errors': validationMessages
-            });
-            return
-        }
-		
-	
-		collection.insert({
-			"voteTime" : vote.voteTime,
-			"meetingCode" : vote.meetingCode,
-			"value" : vote.value
-		}, function(err, doc) {
-			if(err) {
-				res.send("Voting attempt failed!");
-			}
-			else
-			{
-				res.send("Your vote has been received!");
-		}
-		})
+        validateVote(vote, db, function(validationMessages) {
+        	if (validationMessages.length != 0) {
+	            res.send({
+	                'errors': validationMessages
+	            });
+	        }
+	        else {
+				collection.insert({
+					"voteTime" : vote.voteTime,
+					"meetingCode" : vote.meetingCode,
+					"value" : vote.value
+					}, function(err, doc) {
+						if(err) {
+							res.send(message.VOTE_FAIL);
+						}
+						else
+						{
+							res.send(message.VOTE_OK);
+						}
+					});
+		        };
+    	});
 	}
 }
