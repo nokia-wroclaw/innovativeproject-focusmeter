@@ -2,17 +2,7 @@ var assert = require("assert");
 var votes = require("../routes/votes.js")
 var meetings = require("../routes/meetings.js")
 var request = require("request");
-
-describe('GET meeting', function() {
-	it("should respond with message", function(done) {
-		request('http://antivps.pl:3033/meeting/RUBYMISZCZ', function(err, resp, body) {
-			assert(!err);
-			var message = JSON.parse(body);
-			assert(message.message, "There's no meeting with that code.");
-			done();
-		});
-	});
-});
+var app = require("../app.js");
 
 describe('Validate meeting', function(){
 	describe('Check title length', function() {
@@ -67,5 +57,17 @@ describe('Validate meeting', function(){
 
 			assert.equal(messages.length, 0);
 		})
+	});
+});
+
+describe("Test if meeting is in database", function() {
+	it("Should return message if there's no meeting with code", function(done) {
+		request('http://localhost:3033/meeting/RUBYMISZCZ', function(err, resp, body) {
+			assert(!err);
+			var message = JSON.parse(body);
+			//console.log(message);
+			assert(message.message, "There's no meeting with that code.");
+			done();
+		});
 	});
 });

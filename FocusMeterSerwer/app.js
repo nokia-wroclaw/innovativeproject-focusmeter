@@ -115,6 +115,19 @@ app.post('/meeting/start', meetings.startMeeting(db));
  */
 app.post('/meeting/end', meetings.endMeeting(db));
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+var server;
+
+var run = function() {
+	server = http.createServer(app).listen(app.get('port'), function(){
+	  console.log('Express server listening on port ' + app.get('port'));
+	});
+}
+
+var stop = function() {
+	server.close();
+};
+
+run();
+
+module.exports.run = run;
+module.exports.stop = stop;
