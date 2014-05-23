@@ -11,6 +11,7 @@ exports.find = function(db) {
 
         coll.find({}, function(e, docs) {
             if (e) {
+                console.log(e);
                 res.json({
                     "message": message.DB_ERROR
                 });
@@ -195,10 +196,11 @@ var validateMeeting = function(meeting) {
 
     appendIf(!reTitle.test(meeting.title), messages, "incorrect meeting title"); //40 symbols
 
-    appendIf(!reMac.test(meeting.mac), messages, "incorrect meeting mac"); //XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX
+    //appendIf(!reMac.test(meeting.mac), messages, "incorrect meeting mac"); //XX:XX:XX:XX:XX:XX or XX-XX-XX-XX-XX-XX
 
     return messages;
 };
+module.exports.validateMeeting = validateMeeting;
 
 // Collection(collectionName)
 var hasMeetingWithCode = function(collection, code, callbackNotExists, callbackExists) {
