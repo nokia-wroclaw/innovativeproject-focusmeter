@@ -5839,4 +5839,31 @@ button.close {
     display: none !important;
   }
 }
+
+div.HistoryContent {
+    background-color: #dceaf4; 
+    height: 400px;   
+    padding: 5px;
+    overflow: auto;
+}
+
+button.buttonNameInHistory {
+    width: 60%;
+    margin-bottom: 5px;
+    display: inline-block;
+       
+}
+button.buttonDateInHistory {
+    width: 39%;
+    margin-bottom: 5px;
+    display: inline-block;
+       
+}
+
+span.meetingElementInHistory{
+    display: block;
+}
+
+
+
 /*# sourceMappingURL=bootstrap.css.map */
