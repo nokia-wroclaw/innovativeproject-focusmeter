@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 				},
 				src: ['tests/*.js']
 			}
-		}
+		} // beautifier
 	});
 
 	grunt.registerTask('default', 'mochaTest');
