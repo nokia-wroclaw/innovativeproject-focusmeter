@@ -88,7 +88,7 @@ var Stopwatch = function(elem, options, startTime) {
 
       $('#changeTime').toggleClass('btn-success');
       $('#changeTime').toggleClass('btn-info');
-      $('#changeTime').attr('value', 'Meeting finshed');
+      $('#changeTime').attr('value', 'Meeting finished');
       $('#changeTime').attr('disabled', 'true');
 
       }

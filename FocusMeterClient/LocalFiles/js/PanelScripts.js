@@ -66,7 +66,20 @@ $(document).ready(function() {
 
     
 
-    $("#changeTime").click(function() {startAndStop(adminCode)});
+    $("#changeTime").click(function () {
+
+        if (typeof (Storage) != "undefined") {
+            started = localStorage.getItem("started");
+        }
+
+        if (started == "0") {
+            startAndStop(adminCode)
+        }
+        if (started == "1") {
+            ifReallyFinish()
+            localStorage.setItem('adminCode', adminCode);
+        }
+    });
 
     // Redraw charts on tab click or resize
     $('#myTab a').click(function(e) {
@@ -417,8 +430,9 @@ function initStartEndButton() {
     // If the meeting is finished, disable timer button.
     if (isStarted == '2') {
         $('#changeTime').toggleClass('btn-info');
-        $('#changeTime').attr('value', 'Meeting finshed');
+        $('#changeTime').attr('value', 'Meeting finished');
         $('#changeTime').attr('disabled', 'true');
+
     }
 
     // If the meeting is still running, we don't need to change button, because it is already done in 
@@ -472,19 +486,33 @@ var startAndStop = function(adminCode) {
                 "end": date
             },
             processData: true,
-            success: function(data) {
+            success: function (data) {
                 alert(data.message);
 
-                if (typeof(Storage) != "undefined") {
+                if (typeof (Storage) != "undefined") {
                     localStorage.setItem("started", "2");
                     localStorage.setItem("endTime", date.getTime().toString());
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 alert("Error, status: " + textStatus + ", errorThrown: " + errorThrown);
             }
         });
+      
+
+           
     } else {
         alert("Forbidden.");
     }
 };
+
+function ifReallyFinish() {
+    $('#myModal').modal('show');
+}
+
+function finishConfirmedMeeting() {
+    $('#myModal').modal('hide');
+    adminCode = localStorage.getItem('adminCode');
+    startAndStop(adminCode);
+       
+}

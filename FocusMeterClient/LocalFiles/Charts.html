@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
 *Panel For Creating and Setting up the new Meeting in Focus Meter System
 *author: Maciej Baj
@@ -119,11 +119,48 @@
 
         </div>
 
+
+
+         <!--Modal 
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Finishing current meeting</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are You sure You want to end the meeting?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+                <button onclick="finishConfirmedMeeting()" class="btn btn-primary">Yes</button>
+            </div>
+        </div>-->
+
+        <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Finishing current meeting</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are You sure You want to end the meeting?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="location.reload()" class="btn btn-default" data-dismiss="modal">No</button>
+                        <button type="button" onclick="finishConfirmedMeeting()" class="btn btn-primary">Yes</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="./js/jquery-1.8.2.js"></script>
         <script src="./js/jquery-ui-1.8.20.js"></script>
         <script src="./js/bootstrap.js"></script>
         <script src="./js/bootstrap-slider.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
         <script src="./js/Meeting.js"></script>
         <script src="./js/Stopwatch.js"></script>
         <script src="./js/PanelScripts.js"></script>
