@@ -516,3 +516,7 @@ function finishConfirmedMeeting() {
     startAndStop(adminCode);
        
 }
+
+$('#myModal').on('hidden', function () {
+    location.reload();
+})
