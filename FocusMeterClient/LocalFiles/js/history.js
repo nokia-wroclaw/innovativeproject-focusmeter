@@ -21,6 +21,21 @@ $(document).ready(function () {
         alert("meeting code do przeslania na serwer to: " + $(this).attr('data-meetingcode'));
     });
 
+    $("input[name='nameSearcher'").keyup(function() {
+
+    var query = $(this).val().toLowerCase();
+    //selecting all buttons in table
+    $(this).parent().parent().find("button[id*='nameButtonElement']").each(function () {
+        var elementName = $(this).text();
+
+        if (elementName.toLowerCase().indexOf(query) >= 0) {
+            $(this).parent().show();
+        } else {
+            $(this).parent().hide();
+        }
+    });
+});
+
 });
 
 function InsertMeetingIntoHistory(meeting, index) {
@@ -55,4 +70,6 @@ function InsertMeetingIntoHistory(meeting, index) {
     $(newSpan).append(meetingDateButton);
 
 }
+
+
 

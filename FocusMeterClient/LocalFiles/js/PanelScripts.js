@@ -517,6 +517,3 @@ function finishConfirmedMeeting() {
        
 }
 
-$('#myModal').on('hidden', function () {
-    location.reload();
-})
