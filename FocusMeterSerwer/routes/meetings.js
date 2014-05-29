@@ -160,7 +160,7 @@ exports.addMeeting = function(db) {
         //var date = new Date(Date.UTC(dateArr[2], dateArr[1]-1, dateArr[0]));
 
         var meeting = {
-            mac: req.body.mac,
+            uuid: req.body.uuid,
             //date: date,
             //startHour: req.body.startHour,
             //endHour: req.body.endHour,
