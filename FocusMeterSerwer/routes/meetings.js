@@ -7,18 +7,14 @@ var message = messages.message;
 
 exports.find = function(db) {
     return function(req, res) {
-        var coll = db.get('meetings');
-
-        coll.find({}, function(e, docs) {
-            if (e) {
-                console.log(e);
+        db.getMeetings(function(e, docs) {
+            if(e) {
                 res.json({
                     "message": message.DB_ERROR
                 });
             } else {
                 res.json(docs);
             }
-
         });
     };
 
@@ -29,148 +25,49 @@ Funkcja zwraca spotkanie o zadanym kodzie spotkania
 */
 exports.exists = function(db) {
     return function(req, res) {
-        var coll = db.get('meetings');
+        var meetingCode = req.params.m;
 
-        coll.findOne({
-            $or: [{
-                "meetingCode": req.params.m
-            }, {
-                "adminCode": req.params.m
-            }]
-        }, function(e, docs) {
-            if (e) {
-                res.json({
-                    "message": message.DB_ERROR
-                });
+        db.getMeetingByMeetingCode(meetingCode, function(e, docs) {
+            if(e) {
+                res.json({"message": message.DB_ERROR});
             } else {
                 if (docs) {
                     res.json(docs);
-                } else {
-                    res.json({
-                        "message": message.NO_MEETING
-                    });
+                }
+                else {
+                    res.json({"message" : message.NO_MEETING});
                 }
             }
         });
     };
 };
 
-// Zwraca średnią wartość głosów na daną konferencje
-exports.getMeetingVotesValue = function(db) {
-    return function(req, res) {
-        var coll = db.get('votes');
 
-        coll.find({
-            "meetingCode": req.params.meeting
-        }, function(e, docs) {
+
+/**
+ * Zwraca liste spotkan o zadanym uuid.
+ */
+ exports.getMeetingsWithUuid = function(db) {
+    return function(req, res) {
+        var uuid = req.params.uuid;
+
+        db.getMeetingsByUuid(uuid, function(e, docs) {
             if (e) {
-                res.json({
-                    "message": message.DB_ERROR
-                });
+                res.json({"message" : message.DB_ERROR});
             } else {
                 if (docs) {
-                    var srednia = parseFloat(0);
-                    for (var i = docs.length - 1; i >= 0; i--) {
-                        srednia += parseFloat(docs[i].value);
-                    };
-                    srednia = srednia / docs.length;
-                    res.json({
-                        "value": srednia
-                    });
-                } else {
-                    res.json({
-                        "message": message.NO_MEETING
-                    });
+                    res.json(docs);
+                }
+                else {
+                    res.json({"message" : message.NO_UUID});
                 }
             }
-
         });
-    };
-};
+    }
+ }
 
 
-// Returns last 10 average vote values
-exports.getLastAverageVotes = function(db) {
-    return function(req, res) {
-        var votes = db.get('votes');
-        var meeting = db.get('meetings');
-        var meetingStartTime = new Date();
 
-        meeting.findOne({
-                "meetingCode": req.params.meeting
-            },
-            function(e, docs) {
-                if (e) {
-                    res.json({
-                        "message": message.DB_ERROR
-                    });
-                } else {
-                    if (docs) {
-                        meetingStartTime = new Date(docs.start);
-                    }
-                }
-            });
-
-        votes.find({
-                "meetingCode": req.params.meeting
-            },
-            function(e, docs) {
-                if (e) {
-                    res.json({
-                        "message": message.DB_ERROR
-                    });
-                } else {
-                    if (docs) {
-                        var result = [];
-                        var resultsNumber = 10;
-                        var minutes = 0;
-                        var interval = 1;
-
-                        for (var i = 0; i < resultsNumber; i++) {
-                            var average = parseFloat(0);
-                            var counter = 0;
-                            var found = 0;
-                            var currentDate = new Date();
-                            currentDate.setMinutes(currentDate.getMinutes() - minutes);
-
-
-                            for (var j = docs.length - 1; j >= 0; j--) {
-                                var voteTime = new Date(docs[j].voteTime);
-                                if (voteTime <= currentDate) {
-                                    average += parseFloat(docs[j].value);
-                                    counter++;
-                                    found = 1;
-                                }
-
-                            };
-
-                            minutes += interval;
-
-                            if (found == 1) {
-                                average = average / counter;
-                                var ONE_MINUTE = 1000 * 60;
-                                var time = Math.abs(meetingStartTime - currentDate);
-                                time = Math.round(time / ONE_MINUTE);
-                                result.push({
-                                    "time": time,
-                                    "average": average
-                                })
-
-                            } else {
-                                break;
-                            };
-                        };
-                        res.json(result);
-                    } else {
-                        res.json({
-                            "message": message.NO_MEETING
-                        });
-                    }
-                }
-
-            });
-    };
-};
 
 
 
@@ -203,14 +100,8 @@ var validateMeeting = function(meeting) {
 module.exports.validateMeeting = validateMeeting;
 
 // Collection(collectionName)
-var hasMeetingWithCode = function(collection, code, callbackNotExists, callbackExists) {
-    collection.findOne({
-        $or: [{
-            "meetingCode": code
-        }, {
-            "adminCode": code
-        }]
-    }, function(e, doc) {
+var hasMeetingWithCode = function(db, code, callbackNotExists, callbackExists) {
+    db.getMeetingByMeetingCode(code, function(e, doc) {
         if (e) {
             // handle error
         } else {
@@ -225,37 +116,38 @@ var hasMeetingWithCode = function(collection, code, callbackNotExists, callbackE
 
 exports.startMeeting = function(db) {
     return function(req, res) {
-        var collection = db.get('meetings');
+        var adminCode = req.body.adminCode,
+            start = req.body.start;
 
-        collection.update({
-            adminCode: req.body.adminCode
-        }, {
-            $set: {
-                start: req.body.start
+        db.startMeeting(adminCode, start, function(e, docs) {
+            if(e) {
+                res.json({
+                    "message": message.DB_ERROR
+                });
+            } else {
+                res.json({
+                    "message": message.MT_START
+                });
             }
         });
-
-        res.json({
-            "message": message.MT_START
-        });
-
     }
 };
 
 exports.endMeeting = function(db) {
     return function(req, res) {
-        var collection = db.get('meetings');
+        var adminCode = req.body.adminCode,
+            end = req.body.end;
 
-        collection.update({
-            adminCode: req.body.adminCode
-        }, {
-            $set: {
-                end: req.body.end
+        db.endMeeting(adminCode, end, function(e, docs) {
+            if(e) {
+                res.json({
+                    "message": message.DB_ERROR
+                });
+            } else {
+                res.json({
+                    "message": message.MT_END
+                });
             }
-        });
-
-        res.json({
-            "message": message.MT_END
         });
     }
 };
@@ -285,7 +177,6 @@ exports.addMeeting = function(db) {
         }
 
         var str = Math.random().toString(36).substring(2, 7).toUpperCase();
-        var collection = db.get('meetings');
 
         var codeFree = function() {
             meeting.meetingCode = str;
@@ -305,7 +196,7 @@ exports.addMeeting = function(db) {
             var adminFree = function() {
                 meeting.adminCode = adminCode;
 
-                collection.insert(meeting, function(err, docs) {
+                db.addMeeting(meeting, function(err, docs) {
                     if (err) {
                         // Who cares :)
                     } else {
@@ -317,18 +208,18 @@ exports.addMeeting = function(db) {
             var adminTaken = function() {
                 adminCode = Math.random().toString(36).substring(2, 7).toUpperCase();
 
-                hasMeetingWithCode(collection, adminCode, adminFree, adminTaken);
+                hasMeetingWithCode(db, adminCode, adminFree, adminTaken);
             };
 
-            hasMeetingWithCode(collection, adminCode, adminFree, adminTaken);
+            hasMeetingWithCode(db, adminCode, adminFree, adminTaken);
         };
 
         var codeTaken = function() {
             str = Math.random().toString(36).substring(2, 7).toUpperCase();
-            hasMeetingWithCode(collection, str, codeFree, codeTaken);
+            hasMeetingWithCode(db, str, codeFree, codeTaken);
         };
 
-        hasMeetingWithCode(collection, str, codeFree, codeTaken);
+        hasMeetingWithCode(db, str, codeFree, codeTaken);
 
 
 

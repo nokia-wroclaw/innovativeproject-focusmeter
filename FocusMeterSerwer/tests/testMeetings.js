@@ -2,7 +2,9 @@ var assert = require("assert");
 var votes = require("../routes/votes.js")
 var meetings = require("../routes/meetings.js")
 var request = require("request");
-var app = require("../app.js");
+var Application = require("../Application/Application");
+var Database = require("../Application/Database");
+var config = require("../config/config.js");
 
 describe('Validate meeting', function(){
 	describe('Check title length', function() {
@@ -61,6 +63,22 @@ describe('Validate meeting', function(){
 });
 
 describe("Test if meeting is in database", function() {
+	var app, db;
+	before(function(done) {
+		db = new Database(config.localDatabaseAddress);
+		app = new Application(config.port, db);
+
+		app.start();
+
+		done();
+	});
+
+	after(function(done) {
+		app.stop();
+
+		done();
+	});
+
 	it("Should return message if there's no meeting with code", function(done) {
 		request('http://localhost:3033/meeting/RUBYMISZCZ', function(err, resp, body) {
 			assert(!err);

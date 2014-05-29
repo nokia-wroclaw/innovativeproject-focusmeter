@@ -9,22 +9,20 @@ var path = require('path');
 var monk = require('monk');
 var mongodb = require('mongodb');
 
-var Application = function (port, databaseAddress) {
+var Application = function (port, database) {
 	this.port = port;
-	this.databaseAddress = databaseAddress;
+	this.database = database;
 
 	this.init();
 };
 
 Application.prototype = {
 	port: null,
-	databaseAddress: null,
 	database: null,
 	server: null,
 	app: null,
 
 	init: function() {
-		this.database = monk(this.databaseAddress);
 
 		this.app = express();
 
@@ -74,10 +72,17 @@ Application.prototype = {
 
 		/**
 		 * GET
+		 * Wysyła do klienta tablicę spotkań o danym UUID
+		 * @param uuid - uuid urządzenia na którym utworzono spotkanie
+		 */
+		 this.app.get('/meeting/uuid/:uuid', meetings.getMeetingsWithUuid(this.database));
+
+		/**
+		 * GET
 		 * Wysyła do klienta średnią ocen spotkania o zadanym kodzie spotkania.
 		 * @param meeting - kod spotkania
 		 */
-		this.app.get('/vote/average/:meeting', meetings.getMeetingVotesValue(this.database));
+		this.app.get('/vote/average/:meeting', votes.getMeetingVotesValue(this.database));
 
 		/**
 		 * GET
@@ -91,7 +96,7 @@ Application.prototype = {
 		 * @param meeting - kod spotkania 
 		 */
 		this.app.get('/vote/:meeting', votes.getVotes(this.database));
-		this.app.get('/lav/:meeting', meetings.getLastAverageVotes(this.database));
+		this.app.get('/lav/:meeting', votes.getLastAverageVotes(this.database));
 
 		/**
 		 * POST
