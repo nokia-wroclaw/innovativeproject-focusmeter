@@ -231,3 +231,79 @@ exports.getLastAverageVotes = function(db) {
         });
     };
 };
+
+exports.getAllAverages = function(db) {
+	return function(req, res) {
+		var meetingCode = req.params.meetingCode;
+
+		db.getMeetingByMeetingCode(meetingCode, function(e, docs) {
+			if(e) {
+				res.json({
+					"message": message.DB_ERROR
+				});
+			} else {
+				if (docs) {
+					if(!("end" in docs)) {
+						res.json({
+							"message" : "Meeting not ended."
+						});
+						return;
+					}
+
+					var startDate = new Date(docs.start);
+					var endDate = new Date(docs.end);
+					var dateDifference = Math.abs(endDate - startDate);
+
+					var interval = dateDifference/10;
+
+					var result = [];
+
+					db.getVotesByMeetingCode(meetingCode, function(e, docs) {
+						if(e) {
+							res.json({
+								"message": message.DB_ERROR
+							});
+						} else {
+							for(var i = 1; i <= 10; i++) {
+								var dateTmp = new Date(startDate.getTime() + i*interval);
+								var counter = 0,
+									sum = 0;
+
+								docs.forEach(function(vote) {
+									var voteTime = new Date(vote.voteTime);
+									if(voteTime <= dateTmp) {
+										sum += parseFloat(vote.value);
+										counter++;
+									}
+								});
+
+								var average = counter ? (sum/counter) : 0;
+
+								result.push({
+									time: millisecondsToMinutes(i*interval),
+									value: average
+								});
+							}
+
+							res.json(result);
+							
+						}
+
+
+						
+					});
+				}
+			}
+		});
+	}
+};
+
+function millisecondsToMinutes(milliseconds) {
+	var seconds = milliseconds/1000;
+
+	var minutes = Math.floor(seconds/60);
+
+	var numseconds = Math.floor(seconds % 60);
+
+	return minutes.toString() + ":" + numseconds.toString();
+}

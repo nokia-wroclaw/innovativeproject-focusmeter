@@ -98,6 +98,8 @@ Application.prototype = {
 		this.app.get('/vote/:meeting', votes.getVotes(this.database));
 		this.app.get('/lav/:meeting', votes.getLastAverageVotes(this.database));
 
+		this.app.get('/vote/average/all/:meetingCode', votes.getAllAverages(this.database));
+
 		/**
 		 * POST
 		 * Dodaje głos do bazy danych.
