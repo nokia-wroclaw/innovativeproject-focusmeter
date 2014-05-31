@@ -86,8 +86,11 @@ function getMeetingsWithUuid() {
         success: function(data) {
             var index = 0;
             $(data).each(function () {
-                InsertMeetingIntoHistory(this, index);
-                index++;
+                //only the meetings which had been started 
+                if (typeof this.start != 'undefined') {
+                    InsertMeetingIntoHistory(this, index);
+                    index++;
+                }
             });
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -109,7 +112,7 @@ function getMeetingsWithUuid() {
 function InsertMeetingIntoHistory(meeting, index) {
     //dane tylko testowe, decolowo maj¹ przyjœæ w odpowiedzi
     //meetingNames = ["Co w zbozu pisziczy ", "W pustyni i w puszzy"];
-    meetingDates = ["19-01-2014", "01-07-2014", "01-05-2014", "02-05-2014", "03-05-2014", "03-05-2014", "13-05-2014", "01-05-2014", "01-05-2014", "08-05-2014", "04-05-2014" ];
+    //meetingDates = ["19-01-2014", "01-07-2014", "01-05-2014", "02-05-2014", "03-05-2014", "03-05-2014", "13-05-2014", "01-05-2014", "01-05-2014", "08-05-2014", "04-05-2014" ];
     //meetingCodes = ["9JH1T", "GA18X"];
     //adminCodes = ["DE3ED", "A74H4"];
 
@@ -134,7 +137,18 @@ function InsertMeetingIntoHistory(meeting, index) {
     meetingDateButton.type = "button";
     meetingDateButton.id = "dateButtonElement" + index;
     meetingDateButton.className = "btn btn-success buttonDateInHistory";
-    $(meetingDateButton).text(meetingDates[index]);
+
+    //glue proper date format
+    meetingDate = new Date(meeting.start);
+    day = '' + meetingDate.getDate(),
+    month = '' + (meetingDate.getMonth() + 1),
+    year = meetingDate.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    meetingDate = [day, month, year].join('-');
+
+
+    $(meetingDateButton).text(meetingDate);
 
     $(newSpan).append(meetingDateButton);
 
