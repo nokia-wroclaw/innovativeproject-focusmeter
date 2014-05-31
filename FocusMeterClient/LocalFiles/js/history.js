@@ -9,7 +9,9 @@ $(document).ready(function () {
 
    
     var meetings = ["uno", "duo"];//zamiast tego funkcja ktora zwroci meetings dla danego UUID
-
+    /*
+    TU AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    */
     var index = 0;
     $(meetings).each(function () {
         InsertMeetingIntoHistory(this, index);
@@ -18,7 +20,17 @@ $(document).ready(function () {
 
     //after clicking at any text button
     $('button[id*="nameButtonElement"]').click(function () {
-        alert("meeting code do przeslania na serwer to: " + $(this).attr('data-meetingcode'));
+        alert("Welcome again on your previous meeting: " + $(this).attr('data-meetingcode'));
+
+        
+        //17 characters of names in id and last N as index
+        var index = this.id.substring(17, this.id.lenght);
+        var adminCode = localStorage.getItem('Element[' + index + '].adminCode');
+        localStorage.setItem('meetingCodeControl', adminCode);
+
+        localStorage.setItem('meetingCode', $(this).attr('data-meetingcode'));
+
+        window.location = './Charts.html';
     });
 
     $("input[name='nameSearcher'").keyup(function() {
@@ -42,7 +54,8 @@ function InsertMeetingIntoHistory(meeting, index) {
     //dane tylko testowe, decolowo maj¹ przyjœæ w odpowiedzi
     meetingNames = ["Co w zbozu pisziczy ", "W pustyni i w puszzy"];
     meetingDates = ["19-01-2013", "01-07-2014"];
-    meetingCodes = ["KUKU7", "BULWA"];
+    meetingCodes = ["9JH1T", "GA18X"];
+    adminCodes = ["DE3ED", "A74H4"];
 
     var historyContainer = $(".HistoryContent");
 
@@ -68,6 +81,8 @@ function InsertMeetingIntoHistory(meeting, index) {
     $(meetingDateButton).text(meetingDates[index]);
 
     $(newSpan).append(meetingDateButton);
+
+    localStorage.setItem('Element[' + index + '].adminCode', adminCodes[index]);
 
 }
 
