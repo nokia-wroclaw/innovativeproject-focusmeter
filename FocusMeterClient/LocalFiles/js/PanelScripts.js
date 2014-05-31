@@ -26,9 +26,7 @@ $(document).ready(function() {
     var adminCode;
     var started;
 
-    initTimer();
-
-    initStartEndButton();
+    
 
     if (typeof(Storage) != "undefined") {
         meetingCode = localStorage.getItem("meetingCode");
@@ -36,6 +34,52 @@ $(document).ready(function() {
     } else {
         meetingCode = "dupa";
     }
+
+    $.ajax({
+        type: "GET",
+        url: "http://antivps.pl:3033/meeting/" + meetingCode,
+        success: function(data) {
+            if (typeof (Storage) != "undefined") {
+                var dateTmp;
+
+                if("end" in data) {
+                    localStorage.setItem("started", "2");
+                    dateTmp = new Date(data.end);
+                    localStorage.setItem("endTime", dateTmp.getTime().toString());
+
+                    dateTmp = new Date(data.start);
+                    localStorage.setItem("startTime", dateTmp.getTime().toString());
+                }
+                else if("start" in data) {
+                    localStorage.setItem("started", "1");
+                    dateTmp = new Date(data.start);
+                    localStorage.setItem("startTime", dateTmp.getTime().toString());
+                }
+                else {
+                    localStorage.setItem("started", "0");
+                      //clearing localStorage options for watcher
+                    localStorage.removeItem("startingTime");
+                    localStorage.removeItem("timeToAdd");
+                }
+                initTimer();
+
+                initStartEndButton();
+            }
+        },
+        error: function(jqXHRm, textStatus, errorThrown) {
+            if (jqXHR.status === 0) {
+                alert("Verify network.");
+            } else if (jqXHR.status == 404) {
+                alert("Requested page not found.");
+            } else if (jqXHR.status == 500) {
+                alert("Internal Server Error.");
+            } else if (textStatus === "timeout") {
+                alert("Time out error.");
+            } else {
+                alert("Uncaught Error.\n" + jqXHR.responseText);
+            }
+        }
+    });
 
     $("#code_1").val(meetingCode.charAt(0));
     $("#code_2").val(meetingCode.charAt(1));
