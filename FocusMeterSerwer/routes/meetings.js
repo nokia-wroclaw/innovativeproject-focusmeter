@@ -157,11 +157,11 @@ exports.addMeeting = function(db) {
 
         //var dateArr = req.body.date.split("/");
 
-        //var date = new Date(Date.UTC(dateArr[2], dateArr[1]-1, dateArr[0]));
+        var date = new Date(Date.UTC(dateArr[2], dateArr[1]-1, dateArr[0]));
 
         var meeting = {
             uuid: req.body.uuid,
-            //date: date,
+            date: date,
             //startHour: req.body.startHour,
             //endHour: req.body.endHour,
             title: req.body.title

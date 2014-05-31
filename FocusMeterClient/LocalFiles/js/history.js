@@ -10,6 +10,21 @@ $(document).ready(function () {
    
     var meetings = ["uno", "duo"];//zamiast tego funkcja ktora zwroci meetings dla danego UUID
 
+    //after clicking at any text button
+    $('button[id*="nameButtonElement"]').live('click', function () {
+        alert("Welcome again on your previous meeting: " + $(this).attr('data-meetingcode'));
+
+
+        //17 characters of names in id and last N as index
+        var index = this.id.substring(17, this.id.lenght);
+        var adminCode = localStorage.getItem('Element[' + index + '].adminCode');
+        localStorage.setItem('meetingCodeControl', adminCode);
+
+        localStorage.setItem('meetingCode', $(this).attr('data-meetingcode'));
+
+        window.location = './Charts.html';
+    });
+
     getMeetingsWithUuid();
     // document.addEventListener(
     //             "deviceready",
@@ -22,20 +37,7 @@ $(document).ready(function () {
     //     index++;
     // })
 
-    //after clicking at any text button
-    $('button[id*="nameButtonElement"]').click(function () {
-        alert("Welcome again on your previous meeting: " + $(this).attr('data-meetingcode'));
-
-        
-        //17 characters of names in id and last N as index
-        var index = this.id.substring(17, this.id.lenght);
-        var adminCode = localStorage.getItem('Element[' + index + '].adminCode');
-        localStorage.setItem('meetingCodeControl', adminCode);
-
-        localStorage.setItem('meetingCode', $(this).attr('data-meetingcode'));
-
-        window.location = './Charts.html';
-    });
+   
 
     $("input[name='nameSearcher'").keyup(function() {
 
@@ -50,7 +52,22 @@ $(document).ready(function () {
             $(this).parent().hide();
         }
     });
-});
+    });
+
+    //after clicking at any text button
+    $('button[id*="nameButtonElement"]').click(function () {
+        alert("Welcome again on your previous meeting: " + $(this).attr('data-meetingcode'));
+
+
+        //17 characters of names in id and last N as index
+        var index = this.id.substring(17, this.id.lenght);
+        var adminCode = localStorage.getItem('Element[' + index + '].adminCode');
+        localStorage.setItem('meetingCodeControl', adminCode);
+
+        localStorage.setItem('meetingCode', $(this).attr('data-meetingcode'));
+
+        window.location = './Charts.html';
+    });
 
 });
 
@@ -91,10 +108,10 @@ function getMeetingsWithUuid() {
 
 function InsertMeetingIntoHistory(meeting, index) {
     //dane tylko testowe, decolowo maj¹ przyjœæ w odpowiedzi
-    meetingNames = ["Co w zbozu pisziczy ", "W pustyni i w puszzy"];
-    meetingDates = ["19-01-2013", "01-07-2014"];
-    meetingCodes = ["9JH1T", "GA18X"];
-    adminCodes = ["DE3ED", "A74H4"];
+    //meetingNames = ["Co w zbozu pisziczy ", "W pustyni i w puszzy"];
+    meetingDates = ["19-01-2014", "01-07-2014", "01-05-2014", "02-05-2014", "03-05-2014", "03-05-2014", "13-05-2014", "01-05-2014", "01-05-2014", "08-05-2014", "04-05-2014" ];
+    //meetingCodes = ["9JH1T", "GA18X"];
+    //adminCodes = ["DE3ED", "A74H4"];
 
     var historyContainer = $(".HistoryContent");
 
@@ -108,8 +125,8 @@ function InsertMeetingIntoHistory(meeting, index) {
     meetingNameButton.type = "button";
     meetingNameButton.id = "nameButtonElement" + index;
     meetingNameButton.className = "btn btn-success buttonNameInHistory";
-    $(meetingNameButton).text(meetingNames[index]);
-    $(meetingNameButton).attr('data-meetingcode', meetingCodes[index]);
+    $(meetingNameButton).text(meeting.title);
+    $(meetingNameButton).attr('data-meetingcode', meeting.meetingCode);
 
     $(newSpan).append(meetingNameButton);
 
@@ -121,9 +138,11 @@ function InsertMeetingIntoHistory(meeting, index) {
 
     $(newSpan).append(meetingDateButton);
 
-    localStorage.setItem('Element[' + index + '].adminCode', adminCodes[index]);
+    localStorage.setItem('Element[' + index + '].adminCode', meeting.adminCode);
 
 }
+
+
 
 
 
