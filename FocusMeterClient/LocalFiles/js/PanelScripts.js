@@ -153,7 +153,7 @@ function redrawCharts() {
 function getVotes(meetingCode) {
     var isStarted = localStorage.getItem("started");
 
-    if(isStarted == "1") {
+    if(isStarted != "0") {
         $.ajax({
             type: "GET",
             url: "http://antivps.pl:3033/vote/average/" + meetingCode,
