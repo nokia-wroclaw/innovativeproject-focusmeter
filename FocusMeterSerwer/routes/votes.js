@@ -281,7 +281,7 @@ exports.getAllAverages = function(db) {
 
 								result.push({
 									time: millisecondsToMinutes(i*interval),
-									value: average
+									average: average
 								});
 							}
 

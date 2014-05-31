@@ -186,7 +186,7 @@ function getVotes(meetingCode) {
                 }
             }
         });
-    }
+    } 
 };
 
 /**
@@ -197,10 +197,16 @@ function getVotes(meetingCode) {
 function getAverages(meetingCode) {
     var isStarted = localStorage.getItem("started");
 
-    if(isStarted == "1") {
+    if(isStarted != "0") {
+        var url;
+
+        if(isStarted == "1")
+            url = "http://antivps.pl:3033/lav/" + meetingCode;
+        else
+            url = "http://antivps.pl:3033/vote/average/all/" + meetingCode;
         $.ajax({
             type: "GET",
-            url: "http://antivps.pl:3033/lav/" + meetingCode,
+            url: url,
             success: function(data) {
                 graphData = data;
                 drawGraph(data);
