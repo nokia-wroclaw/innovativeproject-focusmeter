@@ -9,14 +9,18 @@ $(document).ready(function () {
 
    
     var meetings = ["uno", "duo"];//zamiast tego funkcja ktora zwroci meetings dla danego UUID
-    /*
-    TU AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    */
-    var index = 0;
-    $(meetings).each(function () {
-        InsertMeetingIntoHistory(this, index);
-        index++;
-    })
+
+    getMeetingsWithUuid();
+    // document.addEventListener(
+    //             "deviceready",
+    //             getMeetingsWithUuid,
+    //             true);
+    
+    // var index = 0;
+    // $(meetings).each(function () {
+    //     InsertMeetingIntoHistory(this, index);
+    //     index++;
+    // })
 
     //after clicking at any text button
     $('button[id*="nameButtonElement"]').click(function () {
@@ -49,6 +53,41 @@ $(document).ready(function () {
 });
 
 });
+
+function getMeetingsWithUuid() {
+    var uuid;
+
+    // if(device !== "undefined")
+    //     uuid = device.uuid;                  Na razie zakomentowane zeby dzialalo w przegladarce
+    // else
+        uuid = "1234567890abcdef";
+
+
+    $.ajax({
+        type: "GET",
+        url: "http://antivps.pl:3033/meeting/uuid/" + uuid,
+        success: function(data) {
+            var index = 0;
+            $(data).each(function () {
+                InsertMeetingIntoHistory(this, index);
+                index++;
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 0) {
+                alert("Verify network.");
+            } else if (jqXHR.status == 404) {
+                alert("Requested page not found.");
+            } else if (jqXHR.status == 500) {
+                alert("Internal Server Error.");
+            } else if (textStatus === "timeout") {
+                alert("Time out error.");
+            } else {
+                alert("Uncaught Error.\n" + jqXHR.responseText);
+            }
+        }
+    });
+};
 
 function InsertMeetingIntoHistory(meeting, index) {
     //dane tylko testowe, decolowo maj¹ przyjœæ w odpowiedzi
