@@ -281,7 +281,6 @@ function drawHistogram(data) {
         convertJsonToGoogleFormat(data));
 
     var options = {
-        title: "Histogram",
         width: "100%",
         height: "100%",
         bar: {
@@ -293,12 +292,6 @@ function drawHistogram(data) {
         },
         legend: {
             position: "none"
-        },
-        hAxis: {
-            title: "Grade name"
-        },
-        vAxis: {
-            title: "Number of votes"
         },
         dataOpacity: 0.9,
     };
@@ -360,13 +353,11 @@ function drawGraph(data) {
     }
 
     var options = {
-    title: 'Graph',
     curveType: 'none',
     legend: { position: 'none' },
     vAxis: {
         minValue: -2,
         maxValue: 2,
-        title: "Average",
         ticks: [
             {v: -2, f:"Disaster"}, 
             {v: -1, f:"Boring"},
@@ -376,7 +367,6 @@ function drawGraph(data) {
         ]
     },
     hAxis: {
-        title: "Minutes from the begining",
         ticks: ticks
     },
     // chartArea: {

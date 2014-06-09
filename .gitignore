@@ -1,2 +1,4 @@
 *.log
 FocusMeterSerwer/node_modules/
+FocusMeterClient/Output/
+FocusMeterClient/Resources/

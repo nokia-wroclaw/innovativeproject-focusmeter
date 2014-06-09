@@ -70,13 +70,23 @@ describe("Test if meeting is in database", function() {
 
 		app.start();
 
-		done();
+		db.addMeeting({
+				title: "Test meeting",
+				uuid: "1234",
+				meetingCode: "MONGO",
+				adminCode: "BONGO"
+			}, function(err, doc) {
+				if(!err) {
+					done();
+				}
+			});
 	});
 
 	after(function(done) {
-		app.stop();
-
-		done();
+		db.deleteMeeting("MONGO", function() {
+			app.stop();
+			done();
+		});
 	});
 
 	it("Should return message if there's no meeting with code", function(done) {
@@ -87,5 +97,21 @@ describe("Test if meeting is in database", function() {
 			assert(message.message, "There's no meeting with that code.");
 			done();
 		});
+	});
+
+	it("Should return meeting data if the meeting is in db", function(done) {
+		request('http://localhost:3033/meeting/MONGO', function(err, resp, body) {
+			assert(!err);
+
+			var result = JSON.parse(body);
+
+			assert(result.title, "Test meeting");
+			assert(result.uuid, "1234");
+			assert(result.meetingCode, "MONGO");
+			assert(result.adminCode, "BONGO");
+
+			done();
+		});
+
 	});
 });

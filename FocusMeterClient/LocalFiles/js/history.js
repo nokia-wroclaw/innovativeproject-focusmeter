@@ -74,9 +74,9 @@ $(document).ready(function () {
 function getMeetingsWithUuid() {
     var uuid;
 
-    // if(device !== "undefined")
-    //     uuid = device.uuid;                  Na razie zakomentowane zeby dzialalo w przegladarce
-    // else
+     if(device !== "undefined")
+         uuid = device.uuid;                  //Na razie zakomentowane zeby dzialalo w przegladarce
+     else
         uuid = "1234567890abcdef";
 
 
@@ -110,7 +110,7 @@ function getMeetingsWithUuid() {
 };
 
 function InsertMeetingIntoHistory(meeting, index) {
-    //dane tylko testowe, decolowo maj¹ przyjœæ w odpowiedzi
+    //dane tylko testowe, decolowo majï¿½ przyjï¿½ï¿½ w odpowiedzi
     //meetingNames = ["Co w zbozu pisziczy ", "W pustyni i w puszzy"];
     //meetingDates = ["19-01-2014", "01-07-2014", "01-05-2014", "02-05-2014", "03-05-2014", "03-05-2014", "13-05-2014", "01-05-2014", "01-05-2014", "08-05-2014", "04-05-2014" ];
     //meetingCodes = ["9JH1T", "GA18X"];

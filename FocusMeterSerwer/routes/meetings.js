@@ -32,7 +32,10 @@ exports.exists = function(db) {
                 res.json({"message": message.DB_ERROR});
             } else {
                 if (docs) {
-                    res.json(docs);
+                    var result = docs;
+                    if(result.meetingCode == meetingCode)
+                        delete result.adminCode;
+                    res.json(result);
                 }
                 else {
                     res.json({"message" : message.NO_MEETING});
@@ -198,7 +201,7 @@ exports.addMeeting = function(db) {
 
                 db.addMeeting(meeting, function(err, docs) {
                     if (err) {
-                        // Who cares :)
+                        res.json({"message": message.DB_ERROR});
                     } else {
                         res.json(meeting);
                     }
