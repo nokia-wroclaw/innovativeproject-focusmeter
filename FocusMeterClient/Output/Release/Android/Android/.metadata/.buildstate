@@ -1,7 +1,7 @@
 rebuild-needed = false
 variant = Android/Android Release 
 success = true
-timestamp = 1402348501301
+timestamp = 1402774986840
 output-main = C:\\\\Users\\\\Marcin\\\\development\\\\FocusMeter\\\\innovativeproject-focusmeter\\\\FocusMeterClient\\\\Output\\\\Release\\\\Android\\\\Android\\\\package\\\\FocusMeterClient.apk
 
 [files]
@@ -19,12 +19,12 @@ LocalFiles/js/wormhole.js = 1398537877576
 LocalFiles/js/bootstrap-slider.js = 1398537877462
 .cproject = 1398537877088
 AndroidManifest.template = 1400366746682
-LocalFiles/js/PanelScripts.js = 1401974615523
+LocalFiles/js/PanelScripts.js = 1402772329817
 LocalFiles/js/Meeting.js = 1401564650522
 LocalFiles/js/jquery-1.8.2.js = 1398537877534
 LocalFiles/css/scaffolding.less = 1398537877417
 LocalFiles/GradeMeeting.html = 1400366746723
-LocalFiles/History.html = 1401975638402
+LocalFiles/History.html = 1402774623495
 LocalFiles/Charts.html = 1401306386420
 LocalFiles/css/slider.css = 1398537877438
 LocalFiles/js/bootstrap.min.js = 1398537877488
@@ -51,11 +51,11 @@ LocalFiles/js/jquery.ptTimeSelect.js = 1398537877566
 LocalFiles/js/jquery-ui-1.8.20.js = 1398537877542
 LocalFiles/css/jquery.ptTimeSelect.css = 1400366746760
 LocalFiles/Images/GradeScale.jpg = 1398537877156
-LocalFiles/js/history.js = 1402348483415
+LocalFiles/js/history.js = 1402774979500
 LocalFiles/js/formValidation/README.md = 1398537877504
 LocalFiles/JoinMeeting.html = 1400366746731
 LocalFiles/js/formValidation/LICENSE = 1398537877497
-Resources/LocalFiles.bin = 1402348501852
+Resources/LocalFiles.bin = 1402774986939
 
 [dependencies]
 /FocusMeterClient/Output/Release/Android/Android/resources = /FocusMeterClient/Resources/beep.wav, /FocusMeterClient/Resources/LocalFiles.bin
@@ -63,7 +63,7 @@ Resources/LocalFiles.bin = 1402348501852
 /FocusMeterClient/main.cpp = /FocusMeterClient/Output/Release/Android/Android/main.s
 /FocusMeterClient/Resources/Resources.lst = /FocusMeterClient/Output/Release/Android/Android/resources
 /FocusMeterClient/Output/Release/Android/Android/MAHeaders.h = /FocusMeterClient/Resources/Resources.lst
-/FocusMeterClient/Output/Release/Android/Android/main.s = /FocusMeterClient/MoSync/include/Wormhole/MessageProtocol.h, /FocusMeterClient/MoSync/include/MAUtil/util.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/JSNativeUI/ResourceMessageHandler.h, /FocusMeterClient/MoSync/include/kazlib/dict.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/PhoneGap/PhoneGapSensors.h, /FocusMeterClient/MoSync/include/mavsprintf.h, /FocusMeterClient/MoSync/include/yajl/YAJLDom.h, /FocusMeterClient/MoSync/include/MAUtil/HashMap_impl.h, /FocusMeterClient/MoSync/include/conprint.h, /FocusMeterClient/MoSync/include/Wormhole/CustomMoblet.h, /FocusMeterClient/MoSync/include/maarg.h, /FocusMeterClient/MoSync/include/NativeUI/WidgetUtil.h, /FocusMeterClient/MoSync/include/MAUtil/Environment.h, /FocusMeterClient/main.cpp, /FocusMeterClient/MoSync/include/Wormhole/Libs/PhoneGap/PhoneGapFile.h, /FocusMeterClient/MoSync/include/MAUtil/HashDict.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/PhoneGap/PhoneGapCapture.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/PhoneGap/PhoneGapMessageHandler.h, /FocusMeterClient/MoSync/include/limits.h, /FocusMeterClient/MoSync/include/MAUtil/Downloader.h, /FocusMeterClient/MoSync/include/MAUtil/RefCounted.h, /FocusMeterClient/MoSync/include/Wormhole/WebAppMoblet.h, /FocusMeterClient/MoSync/include/NativeUI/WebView.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/Orientation/OrientationMessageHandler.h, /FocusMeterClient/MoSync/include/Notification/PushNotificationListener.h, /FocusMeterClient/MoSync/include/MAUtil/Connection.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/Notification/PushNotificationManager.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/Notification/TCPConnection.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/JSNativeUI/NativeUIMessageHandler.h, /FocusMeterClient/MoSync/include/MAUtil/Moblet.h, /FocusMeterClient/MoSync/include/MAUtil/Map.h, /FocusMeterClient/MoSync/include/NativeUI/Widget.h, /FocusMeterClient/MoSync/include/MAUtil/Dictionary.h, /FocusMeterClient/MoSync/include/MAUtil/ListenerSet.h, /FocusMeterClient/MoSync/include/MAUtil/Dictionary_impl.h, /FocusMeterClient/MoSync/include/Wormhole/Encoder.h, /FocusMeterClient/MoSync/include/Wormhole/HybridMoblet.h, /FocusMeterClient/MoSync/include/maapi_defs.h, /FocusMeterClient/MoSync/include/MAUtil/String.h, /FocusMeterClient/MoSync/include/Wormhole/MessageHandler.h, /FocusMeterClient/MoSync/include/Wormhole/WebViewMessage.h, /FocusMeterClient/MoSync/include/MAUtil/Vector.h, /FocusMeterClient/MoSync/include/MAUtil/HashDict_impl.h, /FocusMeterClient/MoSync/include/MAUtil/collection_common.h, /FocusMeterClient/MoSync/include/IX_WIDGET.h, /FocusMeterClient/MoSync/include/Wormhole/FunTable.h, /FocusMeterClient/MoSync/include/maassert.h, /FocusMeterClient/MoSync/include/MAUtil/HashMap.h, /FocusMeterClient/MoSync/include/kazlib/hash.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/W3C/SensorManager.h, /FocusMeterClient/MoSync/include/maapi.h, /FocusMeterClient/MoSync/include/NativeUI/Screen.h, /FocusMeterClient/MoSync/include/Wormhole/MessageStream.h, /FocusMeterClient/MoSync/include/mactype.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/PhoneGap/PhoneGapCamera.h, /FocusMeterClient/MoSync/include/Wormhole/MessageStreamJSON.h, /FocusMeterClient/MoSync/include/maheap.h, /FocusMeterClient/MoSync/include/Wormhole/FileUtil.h, /FocusMeterClient/MoSync/include/Wormhole/Libs/JSONMessage.h, /FocusMeterClient/MoSync/include/mastring.h, /FocusMeterClient/Output/Release/Android/Android/MAHeaders.h, /FocusMeterClient/MoSync/include/ma.h
+/FocusMeterClient/Output/Release/Android/Android/main.s = /FocusMeterClient/main.cpp, /FocusMeterClient/Output/Release/Android/Android/MAHeaders.h
 
 [build-properties]
 com.mobilesorcery.sdk.html5.support = true

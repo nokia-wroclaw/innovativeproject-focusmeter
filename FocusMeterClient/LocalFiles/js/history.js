@@ -4,6 +4,46 @@ function goBackToStartScreen() {
     window.location = './index.html';
 }
 
+function getMeetingsWithUuid() {
+    //var device = device || {
+        //uuid: "1234567890abcdef"
+    //};
+
+    alert(device.uuid + "\n" + JSON.stringify(device));
+
+    $.ajax({
+        type: "GET",
+        url: "http://antivps.pl:3033/meeting/uuid/" + device.uuid,
+        success: function(data) {
+            var index = 0;
+            $(data).each(function () {
+                //only the meetings which had been started 
+                if (typeof this.start != 'undefined') {
+                    InsertMeetingIntoHistory(this, index);
+                    index++;
+                }
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 0) {
+                alert("Verify network.");
+            } else if (jqXHR.status == 404) {
+                alert("Requested page not found.");
+            } else if (jqXHR.status == 500) {
+                alert("Internal Server Error.");
+            } else if (textStatus === "timeout") {
+                alert("Time out error.");
+            } else {
+                alert("Uncaught Error.\n" + jqXHR.responseText);
+            }
+        }
+    });
+};
+
+document.addEventListener(
+                "deviceready",
+                getMeetingsWithUuid,
+                true);
 
 $(document).ready(function () {
 
@@ -26,10 +66,7 @@ $(document).ready(function () {
     });
 
     //getMeetingsWithUuid();
-    document.addEventListener(
-                "ondeviceready",
-                getMeetingsWithUuid,
-                true);
+    
     
     // var index = 0;
     // $(meetings).each(function () {
@@ -71,39 +108,7 @@ $(document).ready(function () {
 
 });
 
-function getMeetingsWithUuid() {
-    var device = device || {
-        uuid: "1234567890abcdef"
-    };
 
-    $.ajax({
-        type: "GET",
-        url: "http://antivps.pl:3033/meeting/uuid/" + device.uuid,
-        success: function(data) {
-            var index = 0;
-            $(data).each(function () {
-                //only the meetings which had been started 
-                if (typeof this.start != 'undefined') {
-                    InsertMeetingIntoHistory(this, index);
-                    index++;
-                }
-            });
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status === 0) {
-                alert("Verify network.");
-            } else if (jqXHR.status == 404) {
-                alert("Requested page not found.");
-            } else if (jqXHR.status == 500) {
-                alert("Internal Server Error.");
-            } else if (textStatus === "timeout") {
-                alert("Time out error.");
-            } else {
-                alert("Uncaught Error.\n" + jqXHR.responseText);
-            }
-        }
-    });
-};
 
 function InsertMeetingIntoHistory(meeting, index) {
     //dane tylko testowe, decolowo maj� przyj�� w odpowiedzi
