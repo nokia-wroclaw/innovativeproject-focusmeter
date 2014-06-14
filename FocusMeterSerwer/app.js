@@ -11,3 +11,4 @@ var db = new Database(Config.remoteDatabaseAddress);
 var app = new Application(Config.port, db);
 
 app.start();
+

@@ -5,6 +5,9 @@ var request = require("request");
 var Application = require("../Application/Application");
 var Database = require("../Application/Database");
 var config = require("../config/config.js");
+var message = require("../messages.js").message;
+var Q = require('q');
+var rp = require("request-promise");
 
 describe('Validate meeting', function(){
 	describe('Check title length', function() {
@@ -108,10 +111,28 @@ describe("Test if meeting is in database", function() {
 			assert(result.title, "Test meeting");
 			assert(result.uuid, "1234");
 			assert(result.meetingCode, "MONGO");
-			assert(result.adminCode, "BONGO");
+			//assert(result.adminCode, "BONGO");
 
 			done();
 		});
 
 	});
+
+	it("Should return meeting data with start time", function(done) {
+		var start = new Date();
+
+		rp({
+			uri: 'http://localhost:3033/meeting/start',
+			method: 'POST',
+			data: {
+				adminCode: "BONGO",
+				start: start
+			}
+		})
+		.then(function(message) {
+			assert(message.message, message.MT_START);
+
+			done();
+		});
+	})
 });

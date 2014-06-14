@@ -25,11 +25,11 @@ $(document).ready(function () {
         window.location = './Charts.html';
     });
 
-    getMeetingsWithUuid();
-    // document.addEventListener(
-    //             "deviceready",
-    //             getMeetingsWithUuid,
-    //             true);
+    //getMeetingsWithUuid();
+    document.addEventListener(
+                "ondeviceready",
+                getMeetingsWithUuid,
+                true);
     
     // var index = 0;
     // $(meetings).each(function () {
@@ -72,17 +72,13 @@ $(document).ready(function () {
 });
 
 function getMeetingsWithUuid() {
-    var uuid;
-
-     if(device !== "undefined")
-         uuid = device.uuid;                  //Na razie zakomentowane zeby dzialalo w przegladarce
-     else
-        uuid = "1234567890abcdef";
-
+    var device = device || {
+        uuid: "1234567890abcdef"
+    };
 
     $.ajax({
         type: "GET",
-        url: "http://antivps.pl:3033/meeting/uuid/" + uuid,
+        url: "http://antivps.pl:3033/meeting/uuid/" + device.uuid,
         success: function(data) {
             var index = 0;
             $(data).each(function () {

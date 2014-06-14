@@ -11,7 +11,9 @@
     "jade": "*",
     "mongojs": "*",
     "mongodb": "*",
-    "monk": "*"
+    "monk": "*",
+    "q": "*",
+    "request-promise": "*"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
