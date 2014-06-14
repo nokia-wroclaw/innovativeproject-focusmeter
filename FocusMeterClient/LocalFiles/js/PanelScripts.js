@@ -413,54 +413,49 @@ znaczy to, ¿e spotkanie trwa. Musimy wiêc wystartowaæ stoper korzystaj¹c z f
 function initTimer() {
     var isStarted = localStorage.getItem("started");
     
-    if(isStarted == '0'){
-      localStorage.removeItem("timeToAdd");
-      $('#htmlTimer').attr("value", '00:00:00' );
+    if (isStarted == '0') {
+        localStorage.removeItem("timeToAdd");
+        $('#htmlTimer').attr("value", '00:00:00');
 
     }
-    //if it was started before and meeting is running
-     else{
-
+        //if it was started before and meeting is running
+    else {
         var startingTimeString = localStorage.getItem("startTime");
-       
-
-        // var startingTime = Date.now(startingTimeString);
         var startingTime = parseInt(startingTimeString);
 
-        var currentMeetingDuration;
+        if (isStarted == '1') {
+            // If the meeting is still running, we want to show the time from start of meeting till now.
+            var currentMeetingDuration = (new Date()).getTime() - startingTime;
+            var SecondsTillBegin = Math.floor(currentMeetingDuration / 1000);
+            var SecondsString = SecondsTillBegin.toString();
+            var TimeTillBegin = SecondsString.toHHMMSS();
 
-        // If the meeting is finished we want to show on timer the length of it.
-        // If the meeting is still running, we want to show the time from start of meeting till now.
-        if(isStarted == '1') {
-            currentMeetingDuration = (new Date()).getTime() - startingTime;
+            $('#htmlTimer').attr("value", TimeTillBegin);
+
+            var startingTimeString = localStorage.setItem("timeToAdd", currentMeetingDuration);
+            //ustawic offset odliczania oraz wystartowac timer
+            d = document.getElementById("d-timer");
+            dTimer = new Stopwatch(d, { delay: 1000 }, Date.now(currentMeetingDuration));
+            dTimer.offset = currentMeetingDuration;
+
+            // Run timer if meeting isn't finished.
+            dTimer.execute();
         }
-        else if(isStarted == '2') {
+        else if (isStarted == '2') {
+            // If the meeting is finished we want to show on timer the length of it.
             var endTimeString = localStorage.getItem("endTime");
-
             var endingTime = parseInt(endTimeString);
 
             currentMeetingDuration = endingTime - startingTime;
+            var SecondsTillBegin = Math.floor(currentMeetingDuration / 1000);
+            var SecondsString = SecondsTillBegin.toString();
+            var TimeTillBegin = SecondsString.toHHMMSS();
+            $('#htmlTimer').attr("value", TimeTillBegin);
+            initStartEndButton();
         }
-
-        var SecondsTillBegin = Math.floor(currentMeetingDuration/1000);
-        var SecondsString = SecondsTillBegin.toString();
-        var TimeTillBegin = SecondsString.toHHMMSS();
-        $('#htmlTimer').attr("value", TimeTillBegin );
-
-        var startingTimeString = localStorage.setItem("timeToAdd", currentMeetingDuration );
-        //ustawic offset odliczania oraz wystartowac timer
-        d = document.getElementById("d-timer");
-        dTimer = new Stopwatch(d, { delay: 1000 }, Date.now(currentMeetingDuration));
-        dTimer.offset = currentMeetingDuration;
-
-        // Run timer if meeting isn't finished.
-        if(isStarted == '1') {
-            dTimer.execute();
-        }
-
-
     }
 }
+
 /*
 Funkcja ma za zadanie wype³nienia odpowiedni¹ zawartoœci¹ przycisku koñcz¹cego lub zaczynaj¹cego spotkanie, w wypadku jego zakoñczenia.
 */
@@ -469,14 +464,12 @@ function initStartEndButton() {
 
     // If the meeting is finished, disable timer button.
     if (isStarted == '2') {
-        $('#changeTime').toggleClass('btn-info');
+        $('#changeTime').attr('class', 'btn btn-lg btn-info btn-block');
         $('#changeTime').attr('value', 'Meeting finished');
         $('#changeTime').attr('disabled', 'true');
 
     }
-
-    // If the meeting is still running, we don't need to change button, because it is already done in 
-    // dTimer.execute()
+ 
 }
 
 /**
